@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    json (1.7.7)
     minitest (5.4.2)
     pg (0.17.1)
     rack (1.5.2)
@@ -20,6 +21,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   minitest (~> 5.2)
   pg
   rack-test (~> 0.6)

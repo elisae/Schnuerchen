@@ -10,11 +10,11 @@ namespace :db do
   desc "Run all migrations in db/migrate"
   task :migrate => :connect do
     Sequel.extension(:migration)
-    Sequel::Migrator.apply(DB, "db/migrate")
+    Sequel::Migrator.apply(DB, "db/migrations")
   end
 
   task :connect => :environment do
-    require "./config/initializers/database"
+    require "./db/connect"
   end
 end
 

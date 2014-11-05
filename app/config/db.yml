@@ -1,6 +1,0 @@
-# Sequel Database Configuration
-
-development: "postgres://elisa@localhost/app_development"
-test: "postgres://elisa@localhost/app_test"
-production: "postgres://elisa@localhost/app_production"
-
