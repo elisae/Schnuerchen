@@ -11,5 +11,5 @@ settings = {
 # DB = Sequel.connect(settings[ENV['RACK_ENV']]) ----- für später, ENV Variable test/development mitgeben
 
 # bis dahin:
-DB = Sequel.connect("postgres://<user>@localhost/schnuerchen_dev")
+DB = Sequel.connect("postgres://elisa@localhost/schnuerchen_dev")
 
