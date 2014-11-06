@@ -7,7 +7,7 @@ Rake::TestTask.new(:spec) do |t|
 end
 
 namespace :db do
-  desc "Run all migrations in db/migrate"
+  desc "Run all migrations in db/migrations"
   task :migrate => :connect do
     Sequel.extension(:migration)
     Sequel::Migrator.apply(DB, "db/migrations")

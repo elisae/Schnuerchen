@@ -10,7 +10,7 @@ Obacht!
 3. /app/db/connect_muster.rb kopieren, connect.rb nennen
 4. `<user>` durch euren DB-usernamen ersetzen
 5. im Terminal in den Ordner */schnuerchen/app wechseln (später nur */schnuerchen)
-6. `rackup` laufen lassen
+6. rackup` laufen lassen
 7. Fehler analysieren und beheben ;D
 
 

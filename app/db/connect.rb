@@ -12,4 +12,4 @@ settings = {
 
 # bis dahin:
 DB = Sequel.connect("postgres://elisa@localhost/schnuerchen_dev")
-
+puts "DB connect"

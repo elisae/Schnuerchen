@@ -1,18 +1,22 @@
-# Load path and gems/bundler
+# - Load path and gems/bundler ------------------------------
 $LOAD_PATH << File.expand_path(File.dirname(__FILE__))
 
 require "bundler"
 Bundler.require
 
-# Local config
-# require "find"
+# - Local config --------------------------------------------
+require "find"
 
-# %w{db models lib}.each do |load_path|
-#  Find.find(load_path) { |f|
-#    require f unless f.match(/\/\..+$/) || File.directory?(f)
-#  }
-# end
+%w{db}.each do |load_path|
+	Find.find(load_path) { |f|
+		require f unless !f.match(/\.rb$/) || File.directory?(f)
+	}
+end
 
-# Load app
+# - Other ---------------------------------------------------
+require "sequel"
+require "sinatra/json"
+
+# - Load app ------------------------------------------------
 require "app"
 run App
