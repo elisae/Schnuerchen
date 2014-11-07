@@ -30,6 +30,4 @@ class App < Sinatra::Base
 		end
 		erb :userinserted
 	end
-
-
 end
