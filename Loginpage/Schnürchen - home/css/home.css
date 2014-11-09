@@ -233,3 +233,7 @@ hr.small {
     display: none;
 }
 
+#plus{
+    background-image:url(../img/plus.svg);
+    background-size:cover;
+}
