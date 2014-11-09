@@ -237,3 +237,31 @@ hr.small {
     background-image:url(../img/plus.svg);
     background-size:cover;
 }
+#minus{
+    background-image:url(../img/minus.svg);
+    background-size:cover;
+}
+#multi{
+    background-image:url(../img/multi.svg);
+    background-size:cover;
+}
+#divison{
+    background-image:url(../img/divison.svg);
+    background-size:cover;
+}
+#all-operators{
+    background-image:url(../img/all.svg);
+    background-size:cover;
+}
+#onTime{
+    background-image:url(../img/uhr.svg);
+    background-size:cover;
+}
+#onScale{
+    background-image:url(../img/waage.svg);
+    background-size:cover;
+}
+#onScore{
+    background-image:url(../img/abzeichen.svg);
+    background-size:cover;
+}
