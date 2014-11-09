@@ -174,15 +174,7 @@ hr.small {
     transition: all 0.4s ease 0s;
 }
 
-.toggle {
-    margin: 5px 5px 0 0;
-}
 
-.btn-dark{
-    height: 45px;
-    width: 50px;
-    text-align: center;
-}
 
                     /* Header */
 .header {
@@ -222,10 +214,36 @@ hr.small {
     outline: 0;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
-    content: "";
+
+.button {
+    padding:1px;
+    background:#fff;
+    margin:0 0 10px 0;
+    border:#ccc solid 1px;
+    width:160px;
 }
-blockquote, q {
-    quotes: "" "";
+.trophy p{
+    margin:0;
+    text-align:center;
+    padding:10px;
+    background:#f1f1f1;
+    cursor:pointer;
+}
+.trophy p:hover {background:#f9f9f9;}
+.con {
+    width:315px;
+    background:#f9f9f9;
+    border:#e1e1e1 solid 1px;
+    padding:15px;
+
+}
+.con p {
+    padding:10px;
+    margin:1px 1px 0;
+}
+.con p span {
+    padding:0 0 0 5px;
+    color:#b0b0b0;
+    font-style:italic;
+    font-family:"Times New Roman", Times, serif;
 }
