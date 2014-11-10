@@ -8,6 +8,11 @@ class App < Sinatra::Base
 		erb :welcome
 	end
 
+	get "/home" do
+		@user = "Elisa"
+		erb :home
+	end
+
 	get "/userinsert" do
 		erb :userinsert
 	end

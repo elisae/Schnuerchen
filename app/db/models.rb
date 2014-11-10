@@ -1,5 +1,8 @@
 Sequel::Model.plugin :json_serializer
 
+# - INIT -----------------------------------------
+
+
 
 # - USERS ----------------------------------------
 unless DB.table_exists?(:users) 
@@ -12,5 +15,7 @@ unless DB.table_exists?(:users)
 end
 
 class User < Sequel::Model(:users)
-	
+
 end
+
+# - FRIENDSHIPS ----------------------------------
