@@ -2,6 +2,8 @@ class App < Sinatra::Base
 	
 	set :public_folder => "public", :static => true
 
+	set :game_dir, "../javascripts/games/"
+
 # - GET pages -----------------------------------------------
   
 	get "/" do
@@ -16,6 +18,12 @@ class App < Sinatra::Base
 		erb :games
 	end
 
+	get "/game/dummy" do
+		@title = "Dummy Game"
+		@game_path = "#{settings.game_dir}" + "dummy_game.js"
+		erb :game
+	end
+
 	get "/userinsert" do
 		erb :userinsert
 	end
@@ -23,7 +31,7 @@ class App < Sinatra::Base
 
 # - GET data ------------------------------------------------
   
-	get '/users' do
+	get '/api/users' do
 		content_type :json
 		User.to_json
 	end
@@ -31,7 +39,7 @@ class App < Sinatra::Base
 
 # - POST data -----------------------------------------------
 
-	post "/user" do
+	post "/api/user" do
 		User.create do |u|
 			u.username = params[:username]
 			u.age = params[:age]
