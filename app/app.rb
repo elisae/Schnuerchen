@@ -5,12 +5,15 @@ class App < Sinatra::Base
 # - GET pages -----------------------------------------------
   
 	get "/" do
-		erb :welcome
+		erb :index
 	end
 
-	get "/home" do
-		@user = "Elisa"
-		erb :home
+	get "/signup" do
+		erb :signup
+	end
+
+	get "/games" do
+		erb :games
 	end
 
 	get "/userinsert" do
