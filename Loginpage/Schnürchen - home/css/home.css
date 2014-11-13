@@ -265,3 +265,15 @@ hr.small {
     background-image:url(../img/abzeichen.svg);
     background-size:cover;
 }
+#range-ten{
+    background-image:url(../img/10.svg);
+    background-size:cover;
+}
+#range-twenty{
+    background-image:url(../img/20.svg);
+    background-size:cover;
+}
+#range-hundred{
+    background-image:url(../img/100.svg);
+    background-size:cover;
+}
