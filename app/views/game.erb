@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title> <%= @title %> </title>
+	<title> <%= @game.name %> </title>
 </head>
 <body>
-	<h1> <%= @title %> </h1>
+	<h1> <%= @game.name %> </h1>
 	<div id="game_div"></div>
+	
+	<%= "<script src='#{settings.game_dir}" + @game.filename + "'></script>" %>
 </body>
-	<%= "<script src='#{@game_path}'></script>" %>
 </html>

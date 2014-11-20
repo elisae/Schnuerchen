@@ -2,6 +2,7 @@ Sequel::Model.plugin :json_serializer
 
 # - INIT -----------------------------------------
 
+DB.drop_table?(:user_trophies, :gamecats, :gamecategories, :trophies, :scores, :games, :scoretypes, :users)
 
 
 # - USERS ----------------------------------------
@@ -24,7 +25,7 @@ end
 # - GAMES ----------------------------------
 unless DB.table_exists?(:scoretypes)
 	DB.create_table :scoretypes do
-		primary_key :id
+		Integer 	:id, :primary_key=>true
 		String 		:descr
 	end
 end
@@ -33,23 +34,16 @@ class Scoretype < Sequel::Model(:scoretypes)
 end
 
 
-unless DB.table_exists?(:gamecats)
-	DB.create_table :gamecats do
-		primary_key :id
-		String 		:descr
-	end
-end
-
-class Gamecat < Sequel::Model(:gamecats)
-end
-
-
 unless DB.table_exists?(:games)
 	DB.create_table(:games) do
 		primary_key	:id
-		String		:name 
-		foreign_key	:gc_id, :gamecats
+		String 		:name
+		String		:filename 
+		Integer 	:op_id
+		Integer 	:rng_id
+		Integer 	:cat_id
 		foreign_key :st_id, :scoretypes
+		unique([:op_id, :rng_id, :cat_id])
 	end
 end
 
@@ -64,7 +58,6 @@ unless DB.table_exists?(:scores)
 		foreign_key :g_id, :games
 		DateTime 	:timestamp
 		Integer 	:score
-		unique[:u_id, :g_id, :timestamp]
 	end
 end
 
@@ -78,7 +71,7 @@ unless DB.table_exists?(:trophies)
 		foreign_key :g_id, :games
 		Integer 	:min_score
 		Integer 	:pod
-		check{1 <= pod <= 3}
+		check(:pod=>[1, 2, 3])
 	end
 end
 
@@ -86,6 +79,11 @@ class Trophy < Sequel::Model(:trophies)
 	many_to_many :users
 end
 
+
+DB[:scoretypes].insert([1, "points"])
+DB[:scoretypes].insert([2, "seconds"])
+
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :op_id=>1, :rng_id=>1, :cat_id=>1, :st_id=>1)
 
 
 

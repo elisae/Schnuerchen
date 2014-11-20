@@ -2,7 +2,7 @@ class App < Sinatra::Base
 	
 	set :public_folder => "public", :static => true
 
-	set :game_dir, "../javascripts/games/"
+	set :game_dir, "/javascripts/games/"
 
 # - GET pages -----------------------------------------------
   
@@ -16,6 +16,11 @@ class App < Sinatra::Base
 
 	get "/games" do
 		erb :games
+	end
+
+	get "/game/:op/:rng/:cat" do
+		@game = Game[:op_id=>params[:op], :rng_id=>params[:rng], :cat_id=>params[:cat]]
+		erb :game
 	end
 
 	get "/game/dummy" do
