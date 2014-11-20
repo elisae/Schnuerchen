@@ -2,12 +2,12 @@ Sequel::Model.plugin :json_serializer
 
 # - INIT -----------------------------------------
 
-DB.drop_table?(:user_trophies, :gamecats, :gamecategories, :trophies, :scores, :games, :scoretypes, :users)
+DB.drop_table?(:user_trophies, :gamecats, :gamecategories, :trophies, :scores, :games, :scoretypes, :gametypes, :ranges, :operators, :users)
 
 
 # - USERS ----------------------------------------
 unless DB.table_exists?(:users) 
-	DB.create_table :users do
+	DB.create_table(:users) do
 		primary_key	:id
 		String		:username
 		String		:firstname
@@ -23,15 +23,49 @@ end
 
 
 # - GAMES ----------------------------------
-unless DB.table_exists?(:scoretypes)
-	DB.create_table :scoretypes do
-		Integer 	:id, :primary_key=>true
-		String 		:descr
+
+unless DB.table_exists?(:operators)
+	DB.create_table(:operators) do
+		String 		:name, :primary_key=>true
 	end
 end
+DB[:operators].insert("addi")
+DB[:operators].insert("subt")
+DB[:operators].insert("mult")
+DB[:operators].insert("divi")
+DB[:operators].insert("mix")
 
-class Scoretype < Sequel::Model(:scoretypes)
+
+unless DB.table_exists?(:scoretypes)
+	DB.create_table(:scoretypes) do
+		String 		:name, :primary_key=>true
+	end
 end
+DB[:scoretypes].insert("points")
+DB[:scoretypes].insert("seconds")
+
+
+unless DB.table_exists?(:ranges)
+	DB.create_table(:ranges) do
+		String 		:name, :primary_key=>true
+	end
+end
+DB[:ranges].insert("10")
+DB[:ranges].insert("100")
+DB[:ranges].insert("20")
+DB[:ranges].insert("small")
+DB[:ranges].insert("big")
+DB[:ranges].insert("all")
+
+
+unless DB.table_exists?(:gametypes)
+	DB.create_table(:gametypes) do
+		String 		:name, :primary_key=>true
+	end
+end
+DB[:gametypes].insert("scale")
+DB[:gametypes].insert("time")
+DB[:gametypes].insert("score")
 
 
 unless DB.table_exists?(:games)
@@ -39,16 +73,37 @@ unless DB.table_exists?(:games)
 		primary_key	:id
 		String 		:name
 		String		:filename 
-		Integer 	:op_id
-		Integer 	:rng_id
-		Integer 	:cat_id
-		foreign_key :st_id, :scoretypes
-		unique([:op_id, :rng_id, :cat_id])
+		String	 	:cssfilename
+		String		:operator
+		String		:range
+		String 		:type
+		String 		:scoretype
+		foreign_key [:operator], :operators
+		foreign_key [:range], :ranges
+		foreign_key [:type], :gametypes
+		foreign_key [:scoretype], :scoretypes
+		unique([:operator, :range, :type])
 	end
 end
 
 class Game < Sequel::Model(:games)
 end
+
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"addi", :range=>"10", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"addi", :range=>"20", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"addi", :range=>"20", :type=>"scale", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"addi", :range=>"100", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"addi", :range=>"100", :type=>"scale", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"subt", :range=>"10", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"subt", :range=>"10", :type=>"time", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"subt", :range=>"10", :type=>"scale", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"mult", :range=>"small", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"mult", :range=>"big", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"divi", :range=>"10", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"divi", :range=>"10", :type=>"time", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"mix", :range=>"10", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"mix", :range=>"100", :type=>"score", scoretype: "points")
+DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>"mix", :range=>"20", :type=>"score", scoretype: "points")
 
 
 unless DB.table_exists?(:scores)
@@ -78,14 +133,6 @@ end
 class Trophy < Sequel::Model(:trophies)
 	many_to_many :users
 end
-
-
-DB[:scoretypes].insert([1, "points"])
-DB[:scoretypes].insert([2, "seconds"])
-
-DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :op_id=>1, :rng_id=>1, :cat_id=>1, :st_id=>1)
-
-
 
 
 
