@@ -7,7 +7,7 @@ class App < Sinatra::Base
 # - GET pages -----------------------------------------------
   
 	get "/" do
-		erb :index
+		"Hello World"
 	end
 
 	get "/signup" do
@@ -18,19 +18,10 @@ class App < Sinatra::Base
 		erb :games
 	end
 
-<<<<<<< Updated upstream
 	get "/game/dummy" do
 		@title = "Dummy Game"
 		@game_path = "#{settings.game_dir}" + "dummy_game.js"
 		erb :game
-=======
-	get "/home" do
-		@user = {
-        :name => "hans",
-        :age => 5
-    }
-		erb :home
->>>>>>> Stashed changes
 	end
 
 	get "/userinsert" do

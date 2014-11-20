@@ -21,7 +21,7 @@ DROP TABLE users;
 CREATE TABLE users (
 	u_id		SERIAL PRIMARY KEY,
 	username	VARCHAR(30) NOT NULL UNIQUE,
-	first_name	VARCHAR(30) NOT NULL,
+	firstname	VARCHAR(30) NOT NULL,
 	email		VARCHAR(30) NOT NULL UNIQUE,
 	password	VARCHAR(30) NOT NULL
 );
