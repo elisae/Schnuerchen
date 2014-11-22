@@ -34,11 +34,12 @@ class App < Sinatra::Base
 	end
 
 	get "/games" do
+		@gamecategories = getGameCategories()
 		erb :games
 	end
 
 	get "/games/categories" do
-		"Game Categories: " + getGameCategories().to_s
+		"@gamecategories = " + getGameCategories().to_s
 	end
 
 	get "/insert" do
