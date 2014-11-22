@@ -1,8 +1,27 @@
 class App < Sinatra::Base
+
+# - Settings ------------------------------------------------
 	
 	set :public_folder => "public", :static => true
-
 	set :game_dir, "/javascripts/games/"
+
+# - Functions -----------------------------------------------
+
+	def getGameCategories
+		@operators = Game.distinct(:operator).map(:operator)
+		@operators_hash = Hash.new
+		@operators.each do |op|
+			@ranges = Game.distinct(:range).where(:operator=>op).map(:range)
+			@ranges_hash = Hash.new
+			@ranges.each do |range|
+				@types = Game.distinct(:type).where(:range=>range, :operator=>op).map(:type)
+				@ranges_hash[range] = @types
+			end
+			@operators_hash[op] = @ranges_hash
+		end
+		return @operators_hash
+	end
+
 
 # - GET pages -----------------------------------------------
   
@@ -19,7 +38,7 @@ class App < Sinatra::Base
 	end
 
 	get "/games/categories" do
-		@categories = Game.all
+		"Game Categories: " + getGameCategories().to_s
 	end
 
 	get "/insert" do
@@ -65,4 +84,5 @@ class App < Sinatra::Base
 		end
 		erb :userinserted
 	end
+
 end
