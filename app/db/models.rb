@@ -104,7 +104,7 @@ end
 class Game < Sequel::Model(:games)
 end
 
-DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>1, :range=>1, :type=>1, scoretype: 1)
+DB[:games].insert(:name=>"Dummy Game", :filename=>"multiplechoice_dummy.js", :operator=>1, :range=>1, :type=>1, scoretype: 1, css_filename: "dummygamestyle.css")
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>1, :range=>2, :type=>1, scoretype: 1)
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>1, :range=>2, :type=>3, scoretype: 1)
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>1, :range=>3, :type=>1, scoretype: 1)

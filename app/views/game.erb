@@ -1,13 +1,20 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title> <%= @game[:name] %> </title>
-</head>
-<body>
-	<h1> <%= @game[:name] %> </h1>
-	<div id="game_div"></div>
+<section id="game">
 
+  <div id="start_div" >
+
+  </div>
+
+  <div id="pause_div">
+
+  </div>
+
+  <div id="game_div" >
+
+  </div>
+
+  <div id="end_game_div">
+
+  </div>
+
+</section>
 	<%= "<script src='#{settings.game_dir}" + @game[:filename] + "'></script>" %>
-</body>
-</html>

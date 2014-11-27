@@ -45,6 +45,7 @@ class App < Sinatra::Base
 		erb :upload
 	end
 
+	# Bisher geht nur /addi/10/scale
 	get "/games/:operator/:range/:type" do
 		operator = Operator.where(:shortname=>"#{params[:operator]}").get(:id)
 		range = Gamerange.where(:name=>"#{params[:range]}").get(:id)
