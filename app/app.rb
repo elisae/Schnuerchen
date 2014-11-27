@@ -24,7 +24,7 @@ class App < Sinatra::Base
 # - GET pages -----------------------------------------------
   
 	get "/" do
-		"Hello World"
+		File.read
 	end
 
 	get "/signup" do
@@ -56,6 +56,10 @@ class App < Sinatra::Base
 		erb :game
 	end
 
+  get "/game/dummygame" do
+    erb :dummygame
+  end
+
 	get "/userinsert" do
 		erb :userinsert
 	end
@@ -67,7 +71,6 @@ class App < Sinatra::Base
 		content_type :json
 		User.to_json
 	end
-
 
 # - POST data -----------------------------------------------
 
