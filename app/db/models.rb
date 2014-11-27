@@ -130,7 +130,6 @@ unless DB.table_exists?(:scores)
 		Integer 	:score
 	end
 end
-
 class Score < Sequel::Model(:scores)
 end
 

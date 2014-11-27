@@ -24,7 +24,7 @@ class App < Sinatra::Base
 # - GET pages -----------------------------------------------
   
 	get "/" do
-		"Hello World"
+		redirect "/index.html"
 	end
 
 	get "/signup" do
@@ -46,7 +46,15 @@ class App < Sinatra::Base
 	end
 
 	get "/games/:operator/:range/:type" do
-		@game = Game[:operator=>"#{params[:operator]}", :range=>params[:range], :type=>"#{params[:type]}"].to_hash
+		operator = Operator.where(:shortname=>"#{params[:operator]}").get(:id)
+		range = Gamerange.where(:name=>"#{params[:range]}").get(:id)
+		type = Gametype.where(:name=>"#{params[:type]}").get(:id)
+		puts operator
+		puts range
+		puts type
+		@game = Game.first(:operator=>operator, :range=>range, :type=>type).to_hash
+		puts @game
+		puts @game[:filename]
 		erb :game
 	end
 
