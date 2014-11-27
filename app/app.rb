@@ -8,18 +8,16 @@ class App < Sinatra::Base
 # - Functions -----------------------------------------------
 
 	def getGameCategories
-		@operators = Game.distinct(:operator).map(:operator)
-		@operators_hash = Hash.new
-		@operators.each do |op|
-			@ranges = Game.distinct(:range).where(:operator=>op).map(:range)
-			@ranges_hash = Hash.new
-			@ranges.each do |range|
-				@types = Game.distinct(:type).where(:range=>range, :operator=>op).map(:type)
-				@ranges_hash[range] = @types
-			end
-			@operators_hash[op] = @ranges_hash
-		end
-		return @operators_hash
+		gametypes_hash = Gametype.map { |gt|
+			gt.to_hash
+		}
+		ranges_hash = Gamerange.map { |rng|
+			rng.to_hash.merge({:gametypes => gametypes_hash})
+		}
+		operators_hash = Operator.map { |op|
+			op.to_hash.merge({:ranges => ranges_hash})
+		}
+		return operators_hash
 	end
 
 
@@ -39,7 +37,8 @@ class App < Sinatra::Base
 	end
 
 	get "/games/categories" do
-		"@gamecategories = " + getGameCategories().to_s
+		content_type :json
+		JSON.pretty_generate(getGameCategories())
 	end
 
 	get "/insert" do
@@ -76,7 +75,6 @@ class App < Sinatra::Base
 		DB[:games].insert(:name=>params[:name], :filename=>params[:filename], :cssfilename=>params[:cssfilename], :operator=>params[:operator], :range=>params[:range], :type=>params[:type], :scoretype=>params[:scoretype])
 		"Game inserted"
 	end
-
 
 	post "/api/user" do
 		User.create do |u|

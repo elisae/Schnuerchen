@@ -16,6 +16,7 @@ end
 # - Other ---------------------------------------------------
 require "sequel"
 require "sinatra/json"
+require "pp"
 
 # - Load app ------------------------------------------------
 require "app"
