@@ -117,13 +117,13 @@ $(document).ready(function(){
     });
 });
 
-function operatorCheck(event){
-    if(event.target.id == "multi" || event.target.id == "division"){
-        $("#range-hundred").hide();
-    }else{
-        $("#range-hundred").show();
+    function operatorCheck(event){
+        if(event.target.id == "multi" || event.target.id == "division"){
+            $("#range-hundred").hide();
+        }else{
+            $("#range-hundred").show();
+        }
     }
-}
 
 function rangeCheck(event){
     if(event.target.id == "range-hundred"){
