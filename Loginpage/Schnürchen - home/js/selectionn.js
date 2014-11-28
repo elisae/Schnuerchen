@@ -13,7 +13,22 @@ $(document).ready(function(){
 
     var info = $("#selection-info");
 
+    var chosenGame = new Array();
+
     $(operators).click(function(event){
+        switch(event.target.id){
+            case "plus":
+                chosenGame[0] = 1;break;
+            case "minus":
+                chosenGame[0] = 2;break;
+            case "multi":
+                chosenGame[0] = 3;break;
+            case "division":
+                chosenGame[0] = 4;break;
+            case "all-operators":
+                chosenGame[0] = 5;break;
+        }
+
         if(operatorClick){
             $(game).slideUp("slow");
             $(numberrange).slideUp("slow",
@@ -31,6 +46,14 @@ $(document).ready(function(){
     });
 
     $(range).click(function(event){
+        switch(event.target.id){
+            case "range-ten":
+                chosenGame[1] = 1;break;
+            case "range-twenty":
+                chosenGame[1] = 2;break;
+            case "range-hundred":
+                chosenGame[1] = 3;break;
+        }
         if(numberrangeClick){
             $(game).slideUp("slow",
                 function callback(){
@@ -42,6 +65,18 @@ $(document).ready(function(){
             rangeCheck(event);
             $(game).slideDown("slow");
         }
+    });
+
+    games.click(function(event){
+        switch(event.target.id){
+            case "onTime":
+                chosenGame[2] = 1;break;
+            case "onScore":
+                chosenGame[2] = 2;break;
+            case "onScale":
+                chosenGame[2] = 3;break;
+        }
+        alert("localhost:9292/games/"+chosenGame[0]+"/"+chosenGame[1]+"/"+chosenGame[2]);
     });
 
     operators.hover(function(event){
@@ -75,7 +110,7 @@ $(document).ready(function(){
             case "onTime":
                 info.html("Auf Zeit spielen");break;
             case "onScale":
-                info.html("Mit der Waage spielen");break;
+                info.html("Mit der Waage spie len");break;
             case "onScore":
                 info.html("Erziele möglichst viele Punkte");break;
         }
