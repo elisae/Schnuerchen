@@ -31,6 +31,10 @@ class App < Sinatra::Base
 		erb :signup
 	end
 
+  get"/profil" do
+    erb :profil
+  end
+
 	get "/games" do
 		@gamecategories = getGameCategories()
 		erb :games
@@ -65,10 +69,6 @@ class App < Sinatra::Base
 		erb :game
 	end
 
-  get "/game/dummygame" do
-    erb :dummygame
-  end
-
 	get "/userinsert" do
 		erb :userinsert
 	end
@@ -79,7 +79,7 @@ class App < Sinatra::Base
 	get '/api/users' do
 		content_type :json
 		User.to_json
-	end
+  end
 
 # - POST data -----------------------------------------------
 
@@ -94,6 +94,6 @@ class App < Sinatra::Base
 			u.age = params[:age]
 		end
 		erb :userinserted
-	end
+  end
 
 end

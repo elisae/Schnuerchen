@@ -18,7 +18,7 @@
     <link href="stylesheets/landingpage-style/schnuerchen.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="../view-schnuerchen-test/designe-game/fonts/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/fonts/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,7 +40,7 @@
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    <i class="fa fa-bars"></i>
+                    <i class="fa fa-bars fa-2x"></i>
                 </button>
             </div>
 
@@ -58,19 +58,21 @@
                     <li>
                         <a class="page-scroll" href="#can-do">Can do</a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="#registrieren">Registrieren</a>
-                    </li>
                     <li role="presentation" class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
                             Anmelden <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                        <form>
-                           <li><input class="input-lg" placeholder="Name"></li>
-                           <li><input class="input-lg" placeholder="Passwort"></li>
-                           <li><input type="button"</li>
-                        </form>
+                        <!-- login -->
+                            <form role="form" action="localhost:9292/api/user" method="post">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" id="exampleInputEmail1"  name="name" placeholder="Name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control input-lg" id="exampleInputPassword1" name="password" placeholder="Password">
+                                </div>
+                                <button type="submit" class="btn btn-xl btn-lg btn-xl btn-outline">Submit</button>
+                            </form>
                         </ul>
                     </li>
                 </ul>
@@ -86,7 +88,7 @@
         <div id="intro-bulb">
                 <div id="intro-box">
                     <p class="heading">Schnürchen</p>
-                    <a href="#about" class="btn btn-xl page-scroll btn-outline">Erzähl mir mehr!
+                    <a href="#about" class="btn btn-xl btn-lg btn-outline page-scroll ">Erzähl mir mehr!
                         <i class="fa"></i>
                     </a>
                 </div>
@@ -158,68 +160,6 @@
         </div>
     </section>
 
-
-
-
-
-                                       <!-- Contact Section -->
-
-    <section id="registrieren" class="content-section text-center">
-       <h2>Registrieren</h2>
-       <div id="contact-content">
-           <div class="row">
-               <div class="col-md-5">
-                   <div class="col-lg-8 col-lg-offset-2">
-                       <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-                       <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-                       <form name="sentMessage" id="contactForm" novalidate="" class="error">
-                           <div class="row control-group">
-                               <div class="form-group col-xs-12 floating-label-form-group controls">
-                                   <label>Name</label>
-                                   <input type="text" class="form-control" placeholder="Name" id="name" required="" data-validation-required-message="Please enter your name." aria-invalid="false">
-                                   <p class="help-block text-danger">
-                                   </p>
-                               </div>
-                           </div>
-                           <div class="row control-group error">
-                               <div class="form-group col-xs-12 floating-label-form-group controls">
-                                   <label>Email Address</label>
-                                   <input type="email" class="form-control" placeholder="Email Addresse" id="email" required="" data-validation-required-message="Please enter your email address." aria-invalid="true">
-                                   <p class="help-block text-danger">
-                                   </p>
-                               </div>
-                           </div>
-                           <div class="row control-group error">
-                               <div class="form-group col-xs-12 floating-label-form-group controls">
-                                   <label>Email Address verifizieren</label>
-                                   <input type="email" class="form-control" placeholder="Email Addresse verifizieren" id="email" required="" data-validation-required-message="Please enter your email address." aria-invalid="true">
-                                   <p class="help-block text-danger">
-                                   </p>
-                               </div>
-                           </div>
-                           <br>
-                           <div id="success"></div>
-                           <div class="row">
-                               <div class="form-group col-xs-12">
-                                   <button type="submit" class="btn btn-outline btn-xl">Send</button>
-                               </div>
-                           </div>
-                       </form>
-                   </div>
-               </div>
-               <div class="col-md-7">
-                   <div class="col-lg-8 col-lg-offset-2">
-                       <h1>aber warum is der Zeielenumbruch noch so komisch?</h1>
-                       <p>Jetzt ist er okay :)</p>
-                   </div>
-               </div>
-
-           </div>
-       </div>
-    </section>
-
-
-
     <!-- Footer -->
 
     <footer>
@@ -232,25 +172,25 @@
 
 
     <!-- jQuery Version 1.11.0 -->
-    <script src="javascripts/landing-animation/jquery-1.11.0.js"></script>
+    <script src="javascripts/landing-js/jquery-1.11.0.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="javascripts/landing-animation/bootstrap.min.js"></script>
+    <script src="javascripts/landing-js/bootstrap.min.js"></script>
 
     <!-- Plugin JavaScript -->
-    <script src="javascripts/landing-animation/jquery.easing.min.js"></script>
+    <script src="javascripts/landing-js/jquery.easing.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="javascripts/landing-animation/landingpage.js"></script>
+    <script src="javascripts/landing-js/landingpage.js"></script>
 
     <!-- Contact forumula -->
-    <script src="javascripts/landing-animation/Contact-Me.js"></script>
+    <script src="javascripts/landing-js/Contact-Me.js"></script>
 
     <!-- jqBootstrapValidation -->
-    <script src="javascripts/landing-animation/jqBootstrapValidation.js"></script>
+    <script src="javascripts/landing-js/jqBootstrapValidation.js"></script>
 
     <!-- head-animation -->
-    <script src="javascripts/landing-animation/header-animation.js"></script>
+    <script src="javascripts/landing-js/header-animation.js"></script>
 
 </body>
 

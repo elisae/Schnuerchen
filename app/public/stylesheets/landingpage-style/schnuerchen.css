@@ -65,7 +65,8 @@ a:focus {
     margin-bottom: 0;
     border-bottom: 1px solid rgba(255,255,255,.3);
     text-transform: uppercase;
-    background-color: #000;
+    background-color: #4dd0e1;
+    color: black;
 }
 
 .navbar-custom .navbar-brand {
@@ -79,7 +80,7 @@ a:focus {
 .navbar-custom .navbar-brand .navbar-toggle {
     padding: 4px 6px;
     font-size: 16px;
-    color: #fff;
+    color: #000;
 }
 
 .navbar-custom .navbar-brand .navbar-toggle:focus,
@@ -93,8 +94,8 @@ a:focus {
 
 
 .navbar-custom .nav li.active {
-    outline: nonte;
-    background-color: rgba(255,255,255,.3);
+    outline: none;
+    background-color: rgba(255,255,255,.6);
 }
 
 .navbar-custom .nav li a {
@@ -108,7 +109,7 @@ a:focus {
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li a.active {
     outline: 0;
-    background-color: rgba(77,208,225,.6);
+    background-color: rgba(77, 208, 225,0.8);
 }
 
 @media(min-width:767px) {
@@ -134,8 +135,17 @@ a:focus {
 }
 
 .dropdown-menu{
-    color: black
+    color: black;
+    width: 20em;
+    height: 14em;
+    opacity: 0.9;
+    text-align: center;
+    background-color: #ffa726;
+}
 
+.form-control{
+    text-align: center;
+    padding: 2%;
 }
 
 .input-lg{
@@ -394,8 +404,6 @@ form .row:first-child .floating-label-form-group {
     color: maroon;
 }
 
-
-
 .btn {
     text-transform: uppercase;
     font-weight: 400;
@@ -441,13 +449,6 @@ ul.banner-social-buttons {
     }
 }
 
-footer {
-    padding: 50px 0;
-}
-
-footer p {
-    margin: 0;
-}
 
 ::-moz-selection {
     text-shadow: none;
