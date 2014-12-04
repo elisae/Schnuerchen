@@ -23,6 +23,8 @@ var upper_bound = 10;  //100       //upper number bound
 var score_right = 10;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
+var timer = 60;
+
 //-----------------------------------END SETTINGS----------------------------------\\
 
 
@@ -109,9 +111,6 @@ function create_numbers(){
 }
 
 
-//var stopwatch_interval = setInterval('stopwatch()',95);
-
-
 function init_game(){
     //-----------------------change id here-----------------------------------------|
     var game = document.getElementById("game");
@@ -125,11 +124,10 @@ function init_game(){
 
     end_game_div.innerHTML="<div id ='end_game_stats'>" +
         "<h1>Du hast <span id='results_right'></span> richtig</h1><p>leider auch <span id='results_wrong'></span> falsch</p>" +
-    "                   <p>Zeit: <span id='results_time'></span> Sekunden</p>" +
-    "                   <p>Punkte: <span id='results_score'></span></p> " +
-    "                   <p id='result_message'></p></div>";
+        "                   <p>Punkte: <span id='results_score'></span></p> " +
+        "                   <p id='result_message'></p></div>";
 
-        <!-- Start Stuff -->
+    <!-- Start Stuff -->
 
     var button_start = document.createElement("div");
     button_start.id ='button_start';
@@ -141,7 +139,7 @@ function init_game(){
 
 
 
-        <!-- CountDown Stuff -->
+    <!-- CountDown Stuff -->
 
     var countdown_div = document.createElement("div");
     countdown_div.id = "countdown_div";
@@ -159,7 +157,7 @@ function init_game(){
 
 
 
-        <!-- Game Stuff -->
+    <!-- Game Stuff -->
 
     var result_line = document.createElement('h2');
     result_line.id='result_line';
@@ -189,7 +187,7 @@ function init_game(){
     var stop_watch = document.createElement('h2');
     stop_watch.id='stop_watch';
     stop_watch.className = "game-elements";
-    stop_watch.innerHTML = "<span id='sw_min'>00</span>:<span id='sw_s'>00</span>:<span id='sw_ms'>00</span>";
+    stop_watch.innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
     game_div.appendChild(stop_watch);
 
     var stat_table = document.createElement('table');
@@ -227,7 +225,7 @@ function init_game(){
 
     var pause_info = document.createElement("h3");
     pause_info.id = "pause_info";
-    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren";
+    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren <br>Sie haben noch <span id='time_played'></span> übrig";
     pause_div.appendChild(pause_info);
 
     var button_continue = document.createElement('div');
@@ -252,11 +250,7 @@ function init_game(){
     button_to_start.innerHTML = "Noch eine Runde";
     button_to_start.onclick=back_to_start;
     end_game_div.appendChild(button_to_start);
-    /*
-    set_visibility('game_div', false);
-    set_visibility('pause_div', false);
-    set_visibility('end_game_div', false);
-   */
+
 }
 
 
@@ -267,7 +261,7 @@ function run_game(){
 
     start_time = new Date();
 
-    stopwatch();
+    game_timer(timer);
 
 }
 
@@ -287,7 +281,6 @@ function reset_game(){
 
     document.getElementById('results_right').innerHTML = counter_right;
     document.getElementById('results_wrong').innerHTML = counter_wrong;
-    document.getElementById('results_time').innerHTML = Math.round(time_needed/1000);
     document.getElementById('results_score').innerHTML = score;
 
     //-------------------------------------------------------------------
@@ -303,19 +296,6 @@ function reset_game(){
     pause_time = 0;
     score_update_cooler = 0;
 
-/*
-    set_visibility('stop_watch', false);
-    set_visibility('stat_table', false);
-    set_visibility('score', false);
-    set_visibility('score1', false);
-    set_visibility('game_line', false);
-    set_visibility('result_line', false);
-    set_visibility('button_leave', false);
-    set_visibility('button_pause', false);
-    */
-/*
-    set_visibility('game_div', false);
-*/
     $("#game_div").hide();
 
 }
@@ -324,27 +304,15 @@ function reset_game(){
 function leave_game(){
     reset_game();
     document.getElementById('result_message').innerHTML="Spiel nicht zu Ende gespielt. Der Punktestand wird nicht gespeichert!";
-    //set_visibility('end_game_div', true);
-    //clearInterval(stopwatch_interval);
+
     $('#game_div').hide();
 }
 
 function back_to_mainmenu(){
     alert('Hauptmenü');
-    //clearInterval(stopwatch_interval);
 }
 
 function back_to_start(){
-
-    //set_visibility('start_div', true);
-    //set_visibility('start_div', true);
-    //set_visibility('end_game_div', false);
-    //set_visibility('game_div', false);
-    //set_visibility('pause_div', false);
-    //clearInterval(stopwatch_interval);
-
-
-
 
 }
 
@@ -359,49 +327,17 @@ function pause_game(){
 
     if(game_is_paused == true){
         pause_start = new Date();
-        //set_visibility('pause_div', true);
-        //set_visibility('stop_watch', false);
-        //set_visibility('stat_table', false);
-        //set_visibility('score', false);
-        //set_visibility('score1', false);
-        //set_visibility('game_line', false);
-        //set_visibility('result_line', false);
-        //set_visibility('button_leave', false);
-        //set_visibility('button_pause', false);
-
-        //set_visibility('game_div', false);
-
-        //document.getElementById('button_pause').innerHTML = "Weiter";
-        //document.getElementById('result_line').innerHTML = "Spiel pausiert: Drücken sie p oder den Button um fortzufahren";
-
-
-            $("#pause_div").fadeIn("1500");
+        document.getElementById('time_played').innerHTML= "" + actual_time_left;
+        $("#pause_div").fadeIn("1500");
 
 
     }else{
-        pause_time = pause_time + new Date().getTime() - pause_start.getTime();
-        //alert(pause_time/1000 +'Sekunden Pause gemacht');
-        //set_visibility('pause_div', false);
+        game_timer(actual_time_left);
 
-       /* set_visibility('stop_watch', true);
-        set_visibility('stat_table', true);
-        set_visibility('score', true);
-        set_visibility('score1', true);
-        set_visibility('game_line', true);
-        set_visibility('result_line', true);
-        set_visibility('button_leave', true);
-        set_visibility('button_pause', true);
-*/
-        //set_visibility('game_div', true);
-        //document.getElementById('button_pause').value = "Pause";
-
-
-            $("#pause_div").fadeOut("fast");
-
+        $("#pause_div").fadeOut("fast");
 
         document.getElementById('result_line').innerHTML = "Weiter gehts!";
 
-        stopwatch();
     }
 
 
@@ -417,7 +353,7 @@ document.onkeydown = function (event) {
     }
 
 
-    if (game_is_running == true && key_code == 13 && game_is_paused == false && (document.getElementById('tip').value !== "")) {
+    if (game_is_running == true && key_code == 13 && game_is_paused == false && (document.getElementById('tip').value !== "")){
 
 
         var user_input = document.getElementById('tip');
@@ -429,15 +365,13 @@ document.onkeydown = function (event) {
             result_line.innerHTML = "Richtig!";
             user_input.value = "";
             counter_right++;
-            counter++;
             score = score + score_right;
         } else {
             result_line.innerHTML = "Falsch! Richtig wäre: " + result;
             user_input.value = "";
             counter_wrong++;
-            counter++;
-            score = score - score_wrong;
         }
+
         score_control();
         document.getElementById('score').innerHTML = score;
 
@@ -450,53 +384,42 @@ document.onkeydown = function (event) {
         document.getElementById('c_r').innerHTML = counter_right;
         document.getElementById('c_w').innerHTML = counter_wrong;
 
-
-        if (counter >= quantity) {
-
-            reset_game();
-
-            $("#end_game_div").show();
-
-
-        }
-
     }
-
 
 };
+/*
+ function stopwatch(){
 
-function stopwatch(){
-
-    if(game_is_running && game_is_paused == false){
-
-
-
-        var actual = new Date();
-
-        time_needed = (actual.getTime() - start_time) - pause_time;
-
-        if(score_just_updated == true && score_update_cooler < Math.round(time_needed/1000)){
-            score_just_updated = false;
-        }
-
-        document.getElementById('sw_min').innerHTML = Math.floor(time_needed/60000);
-        document.getElementById('sw_s').innerHTML = Math.round(time_needed/1000)%60;
-        document.getElementById('sw_ms').innerHTML = Math.round(time_needed)%100;
-
-        if((Math.round(time_needed/1000) % (score_time_influence/1000)) == 0 && score_just_updated == false){
-            score--;
-            score_control();
-            score_just_updated = true;
-            score_update_cooler = (Math.round(time_needed/1000) + 5);
-            document.getElementById('score').innerHTML = score;
-        }
+ if(game_is_running && game_is_paused == false){
 
 
-        setTimeout('stopwatch()',101);
-    }
 
-}
+ var actual = new Date();
 
+ time_needed = (actual.getTime() - start_time) - pause_time;
+
+ if(score_just_updated == true && score_update_cooler < Math.round(time_needed/1000)){
+ score_just_updated = false;
+ }
+
+ document.getElementById('sw_min').innerHTML = Math.floor(time_needed/60000);
+ document.getElementById('sw_s').innerHTML = Math.round(time_needed/1000)%60;
+ document.getElementById('sw_ms').innerHTML = Math.round(time_needed)%100;
+
+ if((Math.round(time_needed/1000) % (score_time_influence/1000)) == 0 && score_just_updated == false){
+ score--;
+ score_control();
+ score_just_updated = true;
+ score_update_cooler = (Math.round(time_needed/1000) + 5);
+ document.getElementById('score').innerHTML = score;
+ }
+
+
+ setTimeout('stopwatch()',101);
+ }
+
+ }
+ */
 
 function set_visibility(id, v_bool){
 
@@ -533,6 +456,32 @@ function correct_order(){
 
 }
 
+var actual_time_left;
+
+function game_timer(time_left){
+
+    if(time_left >= 0 && game_is_paused == false){
+        document.getElementById('sw_min').innerHTML = "" + Math.floor(time_left / 60);
+        var sec = time_left % 60;
+        document.getElementById('sw_s').innerHTML = "" + sec;
+        time_left = time_left -1;
+        actual_time_left = time_left;
+        setTimeout('game_timer('+time_left+')', 1000);
+    }else if(game_is_paused == true){
+        actual_time_left = time_left;
+    }else{
+        game_is_running = false;
+        reset_game();
+        document.getElementById('result_message').innerHTML="";
+
+        $("#end_game_div").show();
+
+    }
+
+
+}
+
+
 var first_c = true;
 
 function countdown(c){
@@ -549,6 +498,7 @@ function countdown(c){
         document.getElementById('c_r').innerHTML = counter_right;
         document.getElementById('c_w').innerHTML = counter_wrong;
         document.getElementById('score').innerHTML = score;
+
 
         $("#game_div").show();
         $("#countdown_div").show();
