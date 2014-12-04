@@ -49,8 +49,8 @@ $(document).ready(function(){
 
     games.click(function(event){
         thirdParam = $("#"+event.target.id).attr("name");
-        reqUrl = "localhost:9292/" + firstParam + "/" + secondParam + "/" + thirdParam;
-        alert(reqUrl);
+        reqUrl = "http://localhost:9292/games/" + firstParam + "/" + secondParam + "/" + thirdParam;
+        window.location.href = reqUrl;
     });
 
 });
