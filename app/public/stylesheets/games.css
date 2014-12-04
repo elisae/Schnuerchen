@@ -20,7 +20,7 @@
 }
 
 .operators{
-    background-color: #FFA726;
+    background-color:black;
 }
 
 .range{
@@ -35,8 +35,8 @@
     display: none;
 }
 
-#plus{
-    background-image:url(../img/plus.svg);
+#addi{
+    background-image:url(../images/games/plus.svg);
     background-size:cover;
 }
 #minus{
