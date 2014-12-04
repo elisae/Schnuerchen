@@ -309,7 +309,7 @@ function leave_game(){
 }
 
 function back_to_mainmenu(){
-    alert('Hauptmenü');
+    window.location.href = "http://localhost:9292/games";
 }
 
 function back_to_start(){
