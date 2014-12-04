@@ -7,7 +7,7 @@ Bundler.require
 # - Local config --------------------------------------------
 require "find"
 
-%w{db}.each do |load_path|
+%w{helpers db}.each do |load_path|
 	Find.find(load_path) { |f|
 		require f unless !f.match(/\.rb$/) || File.directory?(f)
 	}
