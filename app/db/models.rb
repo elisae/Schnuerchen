@@ -113,7 +113,7 @@ DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>2,
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>2, :range=>1, :type=>2, scoretype: 1)
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>2, :range=>1, :type=>3, scoretype: 2)
 DB[:games].insert(:name=>"Mult Small", :filename=>"game_n_mult_small.js", :operator=>3, :range=>4, :type=>3, scoretype: 1, css_filename: "dummygamestyle.css")
-DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>3, :range=>5, :type=>1, scoretype: 1)
+DB[:games].insert(:name=>"marathon_dummy", :filename=>"marathon_game_dummy_v1.js", :operator=>3, :range=>4, :type=>2, scoretype: 2, css_filename: "dummygamestyle.css")
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>4, :range=>1, :type=>1, scoretype: 1)
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>4, :range=>1, :type=>2, scoretype: 1)
 DB[:games].insert(:name=>"Dummy Game", :filename=>"dummy_game.js", :operator=>5, :range=>1, :type=>1, scoretype: 1)
