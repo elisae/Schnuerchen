@@ -1,14 +1,22 @@
-
 $(document).ready(function(){
     var operators = $(".operators");
     var range = $(".range");
+    var games = $(".games");
+
     var firstParentId = null;
     var secondParentId = null;
 
     var operatorsShown = false;
     var rangeShown = false;
 
+    var firstParam = null;
+    var secondParam = null;
+    var thirdParam = null;
+
+    var reqUrl = null;
+
     operators.click(function(event){
+        firstParam = $("#"+event.target.id).attr("name");
         if(rangeShown){
             $("#"+secondParentId+"games").slideUp('slow');
         }
@@ -25,6 +33,7 @@ $(document).ready(function(){
     });
 
     range.click(function(event){
+        secondParam = $("#"+event.target.id).attr("name");
         if(rangeShown){
             $("#"+secondParentId+"games").slideUp('slow',function(){
                 secondParentId = event.target.id;
@@ -35,5 +44,13 @@ $(document).ready(function(){
             $("#"+secondParentId+"games").slideDown('slow');
             rangeShown = true;
         }
+
     });
+
+    games.click(function(event){
+        thirdParam = $("#"+event.target.id).attr("name");
+        reqUrl = "localhost:9292/" + firstParam + "/" + secondParam + "/" + thirdParam;
+        alert(reqUrl);
+    });
+
 });

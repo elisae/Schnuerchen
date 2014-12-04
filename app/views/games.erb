@@ -5,38 +5,38 @@
 <link href="stylesheets/game-selection.css" rel="stylesheet">
 
 <section>
-
+  
   <!-- Auswahl Operator -->
 
   <div class="selection" id="operation">
     <% @gamecategories.each{ |k1|  %>
-        <div class = "btn btn-lg selection-button operators" id="<%= k1[:shortname] %>"></div>
+        <div class = "btn btn-lg selection-button operators" name="<%=k1[:shortname] %>" id="<%= k1[:shortname] %>"></div>
     <% }%>
   </div>
 
   <!-- Auswahl Zahlenbereich -->
 
 
-    <% @gamecategories.each{ |k1|  %>
+  <% @gamecategories.each{ |k1|  %>
       <div class="selection" id="<%= k1[:shortname] %>range" style="display:none">
         <% k1[:ranges].each { |k2| %>
-            <div class = "btn btn-lg selection-button range" id="<%= k1[:shortname] + k2[:name] %>"></div>
+            <div class = "btn btn-lg selection-button range" name = "<%= k2[:name] %>" id="<%= k1[:shortname] + k2[:name] %>"></div>
         <% } %>
       </div>
-    <% }%>
+  <% }%>
 
 
   <!-- Auswahl Spiel -->
 
 
-    <% @gamecategories.each{ |k1|  %>
-        <% k1[:ranges].each { |k2| %>
+  <% @gamecategories.each{ |k1|  %>
+      <% k1[:ranges].each { |k2| %>
           <div class="selection" id="<%= k1[:shortname] + k2[:name] %>games" style="display:none">
             <% k2[:gametypes].each { |k3| %>
-                <div class = "btn btn-lg selection-button games" id="<%=k1[:shortname] + k2[:name] + k3[:name] %>"></div>
+                <div class = "btn btn-lg selection-button games" name = "<%= k3[:name] %>" id="<%=k1[:shortname] + k2[:name] + k3[:name] %>"></div>
             <% } %>
           </div>
-        <% } %>
-    <% }%>
+      <% } %>
+  <% }%>
 
 </section>
