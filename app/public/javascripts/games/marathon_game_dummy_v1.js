@@ -264,15 +264,6 @@ function init_game(){
 
 function run_game(){
 
-    create_numbers();
-
-    document.getElementById('z1').innerHTML = z1_n;
-    document.getElementById('z2').innerHTML = z2_n;
-
-    document.getElementById('c_r').innerHTML = counter_right;
-    document.getElementById('c_w').innerHTML = counter_wrong;
-    document.getElementById('score').innerHTML = score;
-
     game_is_running = true;
 
     start_time = new Date();
@@ -512,6 +503,16 @@ function countdown(c){
 
     if(first_c){
         c = 3;
+		
+		create_numbers();
+
+		document.getElementById('z1').innerHTML = z1_n;
+		document.getElementById('z2').innerHTML = z2_n;
+
+		document.getElementById('c_r').innerHTML = counter_right;
+		document.getElementById('c_w').innerHTML = counter_wrong;
+		document.getElementById('score').innerHTML = score;
+
 
         $("#game_div").show();
         $("#countdown_div").show();
