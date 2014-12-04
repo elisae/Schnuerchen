@@ -5,21 +5,6 @@ class App < Sinatra::Base
 	set :public_folder => "public", :static => true
 	set :game_dir, "/javascripts/games/"
 
-# - Functions -----------------------------------------------
-
-	def getGameCategories
-		gametypes_hash = Gametype.map { |gt|
-			gt.to_hash
-		}
-		ranges_hash = Gamerange.map { |rng|
-			rng.to_hash.merge({:gametypes => gametypes_hash})
-		}
-		operators_hash = Operator.map { |op|
-			op.to_hash.merge({:ranges => ranges_hash})
-		}
-		return operators_hash
-	end
-
 
 # - GET pages -----------------------------------------------
   
@@ -28,16 +13,19 @@ class App < Sinatra::Base
 	end
 
 	get "/signup" do
-		erb :signup
+		redirect "/signup.html"
 	end
-
-  get"/profil" do
-    erb :profil
-  end
 
 	get "/games" do
 		@gamecategories = getGameCategories()
 		erb :games
+	end
+
+	get "/users/:u_id/profile" do
+	  	puts params[:u_id]
+	  	@user = User.first(:id=>params[:u_id]).to_hash
+	  	puts @user
+	    erb :profile
 	end
 
 	get "/games/categories" do
@@ -51,7 +39,7 @@ class App < Sinatra::Base
 
 	# Bisher geht nur /addi/10/scale
 	get "/games/:operator/:range/:type" do
-		operator = Operator.where(:shortname=>"#{params[:operator]}").get(:id)
+		operator = Operator.where(:name=>"#{params[:operator]}").get(:id)
 		range = Gamerange.where(:name=>"#{params[:range]}").get(:id)
 		type = Gametype.where(:name=>"#{params[:type]}").get(:id)
 		puts operator
@@ -79,16 +67,23 @@ class App < Sinatra::Base
 	get '/api/users' do
 		content_type :json
 		User.to_json
-  end
+  	end
 
 # - POST data -----------------------------------------------
+
+	post "/login" do
+
+	end
+
+
+
 
 	post "/games" do
 		DB[:games].insert(:name=>params[:name], :filename=>params[:filename], :cssfilename=>params[:cssfilename], :operator=>params[:operator], :range=>params[:range], :type=>params[:type], :scoretype=>params[:scoretype])
 		"Game inserted"
 	end
 
-	post "/api/user" do
+	post "/user" do
 		User.create do |u|
 			u.username = params[:username]
 			u.age = params[:age]

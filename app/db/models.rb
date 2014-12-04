@@ -20,25 +20,27 @@ class User < Sequel::Model(:users)
 	many_to_many :trophies
 	many_to_many :users
 end
-
+DB[:users].insert(:id=>1, :username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo")
+DB[:users].insert(:id=>2, :username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
+DB[:users].insert(:id=>3, :username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
 
 # - GAMES ----------------------------------
-
 unless DB.table_exists?(:operators)
 	DB.create_table(:operators) do
 		Integer 	:id, :primary_key=>true
-		String 		:shortname, :unique=>true
-		String 		:longname
+		String 		:name, :unique=>true
+		String 		:descr
 		String 		:img_filename
 	end
 end
 class Operator < Sequel::Model(:operators)
+	one_to_many	:games
 end
-DB[:operators].insert(:id=>1, :shortname=>"addi", :longname=>"Addition (Plus)")
-DB[:operators].insert(:id=>2, :shortname=>"subt", :longname=>"Subtraktion (Minus)")
-DB[:operators].insert(:id=>3, :shortname=>"mult", :longname=>"Multiplikation (Mal)")
-DB[:operators].insert(:id=>4, :shortname=>"divi", :longname=>"Division (Geteilt)")
-DB[:operators].insert(:id=>5, :shortname=>"mix", :longname=>"Alle gemischt")
+DB[:operators].insert(:id=>1, :name=>"addi", :descr=>"Addition (Plus)")
+DB[:operators].insert(:id=>2, :name=>"subt", :descr=>"Subtraktion (Minus)")
+DB[:operators].insert(:id=>3, :name=>"mult", :descr=>"Multiplikation (Mal)")
+DB[:operators].insert(:id=>4, :name=>"divi", :descr=>"Division (Geteilt)")
+DB[:operators].insert(:id=>5, :name=>"mix", :descr=>"Alle gemischt")
 
 
 unless DB.table_exists?(:scoretypes)
@@ -46,6 +48,9 @@ unless DB.table_exists?(:scoretypes)
 		Integer 	:id, :primary_key=>true
 		String 		:name, :unique=>true
 	end
+end
+class Scoretype < Sequel::Model(:scoretypes)
+	one_to_many	:games
 end
 DB[:scoretypes].insert(:id=>1, :name=>"points")
 DB[:scoretypes].insert(:id=>2, :name=>"seconds")
@@ -59,6 +64,7 @@ unless DB.table_exists?(:gameranges)
 	end
 end
 class Gamerange < Sequel::Model(:gameranges)
+	one_to_many	:games
 end
 DB[:gameranges].insert(:id=>1, :name=>"10")
 DB[:gameranges].insert(:id=>2, :name=>"100")
@@ -76,6 +82,7 @@ unless DB.table_exists?(:gametypes)
 	end
 end
 class Gametype < Sequel::Model(:gametypes)
+	one_to_many	:games
 end
 DB[:gametypes].insert(:id=>1, :name=>"scale")
 DB[:gametypes].insert(:id=>2, :name=>"time")
@@ -103,6 +110,10 @@ unless DB.table_exists?(:games)
 	end
 end
 class Game < Sequel::Model(:games)
+	many_to_one	:operators
+	many_to_one :gameranges
+	many_to_one	:gametypes
+	many_to_one	:scoretypes
 end
 
 DB[:games].insert(:name=>"multiplechoice_dummy", :filename=>"multiplechoice_dummy.js", :operator=>1, :range=>1, :type=>1, scoretype: 1, css_filename: "dummygamestyle.css")
