@@ -32,6 +32,7 @@ unless DB.table_exists?(:operators)
 		primary_key	:id
 		String 		:name, :unique=>true
 		String 		:descr
+		String		:long_descr
 		String 		:img_filename
 	end
 end
@@ -40,7 +41,6 @@ class Operator < Sequel::Model(:operators)
 	plugin :dataset_associations
 	one_to_many	:games
 	many_to_many :gameranges
-
 
 	def add_gameranges(*gameranges)
 		gameranges.each { |gr|
@@ -54,6 +54,7 @@ unless DB.table_exists?(:gameranges)
 	DB.create_table(:gameranges) do
 		primary_key	:id
 		String 		:name, :unique=>true
+    	String    	:long_descr
 		String		:img_filename
 	end
 end
@@ -74,7 +75,6 @@ unless DB.table_exists?(:gameranges_operators)
 		unique([:gamerange_id, :operator_id])
 	end
 end
-
 
 
 unless DB.table_exists?(:gametypes)
@@ -195,12 +195,27 @@ DB[:users].insert(:id=>1, :username=>"hans231", :firstname=>"Hans", :email=>"h.h
 DB[:users].insert(:id=>2, :username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
 DB[:users].insert(:id=>3, :username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
 
+DB[:operators].insert(:id=>1, :name=>"addi", :descr=>"Addition (Plus)", :long_descr=>"Zähle die Zahlen zusammen!")
+DB[:operators].insert(:id=>2, :name=>"subt", :descr=>"Subtraktion (Minus)", :long_descr=>"Ziehe die Zahlen von einander ab!")
+DB[:operators].insert(:id=>3, :name=>"mult", :descr=>"Multiplikation (Mal)", :long_descr=>"Rechne mit mal!")
+DB[:operators].insert(:id=>4, :name=>"divi", :descr=>"Division (Geteilt)", :long_descr =>"Teile die Zahlen durch einander!")
+DB[:operators].insert(:id=>5, :name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit allen Rechenarten!")
+
+DB[:gameranges].insert(:id=>1, :name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
+DB[:gameranges].insert(:id=>2, :name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")
+DB[:gameranges].insert(:id=>3, :name=>"100", :long_descr=> "Rechne mit den Zahlen von 1-100!")
+DB[:gameranges].insert(:id=>4, :name=>"small", :long_descr=> "Kannst du das kleine Einmaleins?")
+DB[:gameranges].insert(:id=>5, :name=>"big", :long_descr=> "Kannst du das große Einmaleins?")
+DB[:gameranges].insert(:id=>6, :name=>"all", :long_descr => "-- Platzhalter -- ")
+
 
 Operator.create(:name=>"o_test1").add_gameranges(Gamerange.create(:name=>"g_test1"), Gamerange.create(:name=>"g_test2"))
 
 Operator.create(:name=>"o_test2").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.create(:name=>"g_test3"), Gamerange.create(:name=>"g_test4"))
 
 Operator.create(:name=>"o_test3").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.find_or_create(:name=>"g_test4"))
+
+
 
 
 # - GAMES ----------------------------------------
@@ -226,8 +241,13 @@ Game.create(:name=>"marathon_dummy",
 			:gametype=>"marathon", 
 			:scoretype=>"seconds", 
 			:css_filename=>"dummygamestyle.css")
-
-
+Game.create(:name=>"time_dummy", 
+			:filename=>"time_game_dummy.js", 
+			:operator=>"mult", 
+			:range=>"small", 
+			:type=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
 
 
 

@@ -1,7 +1,10 @@
 $(document).ready(function(){
+
     var operators = $(".operators");
     var range = $(".range");
     var games = $(".games");
+
+    var selectionBtn = $(".selection-button");
 
     var firstParentId = null;
     var secondParentId = null;
@@ -14,6 +17,7 @@ $(document).ready(function(){
     var thirdParam = null;
 
     var reqUrl = null;
+
 
     operators.click(function(event){
         firstParam = $("#"+event.target.id).attr("name");
@@ -49,8 +53,14 @@ $(document).ready(function(){
 
     games.click(function(event){
         thirdParam = $("#"+event.target.id).attr("name");
-        reqUrl = "localhost:9292/" + firstParam + "/" + secondParam + "/" + thirdParam;
-        alert(reqUrl);
+        reqUrl = "http://localhost:9292/games/" + firstParam + "/" + secondParam + "/" + thirdParam;
+        window.location.href = reqUrl;
     });
 
+    selectionBtn.hover(function(event){
+        var info = $("#selection-info");
+        var target = $("#"+event.target.id);
+        info.html(target.attr("long_descr"));
+
+    });
 });

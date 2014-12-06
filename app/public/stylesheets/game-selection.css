@@ -12,6 +12,11 @@
 
 }
 
+#selection-info{
+    text-align:center;
+    margin-top: 2%;
+
+}
 .operators{
     background-color: #FFA726;
 }
@@ -24,37 +29,50 @@
     background-color: #66BB6A;
 }
 
-/*
-#plus{
-    background-image:url(../img/plus.svg);
+
+#addi{
+    background-image:url(/images/games/plus.svg);
     background-size:cover;
 }
-#minus{
-    background-image:url(../img/minus.svg);
+#subt{
+    background-image:url(/images/games/minus.svg);
     background-size:cover;
 }
-#multi{
-    background-image:url(../img/multi.svg);
+#mult{
+    background-image:url(/images/games/multi.svg);
     background-size:cover;
 }
-#divison{
-    background-image:url(../img/divison.svg);
+#divi{
+    background-image:url(/images/games/division.svg);
     background-size:cover;
 }
-#all-operators{
-    background-image:url(../img/all.svg);
+#mix{
+    background-image:url(/images/games/all.svg);
     background-size:cover;
 }
-#onTime{
-    background-image:url(../img/uhr.svg);
+div[name="10"]{
+    background-image:url(/images/games/10.svg);
     background-size:cover;
 }
-#onScale{
-    background-image:url(../img/waage.svg);
+div[name="20"]{
+    background-image:url(/images/games/20.svg);
     background-size:cover;
 }
-#onScore{
-    background-image:url(../img/abzeichen.svg);
+div[name="100"]{
+    background-image:url(/images/games/100.svg);
     background-size:cover;
 }
-*/
+div[name="small"]{
+    /* muss noch geschrieben werden */
+}
+div[name="big"]{
+    /* muss auch noch geschrieben werden */
+}
+div[name="scale"]{
+    background-image:url(/images/games/scale.svg);
+    background-size:cover;
+}
+div[name="time"]{
+    background-image:url(/images/games/time.svg);
+    background-size:cover;
+}
