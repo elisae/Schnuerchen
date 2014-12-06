@@ -39,13 +39,9 @@ class App < Sinatra::Base
 
 	# Bisher geht nur /addi/10/scale
 	get "/games/:operator/:range/:type" do
-		operator = Operator.where(:name=>"#{params[:operator]}").get(:id)
-		range = Gamerange.where(:name=>"#{params[:range]}").get(:id)
-		type = Gametype.where(:name=>"#{params[:type]}").get(:id)
-		puts operator
-		puts range
-		puts type
-		@game = Game.first(:operator=>operator, :range=>range, :type=>type).to_hash
+		@game = Game.first(:operator=>"#{params[:operator]}", 
+							:gamerange=>"#{params[:range]}", 
+							:gametype=>"#{params[:type]}").to_hash
 		puts @game
 		puts @game[:filename]
 		erb :game
@@ -74,8 +70,6 @@ class App < Sinatra::Base
 	post "/login" do
 
 	end
-
-
 
 
 	post "/games" do

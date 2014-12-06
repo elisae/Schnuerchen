@@ -1,13 +1,16 @@
 
 def getGameCategories
-	gametypes_hash = Gametype.map { |gt|
-		gt.to_hash
+
+	operators = Operator.map { |op|
+		ranges = op.gameranges.map { |gr|
+			types = gr.gametypes.map { |gt|
+				gt.to_hash
+			}
+			puts types
+			gr.to_hash.merge(:types=>types)
+		}
+		op.to_hash.merge(:ranges=>ranges)
 	}
-	ranges_hash = Gamerange.map { |rng|
-		rng.to_hash.merge({:gametypes => gametypes_hash})
-	}
-	operators_hash = Operator.map { |op|
-		op.to_hash.merge({:ranges => ranges_hash})
-	}
-	return operators_hash
+
+	return operators
 end
