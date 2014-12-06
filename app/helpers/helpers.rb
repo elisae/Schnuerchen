@@ -6,9 +6,14 @@ def getGameCategories
 			types = gr.gametypes.map { |gt|
 				gt.to_hash
 			}
-			puts types
+			unless types.any?
+				types = nil
+			end
 			gr.to_hash.merge(:types=>types)
 		}
+		unless ranges.any?
+			ranges = nil
+		end
 		op.to_hash.merge(:ranges=>ranges)
 	}
 

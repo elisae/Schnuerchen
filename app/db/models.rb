@@ -195,25 +195,19 @@ DB[:users].insert(:id=>1, :username=>"hans231", :firstname=>"Hans", :email=>"h.h
 DB[:users].insert(:id=>2, :username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
 DB[:users].insert(:id=>3, :username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
 
-DB[:operators].insert(:id=>1, :name=>"addi", :descr=>"Addition (Plus)", :long_descr=>"Zähle die Zahlen zusammen!")
-DB[:operators].insert(:id=>2, :name=>"subt", :descr=>"Subtraktion (Minus)", :long_descr=>"Ziehe die Zahlen von einander ab!")
-DB[:operators].insert(:id=>3, :name=>"mult", :descr=>"Multiplikation (Mal)", :long_descr=>"Rechne mit mal!")
-DB[:operators].insert(:id=>4, :name=>"divi", :descr=>"Division (Geteilt)", :long_descr =>"Teile die Zahlen durch einander!")
-DB[:operators].insert(:id=>5, :name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit allen Rechenarten!")
-
-DB[:gameranges].insert(:id=>1, :name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
-DB[:gameranges].insert(:id=>2, :name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")
-DB[:gameranges].insert(:id=>3, :name=>"100", :long_descr=> "Rechne mit den Zahlen von 1-100!")
-DB[:gameranges].insert(:id=>4, :name=>"small", :long_descr=> "Kannst du das kleine Einmaleins?")
-DB[:gameranges].insert(:id=>5, :name=>"big", :long_descr=> "Kannst du das große Einmaleins?")
-DB[:gameranges].insert(:id=>6, :name=>"all", :long_descr => "-- Platzhalter -- ")
+Gamerange.create(:name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
+Gamerange.create(:name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")
+Gamerange.create(:name=>"100", :long_descr=> "Rechne mit den Zahlen von 1-100!")
+Gamerange.create(:name=>"small", :long_descr=> "Kannst du das kleine Einmaleins?")
+Gamerange.create(:name=>"big", :long_descr=> "Kannst du das große Einmaleins?")
+Gamerange.create(:name=>"all", :long_descr => "-- Platzhalter -- ")
 
 
-Operator.create(:name=>"o_test1").add_gameranges(Gamerange.create(:name=>"g_test1"), Gamerange.create(:name=>"g_test2"))
-
-Operator.create(:name=>"o_test2").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.create(:name=>"g_test3"), Gamerange.create(:name=>"g_test4"))
-
-Operator.create(:name=>"o_test3").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.find_or_create(:name=>"g_test4"))
+Operator.create(:name=>"addi", :descr=>"Addition (Plus)", :long_descr=>"Zähle die Zahlen zusammen!").add_gameranges(Gamerange.create(:name=>"g_test1"), Gamerange.create(:name=>"g_test2"))
+Operator.create(:name=>"subt", :descr=>"Subtraktion (Minus)", :long_descr=>"Ziehe die Zahlen von einander ab!").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.create(:name=>"g_test3"), Gamerange.create(:name=>"g_test4"))
+Operator.create(:name=>"mult", :descr=>"Multiplikation (Mal)", :long_descr=>"Rechne mit mal!").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.find_or_create(:name=>"g_test4"))
+Operator.create(:name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit allen Rechenarten!")
+Operator.create(:name=>"divi", :descr=>"Division (Geteilt)", :long_descr =>"Teile die Zahlen durch einander!")
 
 
 
@@ -244,8 +238,8 @@ Game.create(:name=>"marathon_dummy",
 Game.create(:name=>"time_dummy", 
 			:filename=>"time_game_dummy.js", 
 			:operator=>"mult", 
-			:range=>"small", 
-			:type=>"score", 
+			:gamerange=>"small", 
+			:gametype=>"time", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 
