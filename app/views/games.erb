@@ -33,7 +33,7 @@
   <% @gamecategories.each{ |k1|  %>
       <div class="selection" id="<%= k1[:name] %>range" style="display:none">
         <% k1[:ranges].each { |k2| %>
-            <div class = "btn btn-lg selection-button range" name = "<%= k2[:name] %>" id="<%= k1[:name] + k2[:name] %>"><%= k2[:name] %></div>
+            <div class = "btn btn-lg selection-button range" long_descr="<%= k2[:long_descr] %>" name = "<%= k2[:name] %>" id="<%= k1[:name] + k2[:name] %>"><%= k2[:name] %></div>
         <% } %>
       </div>
   <% }%>

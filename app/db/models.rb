@@ -61,18 +61,19 @@ unless DB.table_exists?(:gameranges)
 	DB.create_table(:gameranges) do
 		Integer 	:id, :primary_key=>true
 		String 		:name, :unique=>true
+    String    :long_descr
 		String		:img_filename
 	end
 end
 class Gamerange < Sequel::Model(:gameranges)
 	one_to_many	:games
 end
-DB[:gameranges].insert(:id=>1, :name=>"10")
-DB[:gameranges].insert(:id=>2, :name=>"100")
-DB[:gameranges].insert(:id=>3, :name=>"20")
-DB[:gameranges].insert(:id=>4, :name=>"small")
-DB[:gameranges].insert(:id=>5, :name=>"big")
-DB[:gameranges].insert(:id=>6, :name=>"all")
+DB[:gameranges].insert(:id=>1, :name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
+DB[:gameranges].insert(:id=>2, :name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")
+DB[:gameranges].insert(:id=>3, :name=>"100", :long_descr=> "Rechne mit den Zahlen von 1-100!")
+DB[:gameranges].insert(:id=>4, :name=>"small", :long_descr=> "Kannst du das kleine Einmaleins?")
+DB[:gameranges].insert(:id=>5, :name=>"big", :long_descr=> "Kannst du das große Einmaleins?")
+DB[:gameranges].insert(:id=>6, :name=>"all", :long_descr => "-- Platzhalter -- ")
 
 
 unless DB.table_exists?(:gametypes)
