@@ -30,17 +30,18 @@ unless DB.table_exists?(:operators)
 		Integer 	:id, :primary_key=>true
 		String 		:name, :unique=>true
 		String 		:descr
+		String		:long_descr
 		String 		:img_filename
 	end
 end
 class Operator < Sequel::Model(:operators)
 	one_to_many	:games
 end
-DB[:operators].insert(:id=>1, :name=>"addi", :descr=>"Addition (Plus)")
-DB[:operators].insert(:id=>2, :name=>"subt", :descr=>"Subtraktion (Minus)")
-DB[:operators].insert(:id=>3, :name=>"mult", :descr=>"Multiplikation (Mal)")
-DB[:operators].insert(:id=>4, :name=>"divi", :descr=>"Division (Geteilt)")
-DB[:operators].insert(:id=>5, :name=>"mix", :descr=>"Alle gemischt")
+DB[:operators].insert(:id=>1, :name=>"addi", :descr=>"Addition (Plus)", :long_descr=>"Zähle die Zahlen zusammen!")
+DB[:operators].insert(:id=>2, :name=>"subt", :descr=>"Subtraktion (Minus)", :long_descr=>"Ziehe die Zahlen von einander ab!")
+DB[:operators].insert(:id=>3, :name=>"mult", :descr=>"Multiplikation (Mal)", :long_descr=>"Rechne mit mal!")
+DB[:operators].insert(:id=>4, :name=>"divi", :descr=>"Division (Geteilt)", :long_descr =>"Teile die Zahlen durch einander!")
+DB[:operators].insert(:id=>5, :name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit allen Rechenarten!")
 
 
 unless DB.table_exists?(:scoretypes)

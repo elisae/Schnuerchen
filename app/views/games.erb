@@ -8,11 +8,22 @@
 
 <section>
 
+  <h1 id="selection-info"> Herzlich Willkommen<!doctype html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Document</title>
+    </head>
+    <body>
+    
+    </body>
+    </html></h1>
+
   <!-- Auswahl Operator -->
 
   <div class="selection" id="operation">
     <% @gamecategories.each{ |k1|  %>
-        <div class = "btn btn-lg selection-button operators" name = "<%=k1[:name] %>" id="<%= k1[:name] %>"></div>
+        <div class = "btn btn-lg selection-button operators" long_descr="<%= k1[:long_descr] %>" name = "<%=k1[:name] %>" id="<%= k1[:name] %>"></div>
     <% }%>
   </div>
 
@@ -21,7 +32,7 @@
 
   <% @gamecategories.each{ |k1|  %>
       <div class="selection" id="<%= k1[:name] %>range" style="display:none">
-        <% k1[:ranges].each { |k2| %>                                                                                   <!-- nur temporär -->
+        <% k1[:ranges].each { |k2| %>
             <div class = "btn btn-lg selection-button range" name = "<%= k2[:name] %>" id="<%= k1[:name] + k2[:name] %>"><%= k2[:name] %></div>
         <% } %>
       </div>

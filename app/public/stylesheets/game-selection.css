@@ -12,6 +12,11 @@
 
 }
 
+#selection-info{
+    text-align:center;
+    margin-top: 2%;
+
+}
 .operators{
     background-color: #FFA726;
 }
