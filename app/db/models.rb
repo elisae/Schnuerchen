@@ -4,6 +4,14 @@
 
 Sequel::Model.plugin :json_serializer
 
+
+# *************************************************** #
+# 												      #
+#   Daten einfügen bitte im zweiten Teil (line 192)   #
+# 												      #
+# *************************************************** #
+
+
 # - INIT -----------------------------------------
 
 DB.drop_table?(:user_trophies, :trophies, :scores, :games, :scoretypes, :gameranges_gametypes, :gametypes, :gameranges_operators, :gameranges, :operators, :users)
@@ -185,15 +193,15 @@ end
 
 
 # ===============================================
-#    DB Data Inserts etc.
+#    DB Data Inserts
 # ===============================================
 
 
 # - USERS ----------------------------------------
 
-DB[:users].insert(:id=>1, :username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo")
-DB[:users].insert(:id=>2, :username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
-DB[:users].insert(:id=>3, :username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
+User.create(:username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo")
+User.create(:username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
+User.create(:username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
 
 Gamerange.create(:name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
 Gamerange.create(:name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")
@@ -202,10 +210,9 @@ Gamerange.create(:name=>"small", :long_descr=> "Kannst du das kleine Einmaleins?
 Gamerange.create(:name=>"big", :long_descr=> "Kannst du das große Einmaleins?")
 Gamerange.create(:name=>"all", :long_descr => "-- Platzhalter -- ")
 
-
-Operator.create(:name=>"addi", :descr=>"Addition (Plus)", :long_descr=>"Zähle die Zahlen zusammen!").add_gameranges(Gamerange.create(:name=>"g_test1"), Gamerange.create(:name=>"g_test2"))
-Operator.create(:name=>"subt", :descr=>"Subtraktion (Minus)", :long_descr=>"Ziehe die Zahlen von einander ab!").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.create(:name=>"g_test3"), Gamerange.create(:name=>"g_test4"))
-Operator.create(:name=>"mult", :descr=>"Multiplikation (Mal)", :long_descr=>"Rechne mit mal!").add_gameranges(Gamerange.find_or_create(:name=>"g_test1"), Gamerange.find_or_create(:name=>"g_test4"))
+Operator.create(:name=>"addi", :descr=>"Addition (Plus)", :long_descr=>"Zähle die Zahlen zusammen!")
+Operator.create(:name=>"subt", :descr=>"Subtraktion (Minus)", :long_descr=>"Ziehe die Zahlen von einander ab!")
+Operator.create(:name=>"mult", :descr=>"Multiplikation (Mal)", :long_descr=>"Rechne mit mal!")
 Operator.create(:name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit allen Rechenarten!")
 Operator.create(:name=>"divi", :descr=>"Division (Geteilt)", :long_descr =>"Teile die Zahlen durch einander!")
 

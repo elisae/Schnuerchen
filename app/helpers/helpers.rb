@@ -1,6 +1,5 @@
 
 def getGameCategories
-
 	operators = Operator.map { |op|
 		ranges = op.gameranges.map { |gr|
 			types = gr.gametypes.map { |gt|
@@ -16,6 +15,5 @@ def getGameCategories
 		end
 		op.to_hash.merge(:ranges=>ranges)
 	}
-
 	return operators
 end

@@ -5,6 +5,8 @@ class App < Sinatra::Base
 	set :public_folder => "public", :static => true
 	set :game_dir, "/javascripts/games/"
 
+	enable :sessions
+
 
 # - GET pages -----------------------------------------------
   
@@ -22,10 +24,21 @@ class App < Sinatra::Base
 	end
 
 	get "/users/:u_id/profile" do
-	  	puts params[:u_id]
-	  	@user = User.first(:id=>params[:u_id]).to_hash
-	  	puts @user
-	    erb :profile
+		puts session[:u_id]
+		puts params[:u_id]
+		if "#{session[:u_id]}" == params[:u_id]
+			puts params[:u_id]
+			@user = User.find(:id=>params[:u_id]).to_hash
+			puts @user
+			erb :profile
+		else
+			"Not logged in"
+		end
+	end
+
+	get "/logout" do
+		session[:u_id] = nil
+		redirect "/logout.html"
 	end
 
 	get "/games/categories" do
@@ -68,9 +81,14 @@ class App < Sinatra::Base
 # - POST data -----------------------------------------------
 
 	post "/login" do
-
+		@user = User.find(:username => params[:name])
+		if (@user && (@user[:password] == params[:password]))
+			session[:u_id] = @user[:id]
+			redirect "/users/#{@user[:id]}/profile"
+		else
+			"Login failed"
+		end
 	end
-
 
 	post "/games" do
 		DB[:games].insert(:name=>params[:name], :filename=>params[:filename], :cssfilename=>params[:cssfilename], :operator=>params[:operator], :range=>params[:range], :type=>params[:type], :scoretype=>params[:scoretype])
@@ -83,6 +101,6 @@ class App < Sinatra::Base
 			u.age = params[:age]
 		end
 		erb :userinserted
-  end
+  	end
 
 end
