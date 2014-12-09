@@ -22,34 +22,27 @@
   <!-- Auswahl Operator -->
 
   <div class="selection" id="operation">
-    <% @gamecategories.each{ |k1|  %>
-        <div class = "btn btn-lg selection-button operators" name="<%=k1[:name] %>" id="<%= k1[:name] %>"></div>
-    <% }%>
+    <% @gamecategories.each do |k1|  %>
+        <div class = "btn btn-lg selection-button operators" long_descr="<%= k1[:long_descr] %>" name="<%= k1[:name] %>" id="<%= k1[:name] %>"></div>
+    <% end %>
   </div>
 
   <!-- Auswahl Zahlenbereich -->
 
 
-  <% @gamecategories.each{ |k1|  %>
+  <% @gamecategories.each do |k1|  %>
       <div class="selection" id="<%= k1[:name] %>range" style="display:none">
-        <% k1[:ranges].each { |k2| %>
-            <div class = "btn btn-lg selection-button range" name = "<%= k2[:name] %>" id="<%= k1[:name] + k2[:name] %>"></div>
-        <% } %>
+        <%if !k1[:ranges].nil? %>
+            <% k1[:ranges].each do |k2| %>
+                <div class ="btn btn-lg selection-button range" long_descr="<%= k2[:long_descr] %>" id="<%= k1[:name] + k2[:name] %>"></div>
+            <% end %>
+        <% end %>
       </div>
-  <% }%>
+  <% end %>
 
 
   <!-- Auswahl Spiel -->
 
 
-  <% @gamecategories.each{ |k1|  %>
-      <% k1[:ranges].each { |k2| %>
-          <div class="selection" id="<%= k1[:name] + k2[:name] %>games" style="display:none">
-            <% k2[:gametypes].each { |k3| %>
-                <div class = "btn btn-lg selection-button games" name = "<%= k3[:name] %>" id="<%=k1[:name] + k2[:name] + k3[:name] %>"></div>
-            <% } %>
-          </div>
-      <% } %>
-  <% }%>
 
 </section>
