@@ -53,13 +53,13 @@
       <ul class="nav navbar-nav">
         <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
         <li>
-          <a href="">Games</a>
+          <a href="/games">Games</a>
         </li>
         <li>
-          <a href="">Profil</a>
+          <a href='/users/<%= @user[:id] %>/profil'>Profil</a>
         </li>
         <li>
-          <a href="">Abmelden</a>
+          <a href="/logout.html">Abmelden</a>
         </li>
       </ul>
     </div>
