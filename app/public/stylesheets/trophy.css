@@ -46,7 +46,7 @@
 }
 .trophy p:hover {background:#f9f9f9;}
 .con {
-    width:315px;
+    width:500px;
     background:#f9f9f9;
     border:#e1e1e1 solid 1px;
     padding:15px;
@@ -61,4 +61,12 @@
     color:#b0b0b0;
     font-style:italic;
     font-family:"Times New Roman", Times, serif;
+}
+#plus_trophy{
+    background-image: url("/images/profile/trophae_muster.svg");
+    background-size:cover;
+}
+#plus_silver_trophy{
+    background-image: url("/images/profile/trophae_plus_silver.svg");
+    background-size:cover;
 }

@@ -9,14 +9,19 @@ class App < Sinatra::Base
 
 
 # - GET pages -----------------------------------------------
-  
+
+
 	get "/" do
 		redirect "/index.html"
 	end
 
 	get "/signup" do
 		redirect "/signup.html"
-	end
+  end
+
+  get "/profile" do
+    erb :profile
+  end
 
 	get "/games" do
 		@gamecategories = getGameCategories()
