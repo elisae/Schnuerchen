@@ -9,12 +9,3 @@
 CREATE DATABASE schnuerchen_dev;
 -- CREATE DATABASE schnuerchen_test;
 -- eigentlich reicht schnuerchen_dev erstmal auch
-
-
-
-
-
-
-
-
-
