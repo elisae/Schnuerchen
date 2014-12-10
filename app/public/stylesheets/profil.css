@@ -1,0 +1,169 @@
+
+                    /* Content */
+
+#trophies{
+    border: 1px solid black;
+    text-align: center;
+    height: 70vh;
+}
+
+#friendlist{
+    border: 1px solid black;
+    text-align: center;
+}
+
+#page-info{
+    margin-top: 2%;
+    text-align: center;
+}
+
+.trophy{
+    margin: 1%;
+    vertical-align: middle;
+    text-align: center;
+    padding: 6%;
+    border-radius: 0;
+    float: left;
+    background-color: #FFA726;
+    height: 100%;
+}
+
+:focus {
+    outline: 0;
+}
+
+.button {
+    padding:1px;
+    background:#fff;
+    margin:0 0 10px 0;
+    border:#ccc solid 1px;
+    width:160px;
+}
+.trophy p{
+    margin:0;
+    text-align:center;
+    padding:10px;
+    background:#f1f1f1;
+    cursor:pointer;
+}
+.trophy p:hover {background:#f9f9f9;}
+.con {
+    width:315px;
+    background:#f9f9f9;
+    border:#e1e1e1 solid 1px;
+    padding:15px;
+
+}
+.con p {
+    padding:10px;
+    margin:1px 1px 0;
+}
+.con p span {
+    padding:0 0 0 5px;
+    color:#b0b0b0;
+    font-style:italic;
+
+}
+
+.carousel {
+    height: 100%;
+}
+
+.item,
+.active,
+.carousel-inner {
+    height: 100%;
+    color: black;
+}
+
+.carousel-caption{
+    color: black;
+    text-shadow: none;
+}
+
+                    .carousel-indicators li {
+                        height: 19px;
+                        width: 19px;
+
+                        background-color: #fff;
+                        border: 0.1em solid #4dd0e1;
+                        border-radius: 20px;
+
+                    }
+
+                    .carousel-indicators .active {
+                        width: 20px;
+                        height: 20px;
+
+                        background-color: #4dd0e1;
+                    }
+                    /* Background images are set within the HTML using inline CSS, not here */
+
+                    .carousel-control.left {
+                        left: 2%;
+                        right: auto;
+                        background-image: -webkit-linear-gradient(right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.1) 100%);
+                        background-image: -o-linear-gradient(right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.1) 100%);
+                        background-image: -webkit-gradient(linear,right top,left top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.1)));
+                        background-image: linear-gradient(to left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.1) 100%);
+                        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#50000000', GradientType=1);
+                        background-repeat: repeat-x;
+                    }
+
+                    .carousel-control.right {
+                        right: 2%;
+                        left: auto;
+                        background-image: -webkit-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.1) 100%);
+                        background-image: -o-linear-gradient(left,rgba(0,0,0,.0001) 0,rgba(0,0,0,.1) 100%);
+                        background-image: -webkit-gradient(linear,left top,right top,from(rgba(0,0,0,.0001)),to(rgba(0,0,0,.1)));
+                        background-image: linear-gradient(to right,rgba(0,0,0,.0001) 0,rgba(0,0,0,.1) 100%);
+                        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#50000000', GradientType=1);
+                        background-repeat: repeat-x;
+                    }
+
+.carousel-control{
+
+    color: black;
+
+}
+                    .carousel-control .icon-prev, .carousel-control .icon-next {
+                        width: 40px;
+                        height: 40px;
+                        font-family: Quicksand, sans-serif;
+                    }
+
+                    .carousel-control {
+                        font-size: px;
+                        color: black;
+                        text-align: center;
+                        text-shadow: none;
+                        opacity: 1;
+                    }
+
+                    .carousel-control:hover, .carousel-control:focus {
+                        color: black;
+
+                    }
+
+
+                    @media screen and (min-width: 768px) {
+                        .carousel-control .glyphicon-chevron-left,
+                        .carousel-control .glyphicon-chevron-right,
+                        .carousel-control .icon-prev, .carousel-control
+                        .icon-next {
+                            width: 30px;
+                            height: 30px;
+                            font-size: 70px;
+                        }
+                    }
+
+.fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+

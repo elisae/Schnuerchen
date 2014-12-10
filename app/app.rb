@@ -24,18 +24,19 @@ class App < Sinatra::Base
 	end
 
 	get "/games" do
+    @user = User.find(:id=>session[:u_id]).to_hash
 		@gamecategories = getGameCategories()
 		erb :games
 	end
 
-	get "/users/:u_id/profile" do
+	get "/users/:u_id/profil" do
 		puts session[:u_id]
 		puts params[:u_id]
 		if "#{session[:u_id]}" == params[:u_id]
 			puts params[:u_id]
 			@user = User.find(:id=>params[:u_id]).to_hash
 			puts @user
-			erb :profile
+			erb :profil
 		else
 			"Not logged in"
 		end
@@ -89,7 +90,7 @@ class App < Sinatra::Base
 		@user = User.find(:username => params[:name])
 		if (@user && (@user[:password] == params[:password]))
 			session[:u_id] = @user[:id]
-			redirect "/users/#{@user[:id]}/profile"
+			redirect "/users/#{@user[:id]}/profil"
 		else
 			"Login failed"
 		end
