@@ -93,7 +93,22 @@ class App < Sinatra::Base
 	end
 
 	post "/score" do
-
+		score = Score.find(:user_id=>session[:u_id], :game_id=>params[:g_id])
+		
+		if (score == nil)
+			Score.create(:user_id=>session[:u_id], 
+						:game_id=>params[:g_id],
+						:timestamp => DateTime.now,
+						:score => Integer(params[:score]))
+			puts "Neuer Score"
+		elsif (score.score <= Integer(params[:score]))
+			score.set(:timestamp => DateTime.now)
+			score.set(:score => Integer(params[:score]))
+			score.save
+			puts "Neuer Highscore"
+		else
+			puts "Goanix"
+		end
 	end
 
 	post "/games" do

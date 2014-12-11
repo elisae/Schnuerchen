@@ -172,6 +172,7 @@ unless DB.table_exists?(:scores)
 end
 
 class Score < Sequel::Model(:scores)
+
 end
 
 
@@ -218,7 +219,6 @@ Operator.create(:name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit 
 
 
 
-
 # - GAMES ----------------------------------------
 
 Game.create(:name=>"multiplechoice_dummy", 
@@ -249,6 +249,12 @@ Game.create(:name=>"time_dummy",
 			:gametype=>"time", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
+
+
+DB[:scores].insert(:user_id=>1, 
+			 :game_id=>1, 
+			 :timestamp=>DateTime.now, 
+			 :score=>10)
 
 
 
