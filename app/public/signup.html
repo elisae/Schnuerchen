@@ -30,9 +30,7 @@
 
 <body id="page-top" class="index">
 
-
-
-    <section id="registrieren" class="content-section">
+ <section id="registrieren" class="content-section">
         <div id="heading">
 
             <h2>Bei Schnürchen registrieren</h2>
@@ -49,8 +47,17 @@
 
                             <div class="row control-group">
                                 <div class="form-group col-xs-12 floating-label-form-group controls">
-                                    <label>Name</label>
-                                    <input type="text" class="form-control" placeholder="Name" id="name" required="true" data-validation-required-message="Bitte deinen Namen eingeben." aria-invalid="false">
+                                    <label>Vorname</label>
+                                    <input type="text" class="form-control" placeholder="Vorname" id="firstname" required="true" data-validation-required-message="Bitte deinen Vornamen eingeben." aria-invalid="false">
+                                    <p class="help-block text-danger">
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Benutzername</label>
+                                    <input type="text" class="form-control" placeholder="Benutzername" id="username" required="true" data-validation-required-message="Bitte deinen Benutzernamen eingeben." aria-invalid="false">
                                     <p class="help-block text-danger">
                                     </p>
                                 </div>
@@ -110,7 +117,7 @@
 
     <!-- Contact Form JavaScript -->
     <script src="/javascripts/signup-js/jqBootstrapValidation.js"></script>
-    <script src="/javascripts/signup-js/contact_me.js"></script>
+    <script src="/javascripts/signup-js/userInsert.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="/javascripts/signup-js/signup.js"></script>

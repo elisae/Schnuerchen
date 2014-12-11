@@ -19,7 +19,8 @@ $(function() {
                 url: "/api/user",
                 type: "POST",
                 data: {
-                    name: name,
+                    username: username,
+                    firstname: firstname,
                     email: email,
                     password: password
                 },
