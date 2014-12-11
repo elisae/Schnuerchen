@@ -47,7 +47,9 @@
           <% k1[:ranges].each do |k2| %>
             <div class="selection" id="<%= k1[:name] + k2[:name]%>games" style="display:none">
               <% k2[:types].each do |k3| %>
-                <div class = "btn btn-lg selection-button games" name="<%= k3[:name]%>" id="<%= k1[:name] + k2[:name] + k3[:name] %>"></div>
+                <a href="/games/<%= k1[:name] %>/<%= k2[:name] %>/<%= k3[:name] %>">
+                    <div class = "btn btn-lg selection-button games" name="<%= k3[:name]%>" id="<%= k1[:name] + k2[:name] + k3[:name] %>"></div>
+                </a>
               <% end %>
             </div>
           <% end %>
