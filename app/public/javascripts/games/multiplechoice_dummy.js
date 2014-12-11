@@ -467,13 +467,13 @@ function init_game(){
 
 function run_game(){
 
+    console.log("start");
+
     document.getElementById('button_res1').disabled = false;
     document.getElementById('button_res2').disabled = false;
     document.getElementById('button_res3').disabled = false;
     document.getElementById('button_res4').disabled = false;
     document.getElementById('result_line').innerHTML = "Los Gehts!";
-
-
 
     game_is_running = true;
     start_time = new Date();
@@ -503,8 +503,6 @@ function reset_game(){
     document.getElementById('sw_s').innerHTML = "00";
     document.getElementById('sw_ms').innerHTML = "00";
 
-
-
     document.getElementById('score').innerHTML = score;
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
@@ -513,6 +511,8 @@ function reset_game(){
     document.getElementById('results_wrong').innerHTML = counter_wrong;
     document.getElementById('results_time').innerHTML = Math.round(time_needed/1000);
     document.getElementById('results_score').innerHTML = score;
+
+    postScore(score, $('#game').data('g_id'));
 
     //-------------------------------------------------------------------
     // Score into DB
@@ -539,7 +539,7 @@ function leave_game(){
 }
 
 function back_to_mainmenu(){
-    alert('Hauptmenü');
+    window.location.href = "/games";
 }
 
 function back_to_start(){
@@ -590,11 +590,13 @@ function resolute(user_tip){
         counter_right++;
         counter++;
         score = score + score_right;
+        feedbackRight();
     } else {
         result_line.innerHTML = "Falsch! Richtig wäre: " + result;
         counter_wrong++;
         counter++;
         score = score - score_wrong;
+        feedbackWrong();
     }
     score_control();
     document.getElementById('score').innerHTML = score;

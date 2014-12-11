@@ -98,7 +98,6 @@ var z1_n = 0;
 var z2_n = 0;
 var result = 0;
 
-
 //----------------------------------END DECLARATIONS----------------------------------\\
 
 
@@ -263,7 +262,7 @@ function init_game(){
 
 
 function run_game(){
-
+    console.log("start gedrückt");
     game_is_running = true;
 
     start_time = new Date();
@@ -295,6 +294,8 @@ function reset_game(){
     document.getElementById('results_time').innerHTML = Math.round((time_needed - 1000)/1000);
     document.getElementById('results_score').innerHTML = score;
 
+    postScore(score, $('#game').data('g_id'));
+
     //-------------------------------------------------------------------
     // Score into DB
     //
@@ -322,7 +323,7 @@ function leave_game(){
 }
 
 function back_to_mainmenu(){
-    alert('Hauptmenü');
+    window.location.href = "/games";
 }
 
 function back_to_start(){
@@ -382,11 +383,13 @@ document.onkeydown = function (event) {
             counter_right++;
             actual_time_left += time_right;
             score = score + score_right;
+            feedbackRight();
         } else {
             result_line.innerHTML = "Falsch! Richtig wäre: " + result;
             user_input.value = "";
             counter_wrong++;
             actual_time_left -= Math.floor(actual_time_left * time_wrong_factor);
+            feedbackWrong();
         }
 
         score_control();

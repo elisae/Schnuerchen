@@ -292,6 +292,9 @@ function reset_game(){
     document.getElementById('tip').value ="";
     document.getElementById('score').innerHTML = score;
 
+
+    postScore(score, $('#game').data('g_id'));
+
     //-------------------------------------------------------------------
     // Score into DB
     //

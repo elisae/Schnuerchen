@@ -1,6 +1,6 @@
 <link href="/stylesheets/game-style/<%= @game[:css_filename]%>" rel="stylesheet">
 
-<section id="game">
+<section id="game" data-g_id="<%= @game[:id] %>">
 
   <div id="start_div" >
 
@@ -18,5 +18,11 @@
 
   </div>
 
+  <div id="answerResponse">
+
+  </div>
+
 </section>
+
+    <script src="/javascripts/postHighscore.js"></script>
 	<%= "<script src='#{settings.game_dir}" + @game[:filename] + "'></script>" %>
