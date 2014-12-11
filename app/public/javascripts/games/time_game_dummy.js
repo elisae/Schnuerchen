@@ -283,6 +283,8 @@ function reset_game(){
     document.getElementById('results_wrong').innerHTML = counter_wrong;
     document.getElementById('results_score').innerHTML = score;
 
+    postScore(score, $('#game').data('g_id'));
+
     //-------------------------------------------------------------------
     // Score into DB
     //
@@ -309,7 +311,7 @@ function leave_game(){
 }
 
 function back_to_mainmenu(){
-    window.location.href = "http://localhost:9292/games";
+    window.location.href = "/games";
 }
 
 function back_to_start(){

@@ -8,13 +8,11 @@ $(function() {
         submitSuccess: function($form, event) {
             event.preventDefault(); // prevent default submit behaviour
             // get values from FORM
+
             var username = $("input#username").val();
             var firstname = $("input#firstname").val();
-
             var password = $("input#password").val();
-            console.log(password);
             var email = $("input#email").val();
-
 
 
 /* ---------------------------------kann man das so machen?------------------*/
@@ -46,7 +44,7 @@ $(function() {
                     $('#success').html("<div class='alert alert-danger'>");
                     $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
                         .append("</button>");
-                    $('#success > .alert-danger').append("<strong>Sorry " + name + ", scheissdreck, des goooht ned");
+                    $('#success > .alert-danger').append("<strong>Sorry " + firstname + ", scheissdreck, des goooht ned");
                     $('#success > .alert-danger').append('</div>');
                     //clear all fields
                     $('#contactForm').trigger("reset");

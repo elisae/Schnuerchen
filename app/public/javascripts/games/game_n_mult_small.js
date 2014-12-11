@@ -290,12 +290,15 @@ function reset_game(){
     document.getElementById('results_time').innerHTML = Math.round(time_needed/1000);
     document.getElementById('results_score').innerHTML = score;
 
+    postScore(score, $('#game').data('g_id'));
+
     //-------------------------------------------------------------------
     // Score into DB
     //
     //
     //
     //-------------------------------------------------------------------
+
     counter = 0;
     score = 0;
     counter_right = 0;
@@ -330,8 +333,7 @@ function leave_game(){
 }
 
 function back_to_mainmenu(){
-    alert('Hauptmenü');
-    //clearInterval(stopwatch_interval);
+    window.location.href = "/games";
 }
 
 function back_to_start(){

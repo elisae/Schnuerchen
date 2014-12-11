@@ -58,6 +58,24 @@ $(document).ready(function(){
 
     //set_visibility('end_game_div', true);
 
-
-
 });
+
+var answerResponse = $("#answerResponse");
+
+answerResponse.hide();
+
+function feedbackRight(){
+    answerResponse.css("backgroundColor", "green");
+    answerResponse.fadeIn("fast", function(){
+        $(this).fadeOut("fast");
+    });
+    console.log("richtige antwort");
+}
+
+function feedbackWrong(){
+    answerResponse.css("backgroundColor", "red");
+    answerResponse.fadeIn("fast", function(){
+       $(this).fadeOut("fast");
+    });
+    console.log("falsche antwort");
+}
