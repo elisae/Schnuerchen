@@ -213,8 +213,8 @@ Gamerange.create(:name=>"all", :long_descr => "-- Platzhalter -- ")
 Operator.create(:name=>"addi", :descr=>"Addition (Plus)", :long_descr=>"Zähle die Zahlen zusammen!")
 Operator.create(:name=>"subt", :descr=>"Subtraktion (Minus)", :long_descr=>"Ziehe die Zahlen von einander ab!")
 Operator.create(:name=>"mult", :descr=>"Multiplikation (Mal)", :long_descr=>"Rechne mit mal!")
-Operator.create(:name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit allen Rechenarten!")
 Operator.create(:name=>"divi", :descr=>"Division (Geteilt)", :long_descr =>"Teile die Zahlen durch einander!")
+Operator.create(:name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit allen Rechenarten!")
 
 
 

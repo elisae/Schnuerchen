@@ -9,26 +9,24 @@
     vertical-align: middle;
     text-align: center;
     padding: 4%;
-
 }
 
 #selection-info{
     text-align:center;
     margin-top: 2%;
-
 }
+
 .operators{
-    background-color: #FFA726;
+    background-color: #E57373;
 }
 
 .range{
-    background-color: #26C6DA;
+    background-color: #B39DDB;
 }
 
 .games{
     background-color: #66BB6A;
 }
-
 
 #addi{
     background-image:url(/images/games/plus.svg);
