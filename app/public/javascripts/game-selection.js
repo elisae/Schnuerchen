@@ -12,15 +12,10 @@ $(document).ready(function(){
     var operatorsShown = false;
     var rangeShown = false;
 
-    var firstParam = null;
-    var secondParam = null;
-    var thirdParam = null;
-
     var reqUrl = null;
 
 
     operators.click(function(event){
-        firstParam = $("#"+event.target.id).attr("name");
         if(rangeShown){
             $("#"+secondParentId+"games").slideUp('slow');
         }
@@ -37,7 +32,6 @@ $(document).ready(function(){
     });
 
     range.click(function(event){
-        secondParam = $("#"+event.target.id).attr("name");
         if(rangeShown){
             $("#"+secondParentId+"games").slideUp('slow',function(){
                 secondParentId = event.target.id;
@@ -49,12 +43,6 @@ $(document).ready(function(){
             rangeShown = true;
         }
 
-    });
-
-    games.click(function(event){
-        thirdParam = $("#"+event.target.id).attr("name");
-        reqUrl = "http://localhost:9292/games/" + firstParam + "/" + secondParam + "/" + thirdParam;
-        window.location.href = reqUrl;
     });
 
     selectionBtn.hover(function(event){
