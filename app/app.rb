@@ -19,12 +19,8 @@ class App < Sinatra::Base
 		redirect "/signup.html"
 	end
 
-	get "/profile" do
-	erb :profile
-	end
-
 	get "/games" do
-    @user = User.find(:id=>session[:u_id]).to_hash
+    	@user = User.find(:id=>session[:u_id]).to_hash
 		@gamecategories = getGameCategories()
 		erb :games
 	end
@@ -56,8 +52,8 @@ class App < Sinatra::Base
 		erb :upload
 	end
 
-	# Bisher geht nur /addi/10/scale
 	get "/games/:operator/:range/:type" do
+		@user = User.find(:id=>session[:u_id]).to_hash
 		@game = Game.first(:operator=>"#{params[:operator]}", 
 							:gamerange=>"#{params[:range]}", 
 							:gametype=>"#{params[:type]}").to_hash
@@ -96,17 +92,24 @@ class App < Sinatra::Base
 		end
 	end
 
-	post "/games" do
-		DB[:games].insert(:name=>params[:name], :filename=>params[:filename], :cssfilename=>params[:cssfilename], :operator=>params[:operator], :range=>params[:range], :type=>params[:type], :scoretype=>params[:scoretype])
-		"Game inserted"
+	post "/score" do
+
 	end
 
-	post "/user" do
-		User.create do |u|
-			u.username = params[:username]
-			u.age = params[:age]
-		end
-		erb :userinserted
+	post "/games" do
+		DB[:games].insert(:name=>params[:name], :filename=>params[:filename], :cssfilename=>params[:cssfilename], :operator=>params[:operator], :range=>params[:range], :type=>params[:type], :scoretype=>params[:scoretype])
+		puts "Game inserted"
+	end
+
+	post "/api/user" do
+		params.each { |p|
+			puts p
+		}
+		User.create(:username=>params[:username], 
+					:firstname=>params[:firstname], 
+					:email=>params[:email], 
+					:password=>params[:password])
+		puts "user angelegt"
   	end
 
 end
