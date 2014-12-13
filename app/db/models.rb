@@ -14,7 +14,7 @@ Sequel::Model.plugin :json_serializer
 
 # - INIT -----------------------------------------
 
-DB.drop_table?(:user_trophies, :trophies, :scores, :games, :scoretypes, :gameranges_gametypes, :gametypes, :gameranges_operators, :gameranges, :operators, :users)
+DB.drop_table?(:users_trophies, :trophies_users, :trophies, :scores, :games, :scoretypes, :gameranges_gametypes, :gametypes, :gameranges_operators, :gameranges, :operators, :users)
 
 
 # - USERS ---------------------------------------
@@ -28,8 +28,12 @@ unless DB.table_exists?(:users)
 	end
 end
 class User < Sequel::Model(:users)
-	many_to_many :trophies
-	many_to_many :users
+	many_to_many :trophies, :key => :trophy_id
+
+	def self.create(values = {}, &block)
+		puts "New User: #{values[:username]}"
+		super
+	end
 end
 
 
@@ -153,8 +157,39 @@ class Game < Sequel::Model(:games)
 			gr.add_gametype(gt)
 		end
 		Scoretype.find_or_create(:name => values[:scoretype])
-		puts "Game erstellt: " + values[:name]
-		super
+
+		pod = Array.new
+		
+		case gt.name
+			when "score" 
+				pod[0] = 120
+				pod[1] = 60
+				pod[2] = 30
+			when "time"
+				pod[0] = 100
+				pod[1] = 40
+				pod[2] = 20
+			when "marathon"
+				pod[0] = 40
+				pod[1] = 30
+				pod[2] = 20
+			else
+				pod[0] = 1000
+				pod[1] = 500
+				pod[2] = 250
+		end
+			
+
+		puts "New Game: " + values[:name]
+		newGame = super
+
+		i = 1
+		pod.each { |pod|
+			Trophy.create(:game_id => newGame.id,
+						:min_score => pod,
+						:pod => i)
+			i+=1
+		}
 	end
 end
 
@@ -173,6 +208,13 @@ end
 
 class Score < Sequel::Model(:scores)
 
+	def save
+		puts ""
+		puts "New Score: #{self.score}"
+		addTrophy(self.user_id, self.game_id, self.score)
+		super
+	end
+
 end
 
 
@@ -180,7 +222,7 @@ end
 unless DB.table_exists?(:trophies)
 	DB.create_table(:trophies) do
 		primary_key :id
-		foreign_key :g_id, :games
+		foreign_key :game_id, :games
 		Integer 	:min_score
 		Integer 	:pod
 		check(:pod=>[1, 2, 3])
@@ -191,6 +233,15 @@ class Trophy < Sequel::Model(:trophies)
 	many_to_many :users
 end
 
+
+unless DB.table_exists?(:trophies_users)
+	DB.create_table(:trophies_users) do
+		primary_key	:id
+		foreign_key	:user_id, :users
+		foreign_key	:trophy_id, :trophies
+		unique([:user_id, :trophy_id])
+	end
+end
 
 
 # ===============================================
@@ -250,11 +301,6 @@ Game.create(:name=>"time_dummy",
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 
-
-DB[:scores].insert(:user_id=>1, 
-			 :game_id=>1, 
-			 :timestamp=>DateTime.now, 
-			 :score=>10)
 
 
 

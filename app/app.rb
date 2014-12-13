@@ -86,7 +86,7 @@ class App < Sinatra::Base
 		@user = User.find(:username => params[:name])
 		if (@user && (@user[:password] == params[:password]))
 			session[:u_id] = @user[:id]
-			redirect "/users/#{@user[:id]}/profil"
+			redirect "/games"
 		else
 			"Login failed"
 		end
