@@ -8,7 +8,7 @@ class App < Sinatra::Base
 	enable :sessions
 
 
-# - GET pages -----------------------------------------------
+# - General -----------------------------------------------
 
 
 	get "/" do
@@ -18,69 +18,6 @@ class App < Sinatra::Base
 	get "/signup" do
 		redirect "/signup.html"
 	end
-
-	get "/games" do
-    	@user = User.find(:id=>session[:u_id]).to_hash
-		@gamecategories = getGameCategories()
-		erb :games
-	end
-
-	get "/users/:u_id/profil" do
-		puts session[:u_id]
-		puts params[:u_id]
-		if "#{session[:u_id]}" == params[:u_id]
-			puts params[:u_id]
-			@user = User.find(:id=>params[:u_id]).to_hash
-			puts @user
-			erb :profil
-		else
-			"Not logged in"
-		end
-	end
-
-	get "/logout" do
-		session[:u_id] = nil
-		redirect "/logout.html"
-	end
-
-	get "/games/categories" do
-		content_type :json
-		JSON.pretty_generate(getGameCategories())
-	end
-
-	get "/insert" do
-		erb :upload
-	end
-
-	get "/games/:operator/:range/:type" do
-		@user = User.find(:id=>session[:u_id]).to_hash
-		@game = Game.first(:operator=>"#{params[:operator]}", 
-							:gamerange=>"#{params[:range]}", 
-							:gametype=>"#{params[:type]}").to_hash
-		puts @game
-		puts @game[:filename]
-		erb :game
-	end
-
-	get "/games/dummy" do
-		@title = "Dummy Game"
-		@game_path = "dummy_game.js"
-		erb :game
-	end
-
-	get "/userinsert" do
-		erb :userinsert
-	end
-
-
-# - GET data ------------------------------------------------
-  
-	get '/api/users' do
-		content_type :json
-		User.to_json
-  	end
-
-# - POST data -----------------------------------------------
 
 	post "/login" do
 		@user = User.find(:username => params[:name])
@@ -92,23 +29,79 @@ class App < Sinatra::Base
 		end
 	end
 
-	post "/score" do
-		score = Score.find(:user_id=>session[:u_id], :game_id=>params[:g_id])
-		
-		if (score == nil)
-			Score.create(:user_id=>session[:u_id], 
-						:game_id=>params[:g_id],
-						:timestamp => DateTime.now,
-						:score => Integer(params[:score]))
-			puts "Neuer Score"
-		elsif (score.score <= Integer(params[:score]))
-			score.set(:timestamp => DateTime.now)
-			score.set(:score => Integer(params[:score]))
-			score.save
-			puts "Neuer Highscore"
+	get "/games" do
+		if login?
+	    	@user = User.find(:id=>session[:u_id]).to_hash
+			@gamecategories = getGameCategories()
+			erb :games
 		else
-			puts "Goanix"
+			"Not logged in"
 		end
+	end
+
+	get "/users/:u_id/profil" do
+		if login?
+			if "#{session[:u_id]}" == params[:u_id]
+				@user = User.find(:id=>params[:u_id]).to_hash
+				@trophies = getUserTrophies(session[:u_id])
+				erb :profil
+			end
+		else
+			"Not logged in"
+		end
+	end
+
+	get "/logout" do
+		session[:u_id] = nil
+		redirect "/logout.html"
+	end
+
+	get "/insert" do
+		erb :upload
+	end
+
+	get "/games/:operator/:range/:type" do
+		if login?
+			@user = User.find(:id=>session[:u_id]).to_hash
+			@game = Game.first(:operator=>"#{params[:operator]}", 
+								:gamerange=>"#{params[:range]}", 
+								:gametype=>"#{params[:type]}").to_hash
+			erb :game
+		else
+			"Not logged in"
+		end
+	end
+
+
+# - GET data ------------------------------------------------
+  
+	get '/api/users' do
+		content_type :json
+		User.to_json
+  	end
+
+  	get "/games/categories" do
+		content_type :json
+		JSON.pretty_generate(getGameCategories())
+	end
+
+	get "/users/:u_id/trophies" do
+		content_type :json
+		JSON.pretty_generate(getUserTrophies(params[:u_id]))
+	end
+
+	get "/trophies" do
+		redirect "/users/#{session[:u_id]}/trophies"
+	end
+
+
+# - POST data -----------------------------------------------
+
+	post "/score" do
+		puts ""
+		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
+		saveScore(session[:u_id], params[:g_id], Integer(params[:score]))
+		print ""
 	end
 
 	post "/games" do

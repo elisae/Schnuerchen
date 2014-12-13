@@ -209,7 +209,6 @@ end
 class Score < Sequel::Model(:scores)
 
 	def save
-		puts ""
 		puts "New Score: #{self.score}"
 		addTrophy(self.user_id, self.game_id, self.score)
 		super
@@ -301,6 +300,14 @@ Game.create(:name=>"time_dummy",
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 
+Score.create(:user_id=>2, 
+			:game_id=>3,
+			:timestamp => DateTime.now,
+			:score => 40)
+Score.create(:user_id=>2, 
+			:game_id=>1,
+			:timestamp => DateTime.now,
+			:score => 60)
 
 
 

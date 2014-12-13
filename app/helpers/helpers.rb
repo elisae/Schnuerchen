@@ -1,3 +1,11 @@
+def login?
+	if (session[:u_id] == nil)
+		return false
+	else
+		return session[:u_id]
+	end
+end
+
 
 def getGameCategories
 	operators = Operator.map { |op|
@@ -24,21 +32,43 @@ def addTrophy(user_id, game_id, score)
 	trophies = Trophy.filter(:game_id => game_id).order(:pod)
 
 	trophies.map { |tr|
-		puts "Testing Trophy #{tr.pod} (id: #{tr.id})"
-		puts "score: #{score} Trophy minscore: #{tr.min_score}"
 		if (score >= tr.min_score)
-			puts "enough"
 			ut = user.trophies_dataset.first(:trophy_id => tr.id)
 			unless ut 
 				user.add_trophy(tr)
-				puts "added Trophy id: #{tr.id}"
+				puts "added Trophy #{tr.pod} id: #{tr.id}"
 			end	
 		else
-			puts "not enough"
+			puts "not enough for Trophy #{tr.pod}"
 		end
 	}
 end
 
+def getUserTrophies(user_id)
+	userTrophies = User.find(:id => user_id).trophies_dataset.to_hash_groups(:game_id, :pod)
+	puts userTrophies
+	return userTrophies
+end
+
+
+def saveScore(user_id, game_id, new_score)
+	score = Score.find(:user_id => user_id, :game_id => game_id)
+		
+	if (score == nil)
+		puts "Neuer score angelegt (first time played)"
+		Score.create(:user_id => user_id, 
+					:game_id => game_id,
+					:timestamp => DateTime.now,
+					:score => new_score)
+	elsif (score.score <= new_score)
+		puts "Score (id: #{score.id} updated)"
+		score.set(:timestamp => DateTime.now)
+		score.set(:score => new_score)
+		score.save
+	else
+		puts "Goanix"
+	end
+end
 
 
 
