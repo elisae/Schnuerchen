@@ -14,7 +14,7 @@ Sequel::Model.plugin :json_serializer
 
 # - INIT -----------------------------------------
 
-DB.drop_table?(:users_trophies, :trophies_users, :trophies, :scores, :games, :scoretypes, :gameranges_gametypes, :gametypes, :gameranges_operators, :gameranges, :operators, :users)
+DB.drop_table?(:users_trophies, :trophies_users, :trophies, :scores, :games, :scoretypes, :gameranges_gametypes, :gametypes, :gameranges_operators, :gameranges, :operators, :users, :friends)
 
 
 # - USERS ---------------------------------------
@@ -36,6 +36,18 @@ class User < Sequel::Model(:users)
 	end
 end
 
+unless DB.table_exists?(:friends)
+  DB.create_table(:friends) do
+    primary_key :id
+    foreign_key :user_id
+    foreign_key :friend_id
+  end
+end
+
+class Friend < Sequel::Model(:friends)
+  one_to_many :user_id
+  one_to_many :friend_id
+end
 
 # - GAME STRUCTURE ------------------------------
 
@@ -253,6 +265,10 @@ end
 User.create(:username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo")
 User.create(:username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
 User.create(:username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
+
+Friend.create(:user_id=>"1", :friend_id=>"2")
+Friend.create(:user_id=>"1", :friend_id=>"3")
+Friend.create(:user_id=>"2", :friend_id=>"3")
 
 Gamerange.create(:name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
 Gamerange.create(:name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")

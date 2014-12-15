@@ -36,7 +36,7 @@
                   <div class="fill"></div>
                   <div class="carousel-caption">
                     <h2>Addition</h2>
-                    <p><%= "#{@trophies[3][0]}" %></p>
+                    <p><%= "#{@trophies[3][0]}"%> </p>
                   </div>
                 </div>
                 <div class="item">
@@ -80,34 +80,13 @@
             <div id="friendlist" >
 
               <ul>
-                <li>Hans 231</li>
-                <li>Jürgen 231</li>
-                <li>Kind 3</li>
-                <li>Kind 4</li>
-                <li>Hans 231</li>
-                <li>Jürgen 231</li>
-                <li>Kind 3</li>
-                <li>Kind 4</li>
-                <li>Hans 231</li>
-                <li>Jürgen 231</li>
-                <li>Kind 3</li>
-                <li>Kind 4</li>
-                <li>Hans 231</li>
-                <li>Jürgen 231</li>
-                <li>Kind 3</li>
-                <li>Kind 4</li>
-                <li>Hans 231</li>
-                <li>Jürgen 231</li>
-                <li>Kind 3</li>
-                <li>Kind 4</li>
-                <li>Hans 231</li>
-                <li>Jürgen 231</li>
-                <li>Kind 3</li>
-                <li>Kind 4</li>
-                <li>Hans 231</li>
-                <li>Jürgen 231</li>
-                <li>Kind 3</li>
-                <li>Kind 4</li>
+                <% if @friendinfo.empty? %>
+                    <p>KEINEFREUNDEHAHAMOF</p>
+                <% else %>
+                    <% @friendinfo.each do |friend|%>
+                        <li><%= friend[0][:username] %></li>
+                    <% end %>
+                <% end %>
               </ul>
             </div>
           </div>
