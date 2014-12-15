@@ -42,15 +42,8 @@ class App < Sinatra::Base
 	get "/users/:u_id/profil" do
 		if login?
 			if "#{session[:u_id]}" == params[:u_id]
-        @friendinfo = Array.new
 				@user = User.find(:id=>params[:u_id]).to_hash
-        @friends = Friend.where(:user_id=>params[:u_id]).all.map{ |friend|
-          friend.to_hash
-          @friendinfo.push(User.where(:id=>friend[:friend_id]).all.map{ |info|
-            info.to_hash
-          })
-        }
-        puts @friendinfo
+        @friendinfo = getFriendsInfo
 				@trophies = getUserTrophies(session[:u_id])
 				erb :profil
 			end
@@ -102,6 +95,16 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
 	end
 
+  get "/search/:query" do
+    require 'json'
+    query = params[:query]
+    content_type :json
+    response = User.where(Sequel.like(:username, query + '%')).map{ |user|
+      user.to_hash
+    }
+    puts response
+    JSON.pretty_generate(response)
+  end
 
 # - POST data -----------------------------------------------
 
@@ -126,6 +129,8 @@ class App < Sinatra::Base
 					:email=>params[:email], 
 					:password=>params[:password])
 		puts "user angelegt"
-  	end
+  end
+
+
 
 end

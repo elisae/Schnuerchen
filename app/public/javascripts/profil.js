@@ -1,11 +1,27 @@
 /**
- * Created by manuelneufeld on 10/12/14.
+ * Created by manuelneufeld on 10/12/14 and kenny.
  */
 
 
 var colours = ['hovered'];
 var friends = $('#friendlist ul li');
 var friendProfil = $("#friendProfil");
+
+
+/* Freundessuche */
+
+var input = $("#friendsearchinput");
+
+function searchFriend(){
+    var query = input.val();
+
+    $.get(
+        "/search/"+query,
+        function(msg){
+            console.log("lol");
+        }
+    );
+};
 
 $(document).ready(function() {
 
@@ -24,4 +40,6 @@ $(document).ready(function() {
     $("#hideFriendProfil").click(function(){
         friendProfil.fadeOut("slow");
     });
+
+
 });

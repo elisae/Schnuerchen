@@ -265,9 +265,16 @@ end
 User.create(:username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo")
 User.create(:username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
 User.create(:username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
+User.create(:username=>"kenny", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
+User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
+User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
+User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
+
+
 
 Friend.create(:user_id=>"1", :friend_id=>"2")
 Friend.create(:user_id=>"1", :friend_id=>"3")
+Friend.create(:user_id=>"1", :friend_id=>"4")
 Friend.create(:user_id=>"2", :friend_id=>"3")
 
 Gamerange.create(:name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")

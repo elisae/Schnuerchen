@@ -26,6 +26,16 @@ def getGameCategories
 	return operators
 end
 
+def getFriendsInfo
+  friendinfo = Array.new
+  friends = Friend.where(:user_id=>params[:u_id]).all.map{ |friend|
+    friend.to_hash
+    friendinfo.push(User.where(:id=>friend[:friend_id]).all.map{ |info|
+      info.to_hash
+    })
+  }
+  return friendinfo
+end
 
 def addTrophy(user_id, game_id, score)
 	user = User.find(:id => user_id)
