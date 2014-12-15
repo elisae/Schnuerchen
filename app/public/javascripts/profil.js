@@ -26,7 +26,8 @@ function searchFriend(){
             var resultString = "";
 
             for(i=0;i<msg.length;i++){
-                resultString = resultString + "<li>" + msg[i]["username"] + "</li>"
+                var str =  msg[i]["username"];
+                resultString = resultString + "<li><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+ "</li>"
             }
             responseDiv.html(resultString)
 
