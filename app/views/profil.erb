@@ -36,7 +36,11 @@
                   <div class="fill"></div>
                   <div class="carousel-caption">
                     <h2>Addition</h2>
-                    <p><%= "#{@trophies[3][0]}"%> </p>
+                    <% if @trophies.empty? %>
+                        <p>noch keine trophäen</p>
+                    <% else %>
+                        <p><%= "#{@trophies[3][0]}"%> </p>
+                    <% end %>
                   </div>
                 </div>
                 <div class="item">
