@@ -83,9 +83,13 @@
           <div class="col-md-4">
             <div id="friendlist" >
 
+
+              <input class="input-lg" placeholder="Nach Freunden suchen" type ="text" id="friendsearchinput" oninput="searchFriend()"/>
+
+              <div id="responseDiv" ></div>
               <ul>
                 <% if @friendinfo.empty? %>
-                    <p>KEINEFREUNDEHAHAMOF</p>
+                    <p>KEINE FREUNDE HAHA MOF</p>
                 <% else %>
                     <% @friendinfo.each do |friend|%>
                         <li><%= friend[0][:username] %></li>
@@ -93,11 +97,14 @@
                 <% end %>
               </ul>
             </div>
-            <div id="responseDiv" style="background-color:white; "></div>
-            <li><input type ="text" id="friendsearchinput" oninput="searchFriend()"/><input type="submit" value="suchen" id="friendsearch"></li>
+
+
           </div>
 
         </div>
+
+
+      <!-- --------------Friendoverlay-------------- -->
 
         <div class="friendOverlay">
 
