@@ -11,7 +11,12 @@ def getGameCategories
 	operators = Operator.map { |op|
 		ranges = op.gameranges.map { |gr|
 			types = gr.gametypes.map { |gt|
-				gt.to_hash
+				op_name = op.name
+				gr_name = gr.name
+				gt_name = gt.name
+				game_id = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name).id
+				puts game_id
+				gt.to_hash.merge(:game_id => game_id)
 			}
 			unless types.any?
 				types = nil
