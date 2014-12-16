@@ -121,11 +121,13 @@ document.onkeydown = function (event) {
             user_input.value = "";
             counter_right++;
             counter++;
+            feedbackRight();
         } else {
             result_line.innerHTML = "Falsch! Richtig wäre: " + result;
             user_input.value = "";
             counter_wrong++;
             counter++;
+            feedbackWrong();
         }
 
 

@@ -94,17 +94,18 @@ class App < Sinatra::Base
 
 	get "/trophies" do
 		redirect "/users/#{session[:u_id]}/trophies"
-	end
+  end
 
   get "/search/:query" do
     require 'json'
     query = params[:query]
+    responseArr = Array.new
     content_type :json
-    response = User.where(Sequel.like(:username, query + '%')).map{ |user|
+    response = User.where(Sequel.like(:username, query + '%')).select(:username).map{ |user|
       user.to_hash
+      responseArr.push(user)
     }
-    puts response
-    JSON.pretty_generate(response)
+    responseArr.to_json
   end
 
 # - POST data -----------------------------------------------

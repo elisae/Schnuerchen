@@ -433,12 +433,14 @@ document.onkeydown = function (event) {
             counter_right++;
             counter++;
             score = score + score_right;
+            feedbackRight();
         } else {
             result_line.innerHTML = "Falsch! Richtig wäre: " + result;
             user_input.value = "";
             counter_wrong++;
             counter++;
             score = score - score_wrong;
+            feedbackWrong();
         }
         score_control();
         document.getElementById('score').innerHTML = score;

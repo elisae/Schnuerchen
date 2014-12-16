@@ -368,15 +368,16 @@ document.onkeydown = function (event) {
             user_input.value = "";
             counter_right++;
             score = score + score_right;
+            feedbackRight();
         } else {
             result_line.innerHTML = "Falsch! Richtig wäre: " + result;
             user_input.value = "";
             counter_wrong++;
+            feedbackWrong();
         }
 
         score_control();
         document.getElementById('score').innerHTML = score;
-
 
         create_numbers();
 

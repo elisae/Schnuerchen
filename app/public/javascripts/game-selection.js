@@ -14,32 +14,34 @@ $(document).ready(function(){
 
     var reqUrl = null;
 
+    var slideTime = 500;
+
 
     operators.click(function(event){
         if(rangeShown){
-            $("#"+secondParentId+"games").slideUp('slow');
+            $("#"+secondParentId+"games").slideUp(slideTime);
         }
         if(operatorsShown){
-            $("#"+firstParentId+"range").slideUp('slow',function(){
+            $("#"+firstParentId+"range").slideUp(slideTime,function(){
                 firstParentId = event.target.id;
-                $("#"+firstParentId+"range").slideDown('slow');
+                $("#"+firstParentId+"range").slideDown(slideTime);
             });
         }else{
             firstParentId = event.target.id;
-            $("#"+firstParentId+"range").slideDown('slow');
+            $("#"+firstParentId+"range").slideDown(slideTime);
             operatorsShown = true;
         }
     });
 
     range.click(function(event){
         if(rangeShown){
-            $("#"+secondParentId+"games").slideUp('slow',function(){
+            $("#"+secondParentId+"games").slideUp(slideTime,function(){
                 secondParentId = event.target.id;
-                $("#"+secondParentId+"games").slideDown('slow');
+                $("#"+secondParentId+"games").slideDown(slideTime);
             });
         }else{
             secondParentId = event.target.id;
-            $("#"+secondParentId+"games").slideDown('slow');
+            $("#"+secondParentId+"games").slideDown(slideTime);
             rangeShown = true;
         }
 

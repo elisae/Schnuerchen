@@ -11,14 +11,26 @@ var friendProfil = $("#friendProfil");
 /* Freundessuche */
 
 var input = $("#friendsearchinput");
+var responseDiv = $("#responseDiv");
 
 function searchFriend(){
     var query = input.val();
 
+    if(query.length==0){
+        responseDiv.html("");
+    }
+
     $.get(
         "/search/"+query,
         function(msg){
-            console.log("lol");
+            var resultString = "";
+
+            for(i=0;i<msg.length;i++){
+                var str =  msg[i]["username"];
+                resultString = resultString + "<li><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+ "</li>"
+            }
+            responseDiv.html(resultString)
+
         }
     );
 };
