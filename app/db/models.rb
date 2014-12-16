@@ -274,6 +274,8 @@ User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de",
 
 Friend.create(:user_id=>"1", :friend_id=>"2")
 Friend.create(:user_id=>"1", :friend_id=>"3")
+Friend.create(:user_id=>"2", :friend_id=>"1")
+Friend.create(:user_id=>"3", :friend_id=>"1")
 Friend.create(:user_id=>"1", :friend_id=>"4")
 Friend.create(:user_id=>"2", :friend_id=>"3")
 
