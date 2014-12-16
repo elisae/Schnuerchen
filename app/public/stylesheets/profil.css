@@ -26,19 +26,39 @@ hr{
     height: 65vh;
 }
 
+#trophies .gametypes {
+    line-height: 2em;
+}
+
 #page-info{
     margin-top: 2%;
     text-align: center;
 }
 
 .trophy{
-    margin: 1%;
+/*    margin: 1%;
     vertical-align: middle;
     text-align: center;
     padding: 6%;
     border-radius: 0;
     background-color: #FFA726;
-    height: 100%;
+    height: 100%;*/
+
+    border-radius: 100%;
+    background-color: black;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.trophy.won[data-pod="1"] {
+    background-color: yellow;
+}
+.trophy.won[data-pod="2"] {
+    background-color: grey;
+}
+.trophy.won[data-pod="3"] {
+    background-color: brown;
 }
 
 :focus {

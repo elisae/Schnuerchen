@@ -23,47 +23,62 @@
 
               <!-- Indicators -->
               <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-                <li data-target="#myCarousel" data-slide-to="3"></li>
+                  
+                  <% i = 0 %>
+                  <% @gamecategories.each do |cat| %>
+                    <% if (i == 0) %>
+                      <li data-target="#myCarousel" data-slide-to="<%= i %>" class="active"></li>
+                    <% else %>
+                      <li data-target="#myCarousel" data-slide-to="<%= i %>"></li>
+                    <% end %>
+                    <% i+= 1 %>
+                  <% end %>
+
               </ol>
 
               <!-- Wrapper for Slides -->
               <div class="carousel-inner">
-                <div class="item active">
-                  <!-- Set the first background image using inline CSS below. -->
-                  <div class="fill"></div>
-                  <div class="carousel-caption">
-                    <h2>Addition</h2>
-                    <% if @trophies.empty? %>
-                        <p>noch keine trophäen</p>
+          
+                  <% i = 0 %>
+                  <% @gamecategories.each do |cat| %>
+                    <% if (i == 0) %>
+                      <div class="item active">
                     <% else %>
-                        <p><%= "#{@trophies[3][0]}"%> </p>
+                      <div class="item">
                     <% end %>
-                  </div>
-                </div>
-                <div class="item">
-                  <!-- Set the second background image using inline CSS below. -->
-                  <div class="fill"></div>
-                  <div class="carousel-caption">
-                    <h2>Subtraktion</h2>
-                  </div>
-                </div>
-                <div class="item">
-                  <!-- Set the third background image using inline CSS below. -->
-                  <div class="fill"></div>
-                  <div class="carousel-caption">
-                    <h2>Multiplikation</h2>
-                  </div>
-                </div>
-                <div class="item">
-                  <!-- Set the third background image using inline CSS below. -->
-                  <div class="fill"></div>
-                  <div class="carousel-caption">
-                    <h2>Division</h2>
-                  </div>
-                </div>
+
+                      <div class="fill"></div>
+                      <div class="carousel-caption">
+                        <h2> <%= cat[:descr]  %></h2>
+                        <% unless cat[:ranges] == nil %>
+                          <% cat[:ranges].each do |range| %>
+                            <h4><%= range[:name] %> </h4>
+                            <div class="row gametypes">
+                              
+                              <% unless range[:types] == nil %>
+                                <% range[:types].each do |type| %>
+                                  <div class="col-md-6 col-sm-3 col-xs-12 gamename">
+                                    <%= type[:name] %>
+                                  </div>
+                                  <div class="col-md-6 col-sm-3 col-xs-12 gametrophies">
+                                    <div class="trophy" data-pod="3">3</div>
+                                    <div class="trophy" data-pod="2">2</div>
+                                    <div class="trophy" data-pod="1">1</div>
+                                  </div>
+                                <% end %>
+                              <% end %>
+                              <p></p>
+                              <p></p>
+                            
+                            </div>
+                          <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <% i+= 1 %>
+                  <% end %>
+
               </div>
 
               <!-- Controls -->

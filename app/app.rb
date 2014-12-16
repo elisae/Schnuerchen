@@ -43,8 +43,9 @@ class App < Sinatra::Base
 		if login?
 			if "#{session[:u_id]}" == params[:u_id]
 				@user = User.find(:id=>params[:u_id]).to_hash
-        @friendinfo = getFriendsInfo
+        		@friendinfo = getFriendsInfo
 				@trophies = getUserTrophies(session[:u_id])
+				@gamecategories = getGameCategories()
 				erb :profil
 			end
 		else
