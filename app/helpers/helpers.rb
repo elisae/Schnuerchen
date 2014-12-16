@@ -32,12 +32,27 @@ end
 
 def getFriendsInfo
   friendinfo = Array.new
-  friends = Friend.where(:user_id=>params[:u_id]).all.map{ |friend|
+
+  friends = Array.new
+  friendsArr = Array.new
+  friendsAddedArr = Array.new
+  friendRequestsArr = Array.new
+
+  Friend.where(:user_id=>params[:u_id]).or(:friend_id=>params[:u_id]).map{|friend|
     friend.to_hash
-    friendinfo.push(User.where(:id=>friend[:friend_id]).all.map{ |info|
+    friends.push(friend)
+  }
+  puts friends
+
+=begin
+  friends = Friend.where(:user_id=>params[:u_id]).or(:friend_id=>params[:u_id]).sql.all.map{ |friend|
+    friend.to_hash
+    puts friend.to_hash
+    friendinfo.push(User.where(:id=>friend[:friend_id]).select(:id,:username).map{ |info|
       info.to_hash
     })
   }
+=end
   return friendinfo
 end
 

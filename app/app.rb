@@ -101,7 +101,7 @@ class App < Sinatra::Base
     query = params[:query]
     responseArr = Array.new
     content_type :json
-    response = User.where(Sequel.like(:username, query + '%')).select(:username).map{ |user|
+    response = User.where(Sequel.like(:username, query + '%')).select(:id,:username).map{ |user|
       user.to_hash
       responseArr.push(user)
     }
@@ -131,6 +131,12 @@ class App < Sinatra::Base
 					:email=>params[:email], 
 					:password=>params[:password])
 		puts "user angelegt"
+  end
+
+  post "/add/:id" do
+    Friend.create(:user_id=>session[:u_id],
+      :friend_id=>params[:id])
+    puts "#{session[:u_id]} und #{params[:id]} sind jetzt freunde =)"
   end
 
 end
