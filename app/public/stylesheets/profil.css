@@ -45,20 +45,25 @@ hr{
     height: 100%;*/
 
     border-radius: 100%;
-    background-color: black;
+    background-color: white;
+    border: 1px dotted grey;
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
 }
 
 .trophy.won[data-pod="1"] {
-    background-color: yellow;
+    background-color: #FFC23D;
 }
 .trophy.won[data-pod="2"] {
-    background-color: grey;
+    background-color: #CBD1D2;
 }
 .trophy.won[data-pod="3"] {
-    background-color: brown;
+    background-color: #D77950;
+}
+
+.trophy.won {
+    border: 0;
 }
 
 :focus {
