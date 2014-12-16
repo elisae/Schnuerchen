@@ -240,7 +240,7 @@ hr{
                         vertical-align: middle;
                         margin: auto;
                         height: 70%;
-                        width: 95%;
+                        width: 100%;
                         position: absolute !important;
                         z-index: 20;
                         background-image: url(/images/landingpage/about-background.png);

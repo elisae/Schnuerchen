@@ -8,7 +8,6 @@ body {
     width: 100%;
     height: 100%;
     font-family: 'Quicksand', sans-serif;
-
     color: #fff;
     background-color: #000;
 }
@@ -54,7 +53,7 @@ a {
 a:hover,
 a:focus {
     text-decoration: none;
-    color: #11505d;
+    color: rgba(255,255,255,.6);
 }
 
 .light {
@@ -86,6 +85,7 @@ a:focus {
 .navbar-custom .navbar-brand .navbar-toggle:focus,
 .navbar-custom .navbar-brand .navbar-toggle:active {
     outline: 0;
+    background-color: rgba(255,255,255,.6);
 }
 
 .navbar-custom a {
@@ -109,7 +109,7 @@ a:focus {
 .navbar-custom .nav li a:focus,
 .navbar-custom .nav li a.active {
     outline: 0;
-    background-color: rgba(77, 208, 225,0.8);
+    background-color: #ffa726;
 }
 
 @media(min-width:767px) {
@@ -130,7 +130,7 @@ a:focus {
     }
 
     .navbar-custom.top-nav-collapse {
-        border-bottom: 1px solid rgba(255,255,255,.3);
+        border-bottom: 1px solid rgba(255,255,255,.6);
     }
 }
 
@@ -141,18 +141,20 @@ a:focus {
     opacity: 0.9;
     text-align: center;
     background-color: #ffa726;
+    padding: 5%;
 }
 
 .form-control{
     text-align: center;
-    padding: 2%;
+
 }
 
 .input-lg{
     color: black;
+
 }
 
-        /* --------- ENDE NAVBAT -------*/
+        /* --------- ENDE NAVBAR -------*/
 
 .intro {
     display: table;
@@ -240,6 +242,7 @@ a:focus {
 
 
 #intro-bulb{
+    z-index: 1;
     background-image: url(../../images/landingpage/intro-bulb.png);
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -251,9 +254,17 @@ a:focus {
 }
 
 #intro-box{
+    z-index: 2;
+    position: absolute;
     margin-top: 35%;
     background-color: #ffa726;
     width: 100%;
+}
+
+#tellMore{
+    margin-top: -2%;
+    padding: 1.5%;
+    font-size: 170%;
 }
 
 .intro-text{
@@ -266,49 +277,6 @@ a:focus {
     min-height: 100%;
     overflow: hidden;
 }
-
-
-
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 320px),
-only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 320px),
-only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 320px),
-only screen and (        min-device-pixel-ratio: 2)      and (min-width: 320px),
-only screen and (                min-resolution: 192dpi) and (min-width: 320px),
-only screen and (                min-resolution: 2dppx)  and (min-width: 320px) {
-
-}
-
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 560px),
-only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 560px),
-only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 560px),
-only screen and (        min-device-pixel-ratio: 2)      and (min-width: 560px),
-only screen and (                min-resolution: 192dpi) and (min-width: 560px),
-only screen and (                min-resolution: 2dppx)  and (min-width: 560px) {
-}
-
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 700px),
-only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 700px),
-only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 700px),
-only screen and (        min-device-pixel-ratio: 2)      and (min-width: 700px),
-only screen and (                min-resolution: 192dpi) and (min-width: 700px),
-only screen and (                min-resolution: 2dppx)  and (min-width: 700px) {
-}
-
-
-@media
-only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 1300px),
-only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 1300px),
-only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 1300px),
-only screen and (        min-device-pixel-ratio: 2)      and (min-width: 1300px),
-only screen and (                min-resolution: 192dpi) and (min-width: 1300px),
-only screen and (                min-resolution: 2dppx)  and (min-width: 1300px) {
-}
-
-
-
 
 #about {
     width: 100%;
@@ -473,3 +441,47 @@ img::-moz-selection {
 body {
     webkit-tap-highlight-color: rgba(255,255,255,.2);
 }
+
+
+
+/*------------------------some stuff i might need------------------------
+@media
+
+only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 320px),
+only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 320px),
+only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 320px),
+only screen and (        min-device-pixel-ratio: 2)      and (min-width: 320px),
+only screen and (                min-resolution: 192dpi) and (min-width: 320px),
+only screen and (                min-resolution: 2dppx)  and (min-width: 320px) {
+
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 560px),
+only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 560px),
+only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 560px),
+only screen and (        min-device-pixel-ratio: 2)      and (min-width: 560px),
+only screen and (                min-resolution: 192dpi) and (min-width: 560px),
+only screen and (                min-resolution: 2dppx)  and (min-width: 560px) {
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 700px),
+only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 700px),
+only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 700px),
+only screen and (        min-device-pixel-ratio: 2)      and (min-width: 700px),
+only screen and (                min-resolution: 192dpi) and (min-width: 700px),
+only screen and (                min-resolution: 2dppx)  and (min-width: 700px) {
+}
+
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 1300px),
+only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 1300px),
+only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 1300px),
+only screen and (        min-device-pixel-ratio: 2)      and (min-width: 1300px),
+only screen and (                min-resolution: 192dpi) and (min-width: 1300px),
+only screen and (                min-resolution: 2dppx)  and (min-width: 1300px) {
+}
+
+--------------------------------------------------------------------------------*/
