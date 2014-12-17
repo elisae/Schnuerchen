@@ -48,7 +48,8 @@ class App < Sinatra::Base
 
       if "#{session[:u_id]}" == params[:u_id]
         @friends = getFriendsInfo(session[:u_id])
-        @friendReqsOut = getRequests(session[:u_id])
+        @friendReqsOut = getReqsOut(session[:u_id])
+        @friendReqsIn = getReqsIn(session[:u_id])
 				@trophies = getUserTrophies(session[:u_id])
 				@gamecategories = getGameCategories()
 				erb :profil
@@ -143,7 +144,7 @@ class App < Sinatra::Base
 	  end
 
 	  post "/add/:id" do
-	    puts "#{session[:u_id]} und #{params[:id]} sind jetzt freunde =)"
+      Friendship.create(:friends_with_id => session[:u_id] ,:friend_of_id=> params[:id])
 	end
 
 end
