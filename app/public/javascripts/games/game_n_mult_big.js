@@ -116,8 +116,15 @@ $(document).ready(function(){
 });
 
 function create_numbers(){
-    z1_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
-    z2_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+    if(Math.random() < 0.5){
+        z1_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+        z2_n = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+    }else{
+        z1_n = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+        z2_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+    }
+
+
     result = z1_n * z2_n;
 }
 
