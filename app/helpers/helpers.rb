@@ -46,7 +46,6 @@ def friends?(user_id, friend_id)
 		end
 end
 
-
 def getGameCategories
 	operators = Operator.map { |op|
 		ranges = op.gameranges.map { |gr|
@@ -70,8 +69,30 @@ def getGameCategories
 	return operators
 end
 
-def getFriendsInfo
+def getFriendsInfo(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{|user|
+      if friends?(userId,user[:id]) == 3
+        user.to_hash
+      end
+    }
+  end
+end
 
+def getRequests(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{ |user|
+      if friends?(userId,user[:id]) == 1
+        user.to_hash
+      end
+    }
+  end
 end
 
 def addTrophy(user_id, game_id, score)

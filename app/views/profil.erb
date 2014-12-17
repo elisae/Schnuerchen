@@ -111,12 +111,19 @@
 
               <div id="responseDiv" class="friendList" ></div>
               <ul>
-                <% if @friendinfo.nil?|| @friendinfo.empty? %>
-                    <p>KEINE FREUNDE HAHA</p>
+                <% if @friends.nil? && @friendReqsOut.nil? %>
+                    <p>Noch keine Freunde. Gib oben den Namen ein, um nach Freunden zu suchen</p>
                 <% else %>
-                    <% @friendinfo.each do |friend|%>
-                        <li><%= friend[0][:username] %></li>
+                    <% @friends.each do |friend|%>
+                        <% unless friend.nil? %>
+                            <a href="/users/<%= friend[:id] %>/profil"><li><%= friend[:username] %></li></a>
+                        <% end %>
                     <% end %>
+                    <% @friendReqsOut.each do |reqs|
+                        unless reqs.nil? %>
+                          <a href="/users/<%= reqs[:id] %>/profil"><li style="background-color:black"><%= reqs[:username] %></li></a>
+                        <%end
+                       end %>
                 <% end %>
               </ul>
             </div>

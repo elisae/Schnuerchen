@@ -46,10 +46,6 @@ $(document).ready(function() {
         $(this).removeClass(colours[0]);
     });
 
-    friends.click(function(){
-       friendProfil.fadeIn("slow");
-    });
-
     $("#hideFriendProfil").click(function(){
         friendProfil.fadeOut("slow");
     });
