@@ -27,28 +27,14 @@ function searchFriend(){
 
             for(i=0;i<msg.length;i++){
                 var str =  msg[i]["username"];
-                resultString = resultString + "<li><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+ "<input type='button' value='+'  id='"+ msg[i]["id"] +"'></li>"
+                resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
             }
             responseDiv.html(resultString);
-
-            var listElements = document.getElementsByClassName("addFriend");
-
-            for(i=0;i<listElements.length;i++){
-                listElements[i].onclick = "addFriend()";
-            }
         }
     );
 };
 
-/* This function gets called if you add a Friend */
 
-var friendList = $(".friendList");
-
-friendList.click(function(event){
-    $.post(
-        "/add/"+event.target.id
-    )
-});
 
 $(document).ready(function() {
 
@@ -60,13 +46,21 @@ $(document).ready(function() {
         $(this).removeClass(colours[0]);
     });
 
-    friends.click(function(){
-       friendProfil.fadeIn("slow");
-    });
-
     $("#hideFriendProfil").click(function(){
         friendProfil.fadeOut("slow");
     });
 
+    /* This function gets called if you add a Friend */
+
+    var addBtn = $(".addBtn");
+
+    addBtn.click(function(event){
+        $.post(
+                "/add/"+event.target.id,
+            function(){
+                alert("Anfrage geschickt");
+            }
+        )
+    });
 
 });

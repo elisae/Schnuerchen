@@ -9,7 +9,10 @@ class App < Sinatra::Base
 
 
 # - General -----------------------------------------------
-
+	
+	not_found do
+		redirect "/404.html"
+	end
 
 	get "/" do
 		redirect "/index.html"
@@ -25,7 +28,7 @@ class App < Sinatra::Base
 			session[:u_id] = @user[:id]
 			redirect "/games"
 		else
-			"Login failed"
+			redirect "/index.html"
 		end
 	end
 
@@ -41,12 +44,16 @@ class App < Sinatra::Base
 
 	get "/users/:u_id/profil" do
 		if login?
-			if "#{session[:u_id]}" == params[:u_id]
-				@user = User.find(:id=>params[:u_id]).to_hash
-        		@friendinfo = getFriendsInfo
+      @user = User.find(:id=>params[:u_id]).to_hash
+
+      if "#{session[:u_id]}" == params[:u_id]
+        @friends = getFriendsInfo(session[:u_id])
+        @friendReqsOut = getRequests(session[:u_id])
 				@trophies = getUserTrophies(session[:u_id])
 				@gamecategories = getGameCategories()
 				erb :profil
+      else
+        erb :user
 			end
 		else
 			"Not logged in"
@@ -122,6 +129,8 @@ class App < Sinatra::Base
 		puts "Game inserted"
 	end
 
+
+# TODO automatischer LOGIN
 	post "/api/user" do
 		params.each { |p|
 			puts p
@@ -131,12 +140,10 @@ class App < Sinatra::Base
 					:email=>params[:email], 
 					:password=>params[:password])
 		puts "user angelegt"
-  end
+	  end
 
-  post "/add/:id" do
-    Friend.create(:user_id=>session[:u_id],
-      :friend_id=>params[:id])
-    puts "#{session[:u_id]} und #{params[:id]} sind jetzt freunde =)"
-  end
+	  post "/add/:id" do
+	    puts "#{session[:u_id]} und #{params[:id]} sind jetzt freunde =)"
+	end
 
 end
