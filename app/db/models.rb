@@ -206,6 +206,10 @@ class Game < Sequel::Model(:games)
 				pod[0] = 90
 				pod[1] = 60
 				pod[2] = 30
+			when "choice"
+				pod[0] = 90
+				pod[1] = 60
+				pod[2] = 30
 			else
 				pod[0] = 1000
 				pod[1] = 500

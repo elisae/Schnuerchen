@@ -54,7 +54,10 @@ def getGameCategories
 				op_name = op.name
 				gr_name = gr.name
 				gt_name = gt.name
-				game_id = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name).id
+				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name)
+				unless (game == nil) 
+					game_id = game.id
+				end
 				gt.to_hash.merge(:game_id => game_id)
 			}
 			unless types.any?
