@@ -31,7 +31,7 @@ class User < Sequel::Model(:users)
 	many_to_many :trophies
 
 	many_to_many :friends_with, :left_key=>:friends_with_id, :right_key=>:friend_of_id, :join_table=>:friendships, :class=>self
-  	many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
+  many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
 
 	def self.create(values = {}, &block)
 		puts "New User: #{values[:username]}"
@@ -202,6 +202,10 @@ class Game < Sequel::Model(:games)
 				pod[0] = 100
 				pod[1] = 40
 				pod[2] = 20
+			when "choice"
+				pod[0] = 100
+				pod[1] = 40
+				pod[2] = 20	
 			when "marathon"
 				pod[0] = 90
 				pod[1] = 60
@@ -347,13 +351,66 @@ Operator.create(:name=>"mix", :descr=>"Alle gemischt",:long_descr =>"Rechne mit 
 
 # - GAMES ----------------------------------------
 
-Game.create(:name=>"multiplechoice_dummy", 
-			:filename=>"multiplechoice_dummy.js", 
+# Choice Addi--------------------------------
+Game.create(:name=>"Choice Addi 20", 
+			:filename=>"game_choice_addi_20.js", 
+			:operator=>"addi", 
+			:gamerange=>"20", 
+			:gametype=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Choice Addi 100", 
+			:filename=>"game_choice_addi_100.js", 
+			:operator=>"addi", 
+			:gamerange=>"100", 
+			:gametype=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Score Addi ------------------------------------------
+Game.create(:name=>"Addi 10", 
+			:filename=>"game_n_addi_10.js", 
 			:operator=>"addi", 
 			:gamerange=>"10", 
 			:gametype=>"score", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Addi 20", 
+			:filename=>"game_n_addi_20.js", 
+			:operator=>"addi", 
+			:gamerange=>"20", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Addi 100", 
+			:filename=>"game_n_addi_100.js", 
+			:operator=>"addi", 
+			:gamerange=>"100", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Score Subt -------------------------------------------
+Game.create(:name=>"Subt 10", 
+			:filename=>"game_n_subt_10.js", 
+			:operator=>"subt", 
+			:gamerange=>"10", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Subt 20", 
+			:filename=>"game_n_subt_20.js", 
+			:operator=>"subt", 
+			:gamerange=>"20", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Subt 100", 
+			:filename=>"game_n_subt_100.js", 
+			:operator=>"subt", 
+			:gamerange=>"100", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Score Mult -------------------------------------
 Game.create(:name=>"Mult Small", 
 			:filename=>"game_n_mult_small.js", 
 			:operator=>"mult", 
@@ -361,17 +418,147 @@ Game.create(:name=>"Mult Small",
 			:gametype=>"score", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
-Game.create(:name=>"marathon_dummy", 
-			:filename=>"marathon_game_dummy_v1.js", 
+Game.create(:name=>"Mult Big", 
+			:filename=>"game_n_mult_big.js", 
+			:operator=>"mult", 
+			:gamerange=>"big", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Score Divi -------------------------------------
+Game.create(:name=>"Divi Small", 
+			:filename=>"game_n_divi_small.js", 
+			:operator=>"divi", 
+			:gamerange=>"small", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Divi Big", 
+			:filename=>"game_n_divi_big.js", 
+			:operator=>"divi", 
+			:gamerange=>"big", 
+			:gametype=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Marathon Addi ----------------------------------------
+Game.create(:name=>"Marathon Addi 20", 
+			:filename=>"game_marathon_addi_20.js", 
+			:operator=>"addi", 
+			:gamerange=>"20", 
+			:gametype=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Marathon Addi 100", 
+			:filename=>"game_marathon_addi_100.js", 
+			:operator=>"addi", 
+			:gamerange=>"100", 
+			:gametype=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Marathon Subt ------------------------------------------
+Game.create(:name=>"Marathon Subt 20", 
+			:filename=>"game_marathon_subt_20.js", 
+			:operator=>"subt", 
+			:gamerange=>"20", 
+			:gametype=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Marathon Subt 100", 
+			:filename=>"game_marathon_subt_100.js", 
+			:operator=>"subt", 
+			:gamerange=>"100", 
+			:gametype=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Marathon Mult -------------------------------------------
+Game.create(:name=>"Marathon Mult Small", 
+			:filename=>"game_marathon_mult_small.js", 
 			:operator=>"mult", 
 			:gamerange=>"small", 
 			:gametype=>"marathon", 
-			:scoretype=>"seconds", 
+			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
-Game.create(:name=>"time_dummy", 
-			:filename=>"time_game_dummy.js", 
+Game.create(:name=>"Marathon Mult Big", 
+			:filename=>"game_marathon_mult_big.js", 
+			:operator=>"mult", 
+			:gamerange=>"big", 
+			:gametype=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Marathon Div -------------------------------------------
+Game.create(:name=>"Marathon Divi Small", 
+			:filename=>"game_marathon_divi_small.js", 
+			:operator=>"divi", 
+			:gamerange=>"small", 
+			:gametype=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Marathon Mult Big", 
+			:filename=>"game_marathon_divi_big.js", 
+			:operator=>"divi", 
+			:gamerange=>"big", 
+			:gametype=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Time Addi -----------------------------------------------
+
+Game.create(:name=>"Time Addi 20", 
+			:filename=>"game_time_addi_20.js", 
+			:operator=>"addi", 
+			:gamerange=>"20", 
+			:gametype=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Time Addi 100", 
+			:filename=>"game_time_addi_100.js", 
+			:operator=>"addi", 
+			:gamerange=>"100", 
+			:gametype=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Time Subt -----------------------------------------------
+
+Game.create(:name=>"Time Subt 20", 
+			:filename=>"game_time_subt_20.js", 
+			:operator=>"subt", 
+			:gamerange=>"20", 
+			:gametype=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Time Subt 100", 
+			:filename=>"game_time_subt_100.js", 
+			:operator=>"subt", 
+			:gamerange=>"100", 
+			:gametype=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Time Mult ---------------------------------------------
+Game.create(:name=>"Time Mult Small", 
+			:filename=>"game_time_mult_small.js", 
 			:operator=>"mult", 
 			:gamerange=>"small", 
+			:gametype=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Time Mult Big", 
+			:filename=>"game_time_mult_big.js", 
+			:operator=>"mult", 
+			:gamerange=>"big", 
+			:gametype=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Time Divi ---------------------------------------------
+Game.create(:name=>"Time Divi Small", 
+			:filename=>"game_time_divi_small.js", 
+			:operator=>"divi", 
+			:gamerange=>"small", 
+			:gametype=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Time Divi Big", 
+			:filename=>"game_time_divi_big.js", 
+			:operator=>"divi", 
+			:gamerange=>"big", 
 			:gametype=>"time", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")

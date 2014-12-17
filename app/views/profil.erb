@@ -111,13 +111,30 @@
 
               <div id="responseDiv" class="friendList" ></div>
               <ul>
-                <% if @friendinfo.nil?|| @friendinfo.empty? %>
-                    <p>KEINE FREUNDE HAHA</p>
+                <% if @friends.nil? %>
+                    <p>Noch keine Freunde. Gib oben den Namen ein, um nach Freunden zu suchen</p>
                 <% else %>
-                    <% @friendinfo.each do |friend|%>
-                        <li><%= friend[0][:username] %></li>
+                    <% @friends.each do |friend|%>
+                        <% unless friend.nil? %>
+                            <a href="/users/<%= friend[:id] %>/profil"><li><%= friend[:username] %></li></a>
+                        <% end %>
                     <% end %>
                 <% end %>
+                <% if !@friendReqsOut.nil? %>
+                    <% @friendReqsOut.each do |reqsOut|
+                        unless reqsOut.nil? %>
+                          <a href="/users/<%= reqsOut[:id] %>/profil"><li style="background-color:black"><%= reqsOut[:username] %></li></a>
+                        <%end
+                       end
+                    end %>
+                <% if !@friendReqsIn.nil? %>
+                    <% @friendReqsIn.each do |reqsIn|
+                        unless reqsIn.nil? %>
+                          <li style="background-color:white"><a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a><input id = "<%= reqsIn[:id] %>"type ="button" value="+" class="addBtn" onclick="window.location.reload()"></li>
+                    <% end
+                      end
+                   end %>
+
               </ul>
             </div>
 

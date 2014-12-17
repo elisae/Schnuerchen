@@ -17,13 +17,13 @@
 
 //-------------------------------------SETTINGS----------------------------------\\
 var quantity = 10;                  //How many tasks are there
-var lower_bound = 1;                //lower number bound
-var upper_bound = 10;  //100       //upper number bound
+var lower_bound = 10;                //lower number bound
+var upper_bound = 20;  //100       //upper number bound
 
 var score_right = 10;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
-var timer = 5;
+var timer = 60;
 
 //-----------------------------------END SETTINGS----------------------------------\\
 
@@ -106,9 +106,18 @@ $(document).ready(function(){
 });
 
 function create_numbers(){
-    z1_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
-    z2_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
-    result = z1_n * z2_n;
+    if(Math.random() < 0.5){
+        z1_n = Math.floor((Math.random() * 10) + 1);
+        z2_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+    }else{
+
+        z1_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+        z2_n = Math.floor((Math.random() * 10) + 1);
+    }
+
+    result = z1_n;
+
+    z1_n = z1_n * z2_n;
 }
 
 
@@ -170,7 +179,7 @@ function init_game(){
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
     game_line.className = "game-elements";
-    game_line.innerHTML = "<span id='z1'></span><span id='operator'> ⋅ </span><span id='z2'></span>";
+    game_line.innerHTML = "<span id='z1'></span><span id='operator'> : </span><span id='z2'></span>";
 
     game_div.appendChild(game_line);
 
