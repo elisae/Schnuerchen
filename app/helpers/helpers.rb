@@ -89,13 +89,26 @@ def getFriendsInfo(userId)
   end
 end
 
-def getRequests(userId)
+def getReqsOut(userId)
   user = User.find(:id => userId)
   if user.friends_with.empty?
     nil
   else
     user.friends_with.map{ |user|
       if friends?(userId,user[:id]) == 1
+        user.to_hash
+      end
+    }
+  end
+end
+
+def getReqsIn(userId)
+  user = User.find(:id => userId)
+  if user.friend_of.empty?
+    nil
+  else
+    user.friend_of.map{ |user|
+      if friends?(userId,user[:id]) == 2
         user.to_hash
       end
     }
