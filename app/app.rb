@@ -44,12 +44,15 @@ class App < Sinatra::Base
 
 	get "/users/:u_id/profil" do
 		if login?
-			if "#{session[:u_id]}" == params[:u_id]
-				@user = User.find(:id=>params[:u_id]).to_hash
-        		@friendinfo = getFriendsInfo
+      @user = User.find(:id=>params[:u_id]).to_hash
+
+      if "#{session[:u_id]}" == params[:u_id]
+        @friendinfo = getFriendsInfo
 				@trophies = getUserTrophies(session[:u_id])
 				@gamecategories = getGameCategories()
 				erb :profil
+      else
+        erb :user
 			end
 		else
 			"Not logged in"
@@ -139,8 +142,6 @@ class App < Sinatra::Base
 	  end
 
 	  post "/add/:id" do
-	    Friend.create(:user_id=>session[:u_id],
-	      :friend_id=>params[:id])
 	    puts "#{session[:u_id]} und #{params[:id]} sind jetzt freunde =)"
 	end
 
