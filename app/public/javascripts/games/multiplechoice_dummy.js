@@ -12,7 +12,7 @@
  * User: Willi.Minet
  * Date: 18.11.14
  * Time: 22:55
- * Version: 1.4
+ * Version: 1.6
  * To change this template use File | Settings | File Templates.
  *
  *Version
@@ -29,7 +29,10 @@
  * 1.5
  * better fake results
  * countdown before the gme starts
- *
+ *1.6
+ *better stop_watch
+ *fixed end_game_stats
+ * red and green flashes in the game
  */
 
 
@@ -49,6 +52,7 @@ var score_time_influence = 7000;    //score-formula: counter_right * score_right
 //-----------------------------------DECLARATIONS-----------------------------------\\
 var game_is_running = false;
 var game_is_paused = false;
+var game_left = false;
 
 var score = 0;
 var counter = 0;
@@ -338,7 +342,7 @@ function init_game(){
     var stop_watch = document.createElement('h2');
     stop_watch.id='stop_watch';
     stop_watch.className = "game-elements";
-    stop_watch.innerHTML = "<span id='sw_min'>00</span>:<span id='sw_s'>00</span>:<span id='sw_ms'>00</span>";
+    stop_watch.innerHTML = "<span id='sw_min'>0</span>:<span id='sw_s'>00</span>";
     game_div.appendChild(stop_watch);
 
 
@@ -501,18 +505,44 @@ function reset_game(){
 
     document.getElementById('sw_min').innerHTML = "00";
     document.getElementById('sw_s').innerHTML = "00";
-    document.getElementById('sw_ms').innerHTML = "00";
+
 
     document.getElementById('score').innerHTML = score;
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
 
-    document.getElementById('results_right').innerHTML = counter_right;
-    document.getElementById('results_wrong').innerHTML = counter_wrong;
+    if(counter_wrong == 0){
+        document.getElementById('end_game_stats').innerHTML = "<h1>Du hast alle <span id='results_right'></span> Aufgaben richtig</h1>" +
+            "                   <p>Super Leistung! <span id='results_wrong'></span></p>" +
+            "                   <p>Zeit: <span id='results_time'></span> Sekunden</p>" +
+            "                   <p>Punkte: <span id='results_score'></span></p> " +
+            "                   <p id='result_message'></p>";
+        document.getElementById('results_right').innerHTML = counter_right;
+    }else if(counter_wrong == quantity){
+        document.getElementById('end_game_stats').innerHTML = "<h1>Du hast keine der <span id='results_wrong'></span> Aufgaben richtig</h1>" +
+            "                   <p>Es ist noch kein Meister vom Himmel gefallen.</p>" +
+            "                   <p>Zeit: <span id='results_time'></span> Sekunden</p>" +
+            "                   <p>Punkte: <span id='results_score'></span></p> " +
+            "                   <p id='result_message'></p>";
+        document.getElementById('results_wrong').innerHTML = counter_wrong;
+    }else{
+        document.getElementById('end_game_stats').innerHTML = "<h1>Du hast <span id='results_right'></span> richtig</h1>" +
+            "                   <p>leider auch <span id='results_wrong'></span> falsch</p>" +
+            "                   <p>Zeit: <span id='results_time'></span> Sekunden</p>" +
+            "                   <p>Punkte: <span id='results_score'></span></p> " +
+            "                   <p id='result_message'></p>";
+        document.getElementById('results_wrong').innerHTML = counter_wrong;
+        document.getElementById('results_right').innerHTML = counter_right;
+    }
+
+
     document.getElementById('results_time').innerHTML = Math.round(time_needed/1000);
     document.getElementById('results_score').innerHTML = score;
 
-    postScore(score, $('#game').data('g_id'));
+    if(game_left == false){
+        postScore(score, $('#game').data('g_id'));
+    }
+
 
     //-------------------------------------------------------------------
     // Score into DB
@@ -526,12 +556,14 @@ function reset_game(){
     counter_wrong = 0;
     pause_time = 0;
     score_update_cooler = 0;
+    game_left = false;
 
     $(game_div).hide();
 
 }
 
 function leave_game(){
+    game_left = true;
     reset_game();
     document.getElementById('result_message').innerHTML="Spiel nicht zu Ende gespielt. Der Punktestand wird nicht gespeichert!";
     $(end_game_div).show();
@@ -647,8 +679,12 @@ function stopwatch(){
         }
 
         document.getElementById('sw_min').innerHTML = Math.floor(time_needed/60000);
-        document.getElementById('sw_s').innerHTML = Math.round(time_needed/1000)%60;
-        document.getElementById('sw_ms').innerHTML = Math.round(time_needed)%100;
+
+        if(Math.round(time_needed/1000)%60 < 10){
+            document.getElementById('sw_s').innerHTML ="0" + Math.round(time_needed/1000)%60;
+        }else{
+            document.getElementById('sw_s').innerHTML = Math.round(time_needed/1000)%60;
+        }
 
         if((Math.round(time_needed/1000) % (score_time_influence/1000)) == 0 && score_just_updated == false){
             score--;
@@ -659,7 +695,7 @@ function stopwatch(){
         }
 
 
-        setTimeout('stopwatch()',101);
+        setTimeout('stopwatch()',1000);
     }
 
 }

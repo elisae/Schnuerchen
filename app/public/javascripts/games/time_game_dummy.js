@@ -23,7 +23,7 @@ var upper_bound = 10;  //100       //upper number bound
 var score_right = 10;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
-var timer = 60;
+var timer = 5;
 
 //-----------------------------------END SETTINGS----------------------------------\\
 
@@ -76,6 +76,7 @@ var timer = 60;
 //-----------------------------------DECLARATIONS-----------------------------------\\
 var game_is_running = false;
 var game_is_paused = false;
+var game_left = false;
 
 var score = 0;
 var counter = 0;
@@ -279,11 +280,39 @@ function reset_game(){
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
 
-    document.getElementById('results_right').innerHTML = counter_right;
-    document.getElementById('results_wrong').innerHTML = counter_wrong;
+
+    if(counter_wrong == 0 && counter_right > 0){
+        document.getElementById('end_game_stats').innerHTML = "<h1>Du hast <span id='results_right'></span> Aufgaben in der Zeit richtig beantwortet!</h1>" +
+            "                   <p>Du hast keine Fehler gemacht. Spitze! <span id='results_wrong'></span></p>" +
+            "                   <p>Punkte: <span id='results_score'></span></p> " +
+            "                   <p id='result_message'></p>";
+        document.getElementById('results_right').innerHTML = counter_right;
+    }else if(counter_right == 0 && counter_wrong == 0){
+        document.getElementById('end_game_stats').innerHTML = "<h1>Du hast gar keine Aufgaben in der Zeit gerechnet!</span></h1>" +
+            "                   <p>So verdient man keine Medaillen.</p>" +
+            "                   <p>Punkte: <span id='results_score'></span></p> " +
+            "                   <p id='result_message'></p>";
+    }else if(counter_right == 0){
+        document.getElementById('end_game_stats').innerHTML = "<h1>Du hast keine der <span id='results_wrong'></span> Aufgaben in der Zeit richtig beantwortet!</h1>" +
+            "                   <p>Du musst wohl noch ein bisschen üben.</p>" +
+            "                   <p>Punkte: <span id='results_score'></span></p> " +
+            "                   <p id='result_message'></p>";
+        document.getElementById('results_wrong').innerHTML = counter_wrong;
+    }else{
+        document.getElementById('end_game_stats').innerHTML = "<h1>Du hast <span id='results_right'></span> richtig</h1>" +
+            "                   <p>leider auch <span id='results_wrong'></span> falsch</p>" +
+            "                   <p>Punkte: <span id='results_score'></span></p> " +
+            "                   <p id='result_message'></p>";
+        document.getElementById('results_wrong').innerHTML = counter_wrong;
+        document.getElementById('results_right').innerHTML = counter_right;
+    }
+
     document.getElementById('results_score').innerHTML = score;
 
-    postScore(score, $('#game').data('g_id'));
+    if(game_left == false){
+        postScore(score, $('#game').data('g_id'));
+    }
+
 
     //-------------------------------------------------------------------
     // Score into DB
@@ -297,6 +326,7 @@ function reset_game(){
     counter_wrong = 0;
     pause_time = 0;
     score_update_cooler = 0;
+    game_left = false;
 
     $("#game_div").hide();
 
@@ -304,6 +334,7 @@ function reset_game(){
 
 
 function leave_game(){
+    game_left = true;
     reset_game();
     document.getElementById('result_message').innerHTML="Spiel nicht zu Ende gespielt. Der Punktestand wird nicht gespeichert!";
 
@@ -390,39 +421,7 @@ document.onkeydown = function (event) {
     }
 
 };
-/*
- function stopwatch(){
 
- if(game_is_running && game_is_paused == false){
-
-
-
- var actual = new Date();
-
- time_needed = (actual.getTime() - start_time) - pause_time;
-
- if(score_just_updated == true && score_update_cooler < Math.round(time_needed/1000)){
- score_just_updated = false;
- }
-
- document.getElementById('sw_min').innerHTML = Math.floor(time_needed/60000);
- document.getElementById('sw_s').innerHTML = Math.round(time_needed/1000)%60;
- document.getElementById('sw_ms').innerHTML = Math.round(time_needed)%100;
-
- if((Math.round(time_needed/1000) % (score_time_influence/1000)) == 0 && score_just_updated == false){
- score--;
- score_control();
- score_just_updated = true;
- score_update_cooler = (Math.round(time_needed/1000) + 5);
- document.getElementById('score').innerHTML = score;
- }
-
-
- setTimeout('stopwatch()',101);
- }
-
- }
- */
 
 function set_visibility(id, v_bool){
 
@@ -466,7 +465,11 @@ function game_timer(time_left){
     if(time_left >= 0 && game_is_paused == false){
         document.getElementById('sw_min').innerHTML = "" + Math.floor(time_left / 60);
         var sec = time_left % 60;
-        document.getElementById('sw_s').innerHTML = "" + sec;
+        if(sec < 10){
+            document.getElementById('sw_s').innerHTML = "0" + sec;
+        }else{
+            document.getElementById('sw_s').innerHTML = "" + sec;
+        }
         time_left = time_left -1;
         actual_time_left = time_left;
         setTimeout('game_timer('+time_left+')', 1000);
@@ -502,6 +505,13 @@ function countdown(c){
         document.getElementById('c_w').innerHTML = counter_wrong;
         document.getElementById('score').innerHTML = score;
 
+        document.getElementById('sw_min').innerHTML = "" + Math.floor(timer / 60);
+        var sec = timer % 60;
+        if(sec < 10){
+            document.getElementById('sw_s').innerHTML = "0" + sec;
+        }else{
+            document.getElementById('sw_s').innerHTML = "" + sec;
+        }
 
         $("#game_div").show();
         $("#countdown_div").show();
