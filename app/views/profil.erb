@@ -47,9 +47,7 @@
                       <div class="item">
                     <% end %>
 
-                      <div class="fill"></div>
-                      <div class="carousel-caption">
-                        <h2> <%= cat[:descr]  %></h2>
+                      <div class="fill">
                         <% unless cat[:ranges] == nil %>
                           <% cat[:ranges].each do |range| %>
                             <h4><%= range[:name] %> </h4>
@@ -62,7 +60,11 @@
                                   </div>
                                   <div class="col-md-6 col-sm-3 col-xs-12 gametrophies"> 
                                     <% game_trophies = @trophies[type[:game_id]] %>
-                                    <% unless (game_trophies == nil) %>
+                                    <% if (game_trophies == nil) %>
+                                      <% 3.downto(1) do |i| %>
+                                          <div class="trophy notwon %>" data-pod="<%= i %>"></div>
+                                      <% end %>
+                                    <% else %>
                                       <% 3.downto(1) do |i| %>
                                           <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
                                       <% end %>
@@ -76,6 +78,9 @@
                             </div>
                           <% end %>
                         <% end %>
+                      </div>
+                      <div class="carousel-caption">
+                        <h2> <%= cat[:descr]  %></h2>
                       </div>
                     </div>
 

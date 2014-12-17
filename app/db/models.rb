@@ -29,6 +29,7 @@ unless DB.table_exists?(:users)
 end
 class User < Sequel::Model(:users)
 	many_to_many :trophies, :key => :trophy_id
+	one_to_many :friends
 
 	def self.create(values = {}, &block)
 		puts "New User: #{values[:username]}"
@@ -36,18 +37,31 @@ class User < Sequel::Model(:users)
 	end
 end
 
+# unless DB.table_exists?(:friends)
+#   DB.create_table(:friends) do
+#     primary_key :id
+#     foreign_key :user_id
+#     foreign_key :friend_id
+#   end
+# end
+
+# class Friend < Sequel::Model(:friends)
+#   one_to_many :user_id
+#   one_to_many :friend_id
+# end
+
 unless DB.table_exists?(:friends)
-  DB.create_table(:friends) do
-    primary_key :id
-    foreign_key :user_id
-    foreign_key :friend_id
-  end
+	DB.create_table(:friends) do
+		primary_key :id
+		foreign_key :user_id
+	end
 end
 
 class Friend < Sequel::Model(:friends)
-  one_to_many :user_id
-  one_to_many :friend_id
+	many_to_one :user
 end
+
+
 
 # - GAME STRUCTURE ------------------------------
 
@@ -182,9 +196,9 @@ class Game < Sequel::Model(:games)
 				pod[1] = 40
 				pod[2] = 20
 			when "marathon"
-				pod[0] = 40
-				pod[1] = 30
-				pod[2] = 20
+				pod[0] = 90
+				pod[1] = 60
+				pod[2] = 30
 			else
 				pod[0] = 1000
 				pod[1] = 500
@@ -270,14 +284,20 @@ User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", 
 User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 
+# Friend.create(:user_id=>"1", :friend_id=>"2")
+# Friend.create(:user_id=>"1", :friend_id=>"3")
+# Friend.create(:user_id=>"2", :friend_id=>"1")
+# Friend.create(:user_id=>"3", :friend_id=>"1")
+# Friend.create(:user_id=>"1", :friend_id=>"4")
+# Friend.create(:user_id=>"2", :friend_id=>"3")
 
+User.find(:id => 1).add_friend(Friend.create(:user_id => 2))
+User.find(:id => 1).add_friend(Friend.create(:user_id => 3))
+User.find(:id => 1).add_friend(Friend.create(:user_id => 4))
+User.find(:id => 2).add_friend(Friend.create(:user_id => 1))
+User.find(:id => 3).add_friend(Friend.create(:user_id => 1))
 
-Friend.create(:user_id=>"1", :friend_id=>"2")
-Friend.create(:user_id=>"1", :friend_id=>"3")
-Friend.create(:user_id=>"2", :friend_id=>"1")
-Friend.create(:user_id=>"3", :friend_id=>"1")
-Friend.create(:user_id=>"1", :friend_id=>"4")
-Friend.create(:user_id=>"2", :friend_id=>"3")
+puts User.find(:id => 1).friends
 
 Gamerange.create(:name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
 Gamerange.create(:name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")

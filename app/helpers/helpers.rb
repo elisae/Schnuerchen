@@ -6,6 +6,17 @@ def login?
 	end
 end
 
+=begin
+	returns 
+	0 -> not friends
+	1 -> user has sent friend request to friend_id
+	2 -> friend_id has sent friend request to user
+	3 -> friends
+=end
+def friends?(user_id, friend_id)
+
+end
+
 
 def getGameCategories
 	operators = Operator.map { |op|
