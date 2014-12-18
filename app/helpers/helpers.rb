@@ -6,16 +6,61 @@ def login?
 	end
 end
 
+=begin
+	returns 
+	0 -> not friends
+	1 -> user has sent friend request to friend_id
+	2 -> friend_id has sent friend request to user
+	3 -> friends
+=end
+def friends?(user_id, friend_id)
+	user = User.find(:id => user_id)
+	friends_with_ids = user.friends_with.map { |f|
+		f.id
+	}
+	friend_of_ids = user.friend_of.map { |f|
+		f.id
+	}
+
+		if (friends_with_ids.empty? && friend_of_ids.empty?)
+			puts "User #{user_id} doesn't have any friends"
+			return 0
+		else
+			if (friends_with_ids.include?(friend_id))
+				if (friend_of_ids.include?(friend_id))
+					puts "User #{user_id} is friends with #{friend_id}"
+					return 3
+				else
+					puts "User #{user_id} has sent request to #{friend_id}"
+					return 1
+				end
+			else
+				if (friend_of_ids.include?(friend_id))
+					puts "friend (User #{friend_id}) has sent request to User #{user_id}"
+					return 2
+				else
+					puts "User #{user_id} isn't friends with #{friend_id}"
+					return 0
+				end
+			end
+		end
+end
 
 def getGameCategories
 	operators = Operator.map { |op|
 		ranges = op.gameranges.map { |gr|
 			types = gr.gametypes.map { |gt|
-				op_name = op.name
+				puts "Gamecategories"
+				op_name = op.name 
+				puts op.name
 				gr_name = gr.name
+				puts gr.name
 				gt_name = gt.name
-				game_id = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name).id
-				puts game_id
+				puts gt.name
+				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name)
+				unless (game == nil)
+					game_id = game.id
+				end
 				gt.to_hash.merge(:game_id => game_id)
 			}
 			unless types.any?
@@ -31,30 +76,43 @@ def getGameCategories
 	return operators
 end
 
-def getFriendsInfo
-  friendinfo = Array.new
+def getFriendsInfo(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{|user|
+      if friends?(userId,user[:id]) == 3
+        user.to_hash
+      end
+    }
+  end
+end
 
-  friends = Array.new
-  friendsArr = Array.new
-  friendsAddedArr = Array.new
-  friendRequestsArr = Array.new
+def getReqsOut(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{ |user|
+      if friends?(userId,user[:id]) == 1
+        user.to_hash
+      end
+    }
+  end
+end
 
-  Friend.where(:user_id=>params[:u_id]).or(:friend_id=>params[:u_id]).map{|friend|
-    friend.to_hash
-    friends.push(friend)
-  }
-  puts friends
-
-=begin
-  friends = Friend.where(:user_id=>params[:u_id]).or(:friend_id=>params[:u_id]).sql.all.map{ |friend|
-    friend.to_hash
-    puts friend.to_hash
-    friendinfo.push(User.where(:id=>friend[:friend_id]).select(:id,:username).map{ |info|
-      info.to_hash
-    })
-  }
-=end
-  return friendinfo
+def getReqsIn(userId)
+  user = User.find(:id => userId)
+  if user.friend_of.empty?
+    nil
+  else
+    user.friend_of.map{ |user|
+      if friends?(userId,user[:id]) == 2
+        user.to_hash
+      end
+    }
+  end
 end
 
 def addTrophy(user_id, game_id, score)

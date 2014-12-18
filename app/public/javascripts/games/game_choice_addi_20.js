@@ -39,7 +39,7 @@
 //-------------------------------------SETTINGS----------------------------------\\
 var quantity = 10;                  //How many tasks are there
 var lower_bound = 1;                //lower number bound
-var upper_bound = 50;  //100       //upper number bound
+var upper_bound = 10;  //100       //upper number bound
 
 var score_right = 10;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer

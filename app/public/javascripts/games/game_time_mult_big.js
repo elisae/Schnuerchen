@@ -23,7 +23,7 @@ var upper_bound = 10;  //100       //upper number bound
 var score_right = 10;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
-var timer = 5;
+var timer = 60;
 
 //-----------------------------------END SETTINGS----------------------------------\\
 
@@ -106,8 +106,14 @@ $(document).ready(function(){
 });
 
 function create_numbers(){
-    z1_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
-    z2_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+    if(Math.random() < 0.5){
+        z1_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+        z2_n = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+    }else{
+        z1_n = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+        z2_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
+    }
+
     result = z1_n * z2_n;
 }
 
