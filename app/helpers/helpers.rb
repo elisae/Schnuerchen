@@ -11,7 +11,12 @@ def getGameCategories
 	operators = Operator.map { |op|
 		ranges = op.gameranges.map { |gr|
 			types = gr.gametypes.map { |gt|
-				gt.to_hash
+				op_name = op.name
+				gr_name = gr.name
+				gt_name = gt.name
+				game_id = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name).id
+				puts game_id
+				gt.to_hash.merge(:game_id => game_id)
 			}
 			unless types.any?
 				types = nil
@@ -28,12 +33,27 @@ end
 
 def getFriendsInfo
   friendinfo = Array.new
-  friends = Friend.where(:user_id=>params[:u_id]).all.map{ |friend|
+
+  friends = Array.new
+  friendsArr = Array.new
+  friendsAddedArr = Array.new
+  friendRequestsArr = Array.new
+
+  Friend.where(:user_id=>params[:u_id]).or(:friend_id=>params[:u_id]).map{|friend|
     friend.to_hash
-    friendinfo.push(User.where(:id=>friend[:friend_id]).all.map{ |info|
+    friends.push(friend)
+  }
+  puts friends
+
+=begin
+  friends = Friend.where(:user_id=>params[:u_id]).or(:friend_id=>params[:u_id]).sql.all.map{ |friend|
+    friend.to_hash
+    puts friend.to_hash
+    friendinfo.push(User.where(:id=>friend[:friend_id]).select(:id,:username).map{ |info|
       info.to_hash
     })
   }
+=end
   return friendinfo
 end
 

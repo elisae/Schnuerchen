@@ -29,13 +29,33 @@ function searchFriend(){
 
             for(i=0;i<msg.length;i++){
                 var str =  msg[i]["username"];
+
                 resultString = resultString + "<li class='shownFriends'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+ "</li>";
             }
             friendResponse.show();
             responseList.html(resultString);
+
+    responseList.html(resultString);
+
+            var listElements = document.getElementsByClassName("addFriend");
+
+            for(i=0;i<listElements.length;i++){
+                listElements[i].onclick = "addFriend()";
+            }
+
         }
     );
 };
+
+/* This function gets called if you add a Friend */
+
+var friendList = $(".friendList");
+
+friendList.click(function(event){
+    $.post(
+        "/add/"+event.target.id
+    )
+});
 
 $(document).ready(function() {
 

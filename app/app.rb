@@ -12,10 +12,12 @@ class App < Sinatra::Base
 
 
 	get "/" do
-		redirect "/index.html"
+    @landing = true
+		erb :landing, :layout => :layout_notLoggedIn
 	end
 
 	get "/signup" do
+    @signup = true
 		redirect "/signup.html"
 	end
 
@@ -25,9 +27,14 @@ class App < Sinatra::Base
 			session[:u_id] = @user[:id]
 			redirect "/games"
 		else
-			"Login failed"
+      redirect "/loginFailed"
 		end
-	end
+  end
+
+  get "/loginFailed" do
+    erb :loginFailed,
+        :layout => :layout_notLoggedIn
+  end
 
 	get "/games" do
 		if login?
@@ -43,8 +50,9 @@ class App < Sinatra::Base
 		if login?
 			if "#{session[:u_id]}" == params[:u_id]
 				@user = User.find(:id=>params[:u_id]).to_hash
-        @friendinfo = getFriendsInfo
+        		@friendinfo = getFriendsInfo
 				@trophies = getUserTrophies(session[:u_id])
+				@gamecategories = getGameCategories()
 				erb :profil
 			end
 		else
@@ -54,7 +62,8 @@ class App < Sinatra::Base
 
 	get "/logout" do
 		session[:u_id] = nil
-		redirect "/logout.html"
+		erb :logout,
+        :layout => :layout_notLoggedIn
 	end
 
 	get "/insert" do
@@ -100,7 +109,7 @@ class App < Sinatra::Base
     query = params[:query]
     responseArr = Array.new
     content_type :json
-    response = User.where(Sequel.like(:username, query + '%')).select(:username).map{ |user|
+    response = User.where(Sequel.like(:username, query + '%')).select(:id,:username).map{ |user|
       user.to_hash
       responseArr.push(user)
     }
@@ -132,6 +141,11 @@ class App < Sinatra::Base
 		puts "user angelegt"
   end
 
+  post "/add/:id" do
+    Friend.create(:user_id=>session[:u_id],
+      :friend_id=>params[:id])
+    puts "#{session[:u_id]} und #{params[:id]} sind jetzt freunde =)"
+  end
 
 
 end
