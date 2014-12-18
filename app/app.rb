@@ -15,10 +15,12 @@ class App < Sinatra::Base
 	end
 
 	get "/" do
-		redirect "/index.html"
+    @landing = true
+		erb :landing, :layout => :layout_notLoggedIn
 	end
 
 	get "/signup" do
+    @signup = true
 		redirect "/signup.html"
 	end
 
@@ -28,9 +30,15 @@ class App < Sinatra::Base
 			session[:u_id] = @user[:id]
 			redirect "/games"
 		else
-			redirect "/index.html"
+      redirect "/loginFailed"
+
 		end
-	end
+  end
+
+  get "/loginFailed" do
+    erb :loginFailed,
+        :layout => :layout_notLoggedIn
+  end
 
 	get "/games" do
 		if login?
@@ -63,7 +71,8 @@ class App < Sinatra::Base
 
 	get "/logout" do
 		session[:u_id] = nil
-		redirect "/logout.html"
+		erb :logout,
+        :layout => :layout_notLoggedIn
 	end
 
 	get "/insert" do

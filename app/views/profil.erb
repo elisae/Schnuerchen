@@ -101,7 +101,7 @@
 
 
           </div>
-          <!-- Freundesliste -->
+          <!-- --------------Freundesliste-------------- -->
 
           <div class="col-md-4">
             <div id="friendlist" >
@@ -109,7 +109,12 @@
 
               <input class="input-lg" placeholder="Nach Freunden suchen" type ="text" id="friendsearchinput" oninput="searchFriend()"/>
 
-              <div id="responseDiv" class="friendList" ></div>
+
+
+                <div id="friendResponse">
+                  <ul id="responseList"></ul>
+                </div>
+
               <ul>
                 <% if @friends.nil? %>
                     <p>Noch keine Freunde. Gib oben den Namen ein, um nach Freunden zu suchen</p>

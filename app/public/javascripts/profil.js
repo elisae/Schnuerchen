@@ -11,13 +11,15 @@ var friendProfil = $("#friendProfil");
 /* Freundessuche */
 
 var input = $("#friendsearchinput");
-var responseDiv = $("#responseDiv");
+var responseList = $("#responseList");
+var friendResponse = $("#friendResponse");
 
 function searchFriend(){
     var query = input.val();
 
     if(query.length==0){
-        responseDiv.html("");
+        responseList.html("");
+        friendResponse.hide();
     }
 
     $.get(
@@ -27,9 +29,10 @@ function searchFriend(){
 
             for(i=0;i<msg.length;i++){
                 var str =  msg[i]["username"];
+
                 resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
             }
-            responseDiv.html(resultString);
+            responseList.html(resultString);
         }
     );
 };
