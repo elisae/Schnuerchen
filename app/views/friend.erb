@@ -9,10 +9,8 @@
 
           <h2 id="page-info"><%= @friend[:firstname] %></h2>
 
-          
-
           <div id="myCarousel" class="col-md-8 carousel slide">
-			<% if (@friendStatus == 3) %>
+
             <!--
               <div id="button2">
                   <div class="trophy btn btn-lg">hover me</div>
@@ -98,28 +96,16 @@
               <a class="right carousel-control" href="#myCarousel" data-slide="next">
                 <span class="icon-next"></span>
               </a>
-			<% end %>
+
             </div>
 
-		
 
           </div>
           <!-- --------------Freundesliste-------------- -->
 
           <div class="col-md-4">
             <div>
-				<% case @friendStatus
-				   when 0 %>
-            		Button zum Adden: <input class="addBtn" type="button" value="+" id="<%= @friend[:id] %>">
-            	<% when 1 %>
-            		Freundschaftsanfrage steht aus
-            	<% when 2 %>
-            		Freunschafsanfrage annehmen: <input class="addBtn" type="button" value="+" id="<%= @friend[:id] %>">
-            	<% when 3 %>
-              		Du bist mit <%= @friend[:firstname] %> befreundet
-            	<% else %>
-            		Something went wrong
-            	<% end %>
+              Du bist mit <%= @friend[:firstname] %> befreundet
             </div>
 
           </div>
@@ -149,4 +135,3 @@
 
 <script src="/javascripts/trophyAjax.js"></script>
 <script src="/javascripts/profil.js"></script>
-

@@ -21,29 +21,28 @@ def friends?(user_id, friend_id)
 	friend_of_ids = user.friend_of.map { |f|
 		f.id
 	}
-
-		if (friends_with_ids.empty? && friend_of_ids.empty?)
-			puts "User #{user_id} doesn't have any friends"
-			return 0
-		else
-			if (friends_with_ids.include?(friend_id))
-				if (friend_of_ids.include?(friend_id))
-					puts "User #{user_id} is friends with #{friend_id}"
-					return 3
-				else
-					puts "User #{user_id} has sent request to #{friend_id}"
-					return 1
-				end
+	if (friends_with_ids.empty? && friend_of_ids.empty?)
+		puts "User #{user_id} doesn't have any friends"
+		return 0
+	else
+		if (friends_with_ids.include?(friend_id))
+			if (friend_of_ids.include?(friend_id))
+				puts "User #{user_id} is friends with #{friend_id}"
+				return 3
 			else
-				if (friend_of_ids.include?(friend_id))
-					puts "friend (User #{friend_id}) has sent request to User #{user_id}"
-					return 2
-				else
-					puts "User #{user_id} isn't friends with #{friend_id}"
-					return 0
-				end
+				puts "User #{user_id} has sent request to #{friend_id}"
+				return 1
+			end
+		else
+			if (friend_of_ids.include?(friend_id))
+				puts "friend (User #{friend_id}) has sent request to User #{user_id}"
+				return 2
+			else
+				puts "User #{user_id} isn't friends with #{friend_id}"
+				return 0
 			end
 		end
+	end
 end
 
 def getGameCategories
@@ -157,6 +156,10 @@ def saveScore(user_id, game_id, new_score)
 	end
 end
 
+
+def addFriend(user_id, friend_id)
+	Friendship.find_or_create(:friends_with_id => user_id,:friend_of_id=> friend_id)
+end
 
 
 

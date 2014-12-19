@@ -11,16 +11,19 @@ class App < Sinatra::Base
 # - General -----------------------------------------------
 	
 	not_found do
-		redirect "/404.html"
+		if login?
+			erb :notfound
+		else
+			erb :notfound, :layout => :layout_notLoggedIn
+		end
 	end
 
 	get "/" do
-    @landing = true
+    	@landing = true
 		erb :landing, :layout => :layout_notLoggedIn
 	end
 
 	get "/signup" do
-    @signup = true
 		redirect "/signup.html"
 	end
 
@@ -30,15 +33,10 @@ class App < Sinatra::Base
 			session[:u_id] = @user[:id]
 			redirect "/games"
 		else
-      redirect "/loginFailed"
-
+	      erb :loginFailed,
+	        :layout => :layout_notLoggedIn
 		end
-  end
-
-  get "/loginFailed" do
-    erb :loginFailed,
-        :layout => :layout_notLoggedIn
-  end
+  	end
 
 	get "/games" do
 		if login?
@@ -52,20 +50,24 @@ class App < Sinatra::Base
 
 	get "/users/:u_id/profil" do
 		if login?
-      @user = User.find(:id=>params[:u_id]).to_hash
+			@user = User.find(:id=>params[:u_id]).to_hash
 
-      if "#{session[:u_id]}" == params[:u_id]
-        @friends = getFriendsInfo(session[:u_id])
-        @friendReqsOut = getReqsOut(session[:u_id])
-        @friendReqsIn = getReqsIn(session[:u_id])
+			if "#{session[:u_id]}" == params[:u_id]
+				@friends = getFriendsInfo(session[:u_id])
+				@friendReqsOut = getReqsOut(session[:u_id])
+				@friendReqsIn = getReqsIn(session[:u_id])
 				@trophies = getUserTrophies(session[:u_id])
 				@gamecategories = getGameCategories()
 				erb :profil
-      else
-        erb :user
+			else
+				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
+				@friend = User.find(:id=>params[:u_id]).to_hash
+				@gamecategories = getGameCategories()
+				@trophies = getUserTrophies(session[:u_id])
+				erb :user
 			end
 		else
-			"Not logged in"
+			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
 
@@ -134,10 +136,6 @@ class App < Sinatra::Base
 		print ""
 	end
 
-	post "/games" do
-		DB[:games].insert(:name=>params[:name], :filename=>params[:filename], :cssfilename=>params[:cssfilename], :operator=>params[:operator], :range=>params[:range], :type=>params[:type], :scoretype=>params[:scoretype])
-		puts "Game inserted"
-	end
 
 
 # TODO automatischer LOGIN
@@ -152,8 +150,9 @@ class App < Sinatra::Base
 		puts "user angelegt"
 	  end
 
-	  post "/add/:id" do
-      Friendship.create(:friends_with_id => session[:u_id] ,:friend_of_id=> params[:id])
+	  post "/add/:f_id" do
+	  		addFriend(session[:u_id], Integer(params[:f_id]))
+	  		print ""
 	end
 
 end
