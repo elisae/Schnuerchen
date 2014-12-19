@@ -30,27 +30,28 @@ function searchFriend(){
     if(query.length==0){
         responseList.html("");
         friendResponse.hide();
+    }else{
+        $.get(
+            "/search/",
+            {query:query},
+            function(msg){
+                var resultString = "";
+                if(msg.length != 0){
+                    for(i=0;i<msg.length;i++){
+                        var str =  msg[i]["username"];
+                        resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
+                    }
+                }else{
+                    resultString = "Keine Suchergebnisse";
+                }
+                friendResponse.show();
+                responseList.html(resultString);
+                responseList.html(resultString);
+            }
+        );
     }
 
-    $.get(
-        "/search/"+query,
-        function(msg){
-            var resultString = "";
 
-            for(i=0;i<msg.length;i++){
-                var str =  msg[i]["username"];
-            resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
-            }
-            friendResponse.show();
-            responseList.html(resultString);
-            responseList.html(resultString);
-            var listElements = document.getElementsByClassName("addFriend");
-            for(i=0;i<listElements.length;i++){
-                listElements[i].onclick = "addFriend()";
-            }
-
-        }
-    );
 };
 
 
@@ -77,7 +78,7 @@ $(document).ready(function() {
         $.post(
                 "/add/"+event.target.id,
             function(){
-                alert("Anfrage geschickt");
+                location.reload();
             }
         )
     });

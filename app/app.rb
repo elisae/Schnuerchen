@@ -115,7 +115,7 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
-  get "/search/:query" do
+  get "/search/*" do
     require 'json'
     query = params[:query]
     responseArr = Array.new

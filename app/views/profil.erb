@@ -132,7 +132,7 @@
 
               <ul>
                 <% if @friends.nil? %>
-                    <p>Noch keine Freunde. Gib oben den Namen ein, um nach Freunden zu suchen</p>
+                    <p>Du hast noch keine Freunde hinzugefügt. Gib oben den Namen ein, um nach Freunden zu suchen</p>
                 <% else %>
                     <% @friends.each do |friend|%>
                         <% unless friend.nil? %>
@@ -154,13 +154,9 @@
                     <% end
                       end
                    end %>
-
               </ul>
             </div>
-
-
           </div>
-
         </div>
 
 
