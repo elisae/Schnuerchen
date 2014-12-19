@@ -44,7 +44,7 @@ class App < Sinatra::Base
 			@gamecategories = getGameCategories()
 			erb :games
 		else
-			"Not logged in"
+			redirect "/loginFailed"
 		end
 	end
 
