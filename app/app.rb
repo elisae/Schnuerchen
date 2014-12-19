@@ -31,8 +31,7 @@ class App < Sinatra::Base
 			redirect "/games"
 		else
       redirect "/loginFailed"
-
-		end
+    end
   end
 
   get "/loginFailed" do
@@ -46,7 +45,7 @@ class App < Sinatra::Base
 			@gamecategories = getGameCategories()
 			erb :games
 		else
-			"Not logged in"
+			redirect "/loginFailed"
 		end
 	end
 

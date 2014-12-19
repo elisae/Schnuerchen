@@ -3,12 +3,22 @@
  */
 
 
+
+/* ----------------------------TROPHIES---------------------------- */
+
+
+
+
+/* ----------------------------Ende Trophies---------------------------- */
+
+
+
 var colours = ['hovered'];
 var friends = $('#friendlist ul li');
 var friendProfil = $("#friendProfil");
 
 
-/* Freundessuche */
+/* ----------------------------Freundessuche---------------------------- */
 
 var input = $("#friendsearchinput");
 var responseList = $("#responseList");
@@ -29,10 +39,16 @@ function searchFriend(){
 
             for(i=0;i<msg.length;i++){
                 var str =  msg[i]["username"];
-
-                resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
+            resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
             }
+            friendResponse.show();
             responseList.html(resultString);
+            responseList.html(resultString);
+            var listElements = document.getElementsByClassName("addFriend");
+            for(i=0;i<listElements.length;i++){
+                listElements[i].onclick = "addFriend()";
+            }
+
         }
     );
 };
@@ -67,3 +83,5 @@ $(document).ready(function() {
     });
 
 });
+
+/* ---------------------------- ENDE Freundessuche---------------------------- */

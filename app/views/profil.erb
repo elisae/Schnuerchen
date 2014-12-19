@@ -21,44 +21,45 @@
 
             <div id="trophies">
 
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
-                  
-                  <% i = 0 %>
-                  <% @gamecategories.each do |cat| %>
-                    <% if (i == 0) %>
-                      <li data-target="#myCarousel" data-slide-to="<%= i %>" class="active"></li>
-                    <% else %>
-                      <li data-target="#myCarousel" data-slide-to="<%= i %>"></li>
-                    <% end %>
-                    <% i+= 1 %>
-                  <% end %>
 
-              </ol>
 
               <!-- Wrapper for Slides -->
               <div class="carousel-inner">
-          
+
+
+
                   <% i = 0 %>
                   <% @gamecategories.each do |cat| %>
+
+
+
                     <% if (i == 0) %>
                       <div class="item active">
                     <% else %>
                       <div class="item">
                     <% end %>
 
+                    <div class="carousel-caption">
+                      <h2> <%= cat[:descr]  %></h2>
+                    </div>
+
                       <div class="fill">
                         <% unless cat[:ranges] == nil %>
                           <% cat[:ranges].each do |range| %>
-                            <h4><%= range[:name] %> </h4>
+
+                             <div class="ranges ">
+                               <h2><%= range[:name] %></h2>
+                               <hr>
+                             </div>
+
                             <div class="row gametypes">
-                              
+
                               <% unless range[:types] == nil %>
                                 <% range[:types].each do |type| %>
-                                  <div class="col-md-6 col-sm-3 col-xs-12 gamename">
-                                    <%= type[:name] %>
+                                  <div class=" col-md-offset-2 col-md-2 gamename">
+                                    <h3><%= type[:name] %></h3>
                                   </div>
-                                  <div class="col-md-6 col-sm-3 col-xs-12 gametrophies"> 
+                                  <div class="col-md-6 col-md-offset-1 gametrophies">
                                     <% game_trophies = @trophies[type[:game_id]] %>
                                     <% if (game_trophies == nil) %>
                                       <% 3.downto(1) do |i| %>
@@ -72,16 +73,12 @@
                                   </div>
                                 <% end %>
                               <% end %>
-                              <p></p>
-                              <p></p>
-                            
+
                             </div>
                           <% end %>
                         <% end %>
                       </div>
-                      <div class="carousel-caption">
-                        <h2> <%= cat[:descr]  %></h2>
-                      </div>
+
                     </div>
 
                     <% i+= 1 %>
@@ -97,8 +94,26 @@
                 <span class="icon-next"></span>
               </a>
 
-            </div>
 
+
+
+              </div>
+
+
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+
+                <% i = 0 %>
+                <% @gamecategories.each do |cat| %>
+                    <% if (i == 0) %>
+                        <li data-target="#myCarousel" data-slide-to="<%= i %>" class="active"></li>
+                    <% else %>
+                        <li data-target="#myCarousel" data-slide-to="<%= i %>"></li>
+                    <% end %>
+                    <% i+= 1 %>
+                <% end %>
+
+              </ol>
 
           </div>
           <!-- --------------Freundesliste-------------- -->
