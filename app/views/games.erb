@@ -8,24 +8,18 @@
 
 <section>
 
-  <h1 id="selection-info"> Herzlich Willkommen<!doctype html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <title>Document</title>
-    </head>
-    <body>
-    
-    </body>
-    </html></h1>
+  <h1 id="selection-info"> Herzlich Willkommen</h1>
+
 
   <!-- Auswahl Operator -->
 
   <div class="selection" id="operation">
     <% @gamecategories.each do |k1|  %>
-        <div class = "btn btn-lg selection-button operators" long_descr="<%= k1[:long_descr] %>" name="<%= k1[:name] %>" id="<%= k1[:name] %>"></div>
+        <div class = "btn btn-lg btn-outline btn-xl selection-button operators" long_descr="<%= k1[:long_descr] %>" name="<%= k1[:name] %>" id="<%= k1[:name] %>"></div>
     <% end %>
   </div>
+
+  <div class="indicator" id="indicatorOperation"></div>
 
   <!-- Auswahl Zahlenbereich -->
 
@@ -34,11 +28,13 @@
       <div class="selection" id="<%= k1[:name] %>range" style="display:none">
         <%if !k1[:ranges].nil? %>
             <% k1[:ranges].each do |k2| %>
-                <div class ="btn btn-lg selection-button range" name="<%= k2[:name] %>" long_descr="<%= k2[:long_descr] %>" id="<%= k1[:name] + k2[:name] %>"></div>
+                <div class ="btn btn-lg btn-outline btn-xl selection-button range" name="<%= k2[:name] %>" long_descr="<%= k2[:long_descr] %>" id="<%= k1[:name] + k2[:name] %>"></div>
             <% end %>
         <% end %>
       </div>
   <% end %>
+
+  <div class="indicator" id="indicatorRange"></div>
 
 
   <!-- Auswahl Spiel -->
@@ -48,13 +44,12 @@
             <div class="selection" id="<%= k1[:name] + k2[:name]%>games" style="display:none">
               <% k2[:types].each do |k3| %>
                 <a href="/games/<%= k1[:name] %>/<%= k2[:name] %>/<%= k3[:name] %>">
-                    <div class = "btn btn-lg selection-button games" name="<%= k3[:name]%>" id="<%= k1[:name] + k2[:name] + k3[:name] %>"></div>
+                    <div class = "btn btn-lg btn-outline btn-xl selection-button games" name="<%= k3[:name]%>" id="<%= k1[:name] + k2[:name] + k3[:name] %>"></div>
                 </a>
               <% end %>
             </div>
           <% end %>
       <% end %>
   <% end %>
-
 
 </section>

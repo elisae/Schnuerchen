@@ -1,7 +1,7 @@
 
 body {
     overflow-x: hidden;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Josefin Sans', 'Quicksand', sans-serif;
 }
 
 p {
@@ -31,9 +31,13 @@ h6 {
     font-weight: 700;
 }
 
+.form-group {
+   margin-bottom: 2%;
+}
+
 .floating-label-form-group {
     position: relative;
-    padding-bottom: 0.5em;
+    /*padding-bottom: 0.5em;*/
     border-bottom: 1px solid #eee;
 }
 
@@ -59,7 +63,6 @@ h6 {
     font-size: 1.2em;
     line-height: 1.764705882em;
     vertical-align: middle;
-    vertical-align: baseline;
     opacity: 0;
     -webkit-transition: top .3s ease,opacity .3s ease;
     -moz-transition: top .3s ease,opacity .3s ease;

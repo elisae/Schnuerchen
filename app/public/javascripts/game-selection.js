@@ -16,34 +16,49 @@ $(document).ready(function(){
 
     var slideTime = 500;
 
+    var indicatorOperation = $("#indicatorOperation");
+    var indicatorRange = $("#indicatorRange");
+
+    indicatorOperation.hide();
+    indicatorRange.hide();
+
 
     operators.click(function(event){
         if(rangeShown){
-            $("#"+secondParentId+"games").slideUp(slideTime);
+            $("#"+secondParentId+"games").fadeOut(slideTime);
         }
         if(operatorsShown){
-            $("#"+firstParentId+"range").slideUp(slideTime,function(){
+            $("#"+firstParentId+"range").fadeOut(slideTime,function(){
                 firstParentId = event.target.id;
-                $("#"+firstParentId+"range").slideDown(slideTime);
+                $("#"+firstParentId+"range").fadeIn(slideTime);
+                indicatorRange.hide();
             });
         }else{
             firstParentId = event.target.id;
-            $("#"+firstParentId+"range").slideDown(slideTime);
+            $("#"+firstParentId+"range").fadeIn(slideTime);
             operatorsShown = true;
         }
+
+        $(this).append(indicatorOperation);
+        indicatorOperation.show(slideTime);
     });
 
     range.click(function(event){
         if(rangeShown){
-            $("#"+secondParentId+"games").slideUp(slideTime,function(){
+            $("#"+secondParentId+"games").fadeOut(slideTime,function(){
                 secondParentId = event.target.id;
-                $("#"+secondParentId+"games").slideDown(slideTime);
+                $("#"+secondParentId+"games").fadeIn(slideTime);
+
             });
         }else{
             secondParentId = event.target.id;
-            $("#"+secondParentId+"games").slideDown(slideTime);
+            $("#"+secondParentId+"games").fadeIn(slideTime);
             rangeShown = true;
+
         }
+
+        $(this).append(indicatorRange);
+        indicatorRange.show();
 
     });
 

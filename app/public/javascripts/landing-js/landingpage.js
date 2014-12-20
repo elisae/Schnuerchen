@@ -6,7 +6,7 @@
 
 function parallax (){
     var b1 = document.getElementById('intro-bulb');
-    b1.style.top = -(window.pageYOffset * 1.7)+'px';
+    b1.style.top = -(window.pageYOffset * 1.9)+'px';
 }
 
 window.addEventListener("scroll", parallax, false);

@@ -40,7 +40,7 @@
                     <% end %>
 
                     <div class="carousel-caption">
-                      <h2> <%= cat[:descr]  %></h2>
+                      <h1 id="description"> <%= cat[:descr]  %></h1>
                     </div>
 
                       <div class="fill">
@@ -120,10 +120,12 @@
 
           <div class="col-md-4">
             <div id="friendlist" >
-
-
-              <input class="input-lg" placeholder="Nach Freunden suchen" type ="text" id="friendsearchinput" oninput="searchFriend()"/>
-
+              <div class="input-group input-group-lg" id="friendsearchinput">
+                <span class="input-group-addon">
+                  <i class="fa fa-search"></i>
+                </span>
+                <input class="form-control" placeholder="Nach Freunden suchen" type ="text" id="friendsearch" oninput="searchFriend()"/>
+              </div>
 
 
                 <div id="friendResponse">
@@ -143,18 +145,21 @@
                 <% if !@friendReqsOut.nil? %>
                     <% @friendReqsOut.each do |reqsOut|
                         unless reqsOut.nil? %>
-                          <a href="/users/<%= reqsOut[:id] %>/profil"><li style="background-color:black"><%= reqsOut[:username] %></li></a>
+                          <a href="/users/<%= reqsOut[:id] %>/profil"><li id="notYetRequestedFriends"><%= reqsOut[:username] %></li></a>
                         <%end
                        end
                     end %>
                 <% if !@friendReqsIn.nil? %>
                     <% @friendReqsIn.each do |reqsIn|
                         unless reqsIn.nil? %>
-                          <li style="background-color:white"><a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a><input id = "<%= reqsIn[:id] %>"type ="button" value="+" class="addBtn" onclick="window.location.reload()"></li>
-                    <% end
-                      end
-                   end %>
-
+                          <li id="notYetRespondedFriends">
+                            <a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a>
+                            <div id = "<%= reqsIn[:id] %>" class="addBtn fa fa-plus-square" onclick="window.location.reload()">
+                            </div>
+                          </li>
+                    <% end %>
+                  <% end %>
+                <% end %>
               </ul>
             </div>
 
@@ -182,6 +187,9 @@
             </div>
 
         </div>
+
+      </div>
+
     </section>
 
 <script src="/javascripts/trophyAjax.js"></script>

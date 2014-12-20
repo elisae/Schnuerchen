@@ -20,7 +20,6 @@ class App < Sinatra::Base
 	end
 
 	get "/signup" do
-    @signup = true
 		redirect "/signup.html"
 	end
 

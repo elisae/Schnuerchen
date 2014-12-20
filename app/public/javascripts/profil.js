@@ -20,7 +20,7 @@ var friendProfil = $("#friendProfil");
 
 /* ----------------------------Freundessuche---------------------------- */
 
-var input = $("#friendsearchinput");
+var input = $("#friendsearch");
 var responseList = $("#responseList");
 var friendResponse = $("#friendResponse");
 
@@ -39,10 +39,9 @@ function searchFriend(){
 
             for(i=0;i<msg.length;i++){
                 var str =  msg[i]["username"];
-            resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
+            resultString = resultString + "<a href='/users/"+msg[i]["id"]+"/profil'><li class='shownFriends hovered'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</li></a>"
             }
             friendResponse.show();
-            responseList.html(resultString);
             responseList.html(resultString);
             var listElements = document.getElementsByClassName("addFriend");
             for(i=0;i<listElements.length;i++){
@@ -51,7 +50,7 @@ function searchFriend(){
 
         }
     );
-};
+}
 
 
 
