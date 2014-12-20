@@ -100,9 +100,6 @@
               </a>
 			<% end %>
             </div>
-
-		
-
           </div>
           <!-- --------------Freundesliste-------------- -->
 
@@ -112,18 +109,16 @@
 				   when 0 %>
             		Button zum Adden: <input class="addBtn" type="button" value="+" id="<%= @friend[:id] %>">
             	<% when 1 %>
-            		Freundschaftsanfrage steht aus
+            		Freundschaftsanfrage steht aus. <input class = "unfriendBtn" type="button" value="Abbrechen" id="<%= @friend[:id] %>">
             	<% when 2 %>
             		Freunschafsanfrage annehmen: <input class="addBtn" type="button" value="+" id="<%= @friend[:id] %>">
             	<% when 3 %>
-              		Du bist mit <%= @friend[:firstname] %> befreundet
+              		Du bist mit <%= @friend[:firstname] %> befreundet. Entfreunden: <input class="unfriendBtn" type="button" value="Als Freund entfernen" id="<%= @friend[:id] %>">
             	<% else %>
             		Something went wrong
             	<% end %>
             </div>
-
           </div>
-
         </div>
 
 
@@ -145,6 +140,7 @@
             </div>
 
         </div>
+      </div>
     </section>
 
 <script src="/javascripts/trophyAjax.js"></script>

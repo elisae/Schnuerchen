@@ -100,7 +100,7 @@ unless DB.table_exists?(:gameranges)
 	DB.create_table(:gameranges) do
 		primary_key	:id
 		String 		:name, :unique=>true
-    	String    	:long_descr
+    String    	:long_descr
 		String		:img_filename
 	end
 end

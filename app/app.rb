@@ -136,6 +136,13 @@ class App < Sinatra::Base
 		print ""
 	end
 
+  post "/unfriend/:f_id" do
+    user_id = session[:u_id]
+    friend_id = params[:f_id].to_i
+    delFriend(user_id,friend_id)
+    puts "lol"
+  end
+
 
 
 # TODO automatischer LOGIN

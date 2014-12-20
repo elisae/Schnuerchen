@@ -70,19 +70,31 @@ $(document).ready(function() {
         friendProfil.fadeOut("slow");
     });
 
-    /* This function gets called if you add a Friend */
+    /* This function gets called when you add a Friend */
 
     var addBtn = $(".addBtn");
 
     addBtn.click(function(event){
         $.post(
-                "/add/"+event.target.id,
+            "/add/"+event.target.id,
             function(){
                 location.reload();
             }
         )
     });
 
+    /* This function gets called when you remove a Friend */
+
+    var unfriendBtn = $(".unfriendBtn");
+
+    unfriendBtn.click(function(event){
+        $.post(
+            "/unfriend/"+event.target.id,
+            function(){
+                location.reload();
+            }
+        )
+    });
 });
 
 /* ---------------------------- ENDE Freundessuche---------------------------- */

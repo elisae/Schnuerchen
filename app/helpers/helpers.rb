@@ -14,6 +14,9 @@ end
 	3 -> friends
 =end
 def friends?(user_id, friend_id)
+
+  friend_id = friend_id.to_i
+
 	user = User.find(:id => user_id)
 	friends_with_ids = user.friends_with.map { |f|
 		f.id
@@ -49,11 +52,8 @@ def getGameCategories
 	operators = Operator.map { |op|
 		ranges = op.gameranges.map { |gr|
 			types = gr.gametypes.map { |gt|
-				puts "Gamecategories"
-				op_name = op.name 
-				puts op.name
+				op_name = op.name
 				gr_name = gr.name
-				puts gr.name
 				gt_name = gt.name
 				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name)
 				unless (game == nil) 
@@ -159,6 +159,19 @@ end
 
 def addFriend(user_id, friend_id)
 	Friendship.find_or_create(:friends_with_id => user_id,:friend_of_id=> friend_id)
+end
+
+def delFriend(user_id,friend_id)
+  if friends?(user_id,friend_id) == 1
+    Friendship.where(:friends_with_id => user_id, :friend_of_id => friend_id).delete
+  elsif friends?(user_id,friend_id) == 2
+    Friendship.where(:friends_with_id => friend_id, :friend_of_id => user_id).delete
+  elsif friends?(user_id,friend_id) == 3
+    Friendship.where(:friends_with_id => user_id, :friend_of_id => friend_id).delete
+    Friendship.where(:friends_with_id => friend_id, :friend_of_id => user_id).delete
+  else
+    0
+    end
 end
 
 
