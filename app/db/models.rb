@@ -31,7 +31,7 @@ class User < Sequel::Model(:users)
 	many_to_many :trophies
 
 	many_to_many :friends_with, :left_key=>:friends_with_id, :right_key=>:friend_of_id, :join_table=>:friendships, :class=>self
-  many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
+ 	many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
 
 	def self.create(values = {}, &block)
 		puts "New User: #{values[:username]}"
@@ -57,6 +57,7 @@ unless DB.table_exists?(:friendships)
 		primary_key :id
 		foreign_key :friends_with_id
 		foreign_key :friend_of_id
+		unique([:friends_with_id, :friend_of_id])
 	end
 end
 
@@ -99,7 +100,7 @@ unless DB.table_exists?(:gameranges)
 	DB.create_table(:gameranges) do
 		primary_key	:id
 		String 		:name, :unique=>true
-    	String    	:long_descr
+    String    	:long_descr
 		String		:img_filename
 	end
 end
@@ -207,6 +208,10 @@ class Game < Sequel::Model(:games)
 				pod[1] = 40
 				pod[2] = 20	
 			when "marathon"
+				pod[0] = 90
+				pod[1] = 60
+				pod[2] = 30
+			when "choice"
 				pod[0] = 90
 				pod[1] = 60
 				pod[2] = 30

@@ -20,19 +20,10 @@
               -->
 
             <div id="trophies">
-
-
-
               <!-- Wrapper for Slides -->
               <div class="carousel-inner">
-
-
-
                   <% i = 0 %>
                   <% @gamecategories.each do |cat| %>
-
-
-
                     <% if (i == 0) %>
                       <div class="item active">
                     <% else %>
@@ -134,7 +125,7 @@
 
               <ul>
                 <% if @friends.nil? %>
-                    <p>Noch keine Freunde. Gib oben den Namen ein, um nach Freunden zu suchen</p>
+                    <p>Du hast noch keine Freunde hinzugefügt. Gib oben den Namen ein, um nach Freunden zu suchen</p>
                 <% else %>
                     <% @friends.each do |friend|%>
                         <% unless friend.nil? %>
@@ -152,6 +143,7 @@
                 <% if !@friendReqsIn.nil? %>
                     <% @friendReqsIn.each do |reqsIn|
                         unless reqsIn.nil? %>
+
                           <li id="notYetRespondedFriends">
                             <a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a>
                             <div id = "<%= reqsIn[:id] %>" class="addBtn fa fa-plus-square" onclick="window.location.reload()">
@@ -160,35 +152,15 @@
                     <% end %>
                   <% end %>
                 <% end %>
+
               </ul>
             </div>
-
-
           </div>
-
         </div>
 
-
-      <!-- --------------Friendoverlay-------------- -->
-
-        <div class="friendOverlay">
-
-            <div id="friendProfil">
-
-             <div id="friendTrophies">
-
-             </div>
-
-             <div id="controlls">
-                  <h1>Freundesname</h1>
-                  <div class="btn btn-lg btn-xl btn-outline" id="hideFriendProfil">Zurück zum Profil</div>
-             </div>
-
-            </div>
-
-        </div>
 
       </div>
+
 
     </section>
 

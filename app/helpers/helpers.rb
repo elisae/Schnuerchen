@@ -14,6 +14,9 @@ end
 	3 -> friends
 =end
 def friends?(user_id, friend_id)
+
+  friend_id = friend_id.to_i
+
 	user = User.find(:id => user_id)
 	friends_with_ids = user.friends_with.map { |f|
 		f.id
@@ -21,44 +24,39 @@ def friends?(user_id, friend_id)
 	friend_of_ids = user.friend_of.map { |f|
 		f.id
 	}
-
-		if (friends_with_ids.empty? && friend_of_ids.empty?)
-			puts "User #{user_id} doesn't have any friends"
-			return 0
-		else
-			if (friends_with_ids.include?(friend_id))
-				if (friend_of_ids.include?(friend_id))
-					puts "User #{user_id} is friends with #{friend_id}"
-					return 3
-				else
-					puts "User #{user_id} has sent request to #{friend_id}"
-					return 1
-				end
+	if (friends_with_ids.empty? && friend_of_ids.empty?)
+		puts "User #{user_id} doesn't have any friends"
+		return 0
+	else
+		if (friends_with_ids.include?(friend_id))
+			if (friend_of_ids.include?(friend_id))
+				puts "User #{user_id} is friends with #{friend_id}"
+				return 3
 			else
-				if (friend_of_ids.include?(friend_id))
-					puts "friend (User #{friend_id}) has sent request to User #{user_id}"
-					return 2
-				else
-					puts "User #{user_id} isn't friends with #{friend_id}"
-					return 0
-				end
+				puts "User #{user_id} has sent request to #{friend_id}"
+				return 1
+			end
+		else
+			if (friend_of_ids.include?(friend_id))
+				puts "friend (User #{friend_id}) has sent request to User #{user_id}"
+				return 2
+			else
+				puts "User #{user_id} isn't friends with #{friend_id}"
+				return 0
 			end
 		end
+	end
 end
 
 def getGameCategories
 	operators = Operator.map { |op|
 		ranges = op.gameranges.map { |gr|
 			types = gr.gametypes.map { |gt|
-				puts "Gamecategories"
-				op_name = op.name 
-				puts op.name
+				op_name = op.name
 				gr_name = gr.name
-				puts gr.name
 				gt_name = gt.name
-				puts gt.name
 				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name)
-				unless (game == nil)
+				unless (game == nil) 
 					game_id = game.id
 				end
 				gt.to_hash.merge(:game_id => game_id)
@@ -158,6 +156,23 @@ def saveScore(user_id, game_id, new_score)
 	end
 end
 
+
+def addFriend(user_id, friend_id)
+	Friendship.find_or_create(:friends_with_id => user_id,:friend_of_id=> friend_id)
+end
+
+def delFriend(user_id,friend_id)
+  if friends?(user_id,friend_id) == 1
+    Friendship.where(:friends_with_id => user_id, :friend_of_id => friend_id).delete
+  elsif friends?(user_id,friend_id) == 2
+    Friendship.where(:friends_with_id => friend_id, :friend_of_id => user_id).delete
+  elsif friends?(user_id,friend_id) == 3
+    Friendship.where(:friends_with_id => user_id, :friend_of_id => friend_id).delete
+    Friendship.where(:friends_with_id => friend_id, :friend_of_id => user_id).delete
+  else
+    0
+    end
+end
 
 
 

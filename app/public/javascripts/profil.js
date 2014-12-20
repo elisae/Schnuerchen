@@ -30,7 +30,30 @@ function searchFriend(){
     if(query.length==0){
         responseList.html("");
         friendResponse.hide();
+    }else{
+
+
+        /*----------------------------------keine ahnung welche die richtige is--------------------------*/
+        $.get(
+            "/search/",
+            {query:query},
+            function(msg){
+                var resultString = "";
+                if(msg.length != 0){
+                    for(i=0;i<msg.length;i++){
+                        var str =  msg[i]["username"];
+                        resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
+                    }
+                }else{
+                    resultString = "Keine Suchergebnisse";
+                }
+                friendResponse.show();
+                responseList.html(resultString);
+
+            }
+        );
     }
+
 
     $.get(
         "/search/"+query,
@@ -50,7 +73,8 @@ function searchFriend(){
 
         }
     );
-}
+}   /*---------------------------------------kenny muss das fixen :DD --------------------------*/
+
 
 
 
@@ -68,19 +92,31 @@ $(document).ready(function() {
         friendProfil.fadeOut("slow");
     });
 
-    /* This function gets called if you add a Friend */
+    /* This function gets called when you add a Friend */
 
     var addBtn = $(".addBtn");
 
     addBtn.click(function(event){
         $.post(
-                "/add/"+event.target.id,
+            "/add/"+event.target.id,
             function(){
-                alert("Anfrage geschickt");
+                location.reload();
             }
         )
     });
 
+    /* This function gets called when you remove a Friend */
+
+    var unfriendBtn = $(".unfriendBtn");
+
+    unfriendBtn.click(function(event){
+        $.post(
+            "/unfriend/"+event.target.id,
+            function(){
+                location.reload();
+            }
+        )
+    });
 });
 
 /* ---------------------------- ENDE Freundessuche---------------------------- */
