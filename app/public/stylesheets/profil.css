@@ -277,9 +277,10 @@ a {
     list-style-type: none;
     border-radius: 0.2em;
     border: 1px solid #FFA726;
-    font-size: 1.5em;
+    font-size: 200%;
     background-color: white;
     margin: 1% auto 1% auto;
+
 }
 
 #friendlist:hover ul li {
@@ -388,18 +389,11 @@ a {
     background-color: #4dd0e1 !important;
 }
 
-
 .addBtn{
-    font-size: 180%;
-
-
     margin-top: auto;
     margin-bottom: auto;
-
     top: 0;
     bottom: 0;
-}
-
-.fa-plus-square:hover{
-    color: white;
+    font-size: 70%;
+    padding: 2%;
 }

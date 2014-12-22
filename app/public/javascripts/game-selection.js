@@ -40,7 +40,7 @@ $(document).ready(function(){
         }
 
         $(this).append(indicatorOperation);
-        indicatorOperation.show(slideTime);
+        indicatorOperation.show();
     });
 
     range.click(function(event){

@@ -7,7 +7,7 @@
 
         <div id="myProfil">
 
-          <h2 id="page-info"><%= @friend[:firstname] %></h2>
+          <h2 id="page-info"><%= @friend[:firstname] %>s Profil</h2>
 
           
 
@@ -23,73 +23,64 @@
 
             <div id="trophies">
 
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
-                  
-                  <% i = 0 %>
-                  <% @gamecategories.each do |cat| %>
-                    <% if (i == 0) %>
-                      <li data-target="#myCarousel" data-slide-to="<%= i %>" class="active"></li>
-                    <% else %>
-                      <li data-target="#myCarousel" data-slide-to="<%= i %>"></li>
-                    <% end %>
-                    <% i+= 1 %>
-                  <% end %>
 
-              </ol>
 
               <!-- Wrapper for Slides -->
               <div class="carousel-inner">
-          
-                  <% i = 0 %>
-                  <% @gamecategories.each do |cat| %>
+                <% i = 0 %>
+                <% @gamecategories.each do |cat| %>
                     <% if (i == 0) %>
-                      <div class="item active">
+                        <div class="item active">
                     <% else %>
-                      <div class="item">
+                        <div class="item">
                     <% end %>
 
-                      <div class="fill">
-                        <% unless cat[:ranges] == nil %>
+                    <div class="carousel-caption">
+                      <h1 id="description"> <%= cat[:descr]  %></h1>
+                    </div>
+
+                    <div class="fill">
+                      <% unless cat[:ranges] == nil %>
                           <% cat[:ranges].each do |range| %>
-                            <h4><%= range[:name] %> </h4>
-                            <div class="row gametypes">
-                              
-                              <% unless range[:types] == nil %>
-                                <% range[:types].each do |type| %>
-                                  <div class="col-md-6 col-sm-3 col-xs-12 gamename">
-                                    <%= type[:name] %>
-                                  </div>
-                                  <div class="col-md-6 col-sm-3 col-xs-12 gametrophies"> 
-                                    <% game_trophies = @trophies[type[:game_id]] %>
-                                    <% if (game_trophies == nil) %>
-                                      <% 3.downto(1) do |i| %>
-                                          <div class="trophy notwon %>" data-pod="<%= i %>"></div>
-                                      <% end %>
-                                    <% else %>
-                                      <% 3.downto(1) do |i| %>
-                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
-                                      <% end %>
+
+                              <div class="ranges ">
+                                <h2><%= range[:name] %></h2>
+                                <hr>
+                              </div>
+
+                              <div class="row gametypes">
+
+                                <% unless range[:types] == nil %>
+                                    <% range[:types].each do |type| %>
+                                        <div class=" col-md-offset-2 col-md-2 gamename">
+                                          <h3><%= type[:name] %></h3>
+                                        </div>
+                                        <div class="col-md-6 col-md-offset-1 gametrophies">
+                                          <% game_trophies = @trophies[type[:game_id]] %>
+                                          <% if (game_trophies == nil) %>
+                                              <% 3.downto(1) do |i| %>
+                                                  <div class="trophy notwon %>" data-pod="<%= i %>"></div>
+                                              <% end %>
+                                          <% else %>
+                                              <% 3.downto(1) do |i| %>
+                                                  <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
+                                              <% end %>
+                                          <% end %>
+                                        </div>
                                     <% end %>
-                                  </div>
                                 <% end %>
-                              <% end %>
-                              <p></p>
-                              <p></p>
-                            
-                            </div>
+
+                              </div>
                           <% end %>
-                        <% end %>
-                      </div>
-                      <div class="carousel-caption">
-                        <h2> <%= cat[:descr]  %></h2>
-                      </div>
+                      <% end %>
+                    </div>
+
                     </div>
 
                     <% i+= 1 %>
-                  <% end %>
+                <% end %>
 
-              </div>
+                </div>
 
               <!-- Controls -->
               <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -98,6 +89,26 @@
               <a class="right carousel-control" href="#myCarousel" data-slide="next">
                 <span class="icon-next"></span>
               </a>
+
+                <ol class="carousel-indicators">
+
+                  <% i = 0 %>
+                  <% @gamecategories.each do |cat| %>
+                      <% if (i == 0) %>
+                          <li data-target="#myCarousel" data-slide-to="<%= i %>" class="active"></li>
+                      <% else %>
+                          <li data-target="#myCarousel" data-slide-to="<%= i %>"></li>
+                      <% end %>
+                      <% i+= 1 %>
+                  <% end %>
+
+                </ol>
+            <% else %>
+
+                <h1>
+                  Du kannst <%= @friend[:firstname] %>s Medaillen erst sehen, wenn er dich zu seiner Freundesliste hinzufügt
+                </h1>
+
 			<% end %>
             </div>
           </div>
@@ -122,24 +133,9 @@
         </div>
 
 
-      <!-- --------------Friendoverlay-------------- -->
 
-        <div class="friendOverlay">
 
-            <div id="friendProfil">
 
-             <div id="friendTrophies">
-
-             </div>
-
-             <div id="controlls">
-                  <h1>Freundesname</h1>
-                  <div class="btn btn-lg btn-xl btn-outline" id="hideFriendProfil">Zurück zum Profil</div>
-             </div>
-
-            </div>
-
-        </div>
       </div>
     </section>
 
