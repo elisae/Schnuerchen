@@ -20,10 +20,14 @@
 
 .operators{
     border-color: #E57373;
+    position: relative;
+    z-index: 1;
 }
 
 .range{
     border-color: #B39DDB;
+    position: relative;
+    z-index: 1;
 }
 
 .games{
@@ -31,14 +35,26 @@
 }
 
 .operators:hover{
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
     background-color: #E57373;
 }
 
 .range:hover{
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
     background-color: #B39DDB;
 }
 
 .games:hover{
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
     background-color: #66BB6A;
 }
 
@@ -48,40 +64,62 @@
     background-size:cover;
 }
 #subt{
-    background-image: url(../images/games/substraction-icon.png);
+    background-image: url(/images/games/substraction-icon.png);
     /*background-image:url(/images/games/minus.svg);*/
     background-size:cover;
 }
 #mult{
-    background-image: url(../images/games/multiplikation-icon.png);
+    background-image: url(/images/games/multiplikation-icon.png);
     /*background-image:url(/images/games/multi.svg);*/
     background-size:cover;
 }
 #divi{
-    background-image: url(../images/games/division-icon.png);
+    background-image: url(/images/games/division-icon.png);
     /*background-image:url(/images/games/division.svg);*/
     background-size:cover;
 }
 #mix{
-    background-image: url(../images/games/mixed-icon.png);
+    background-image: url(/images/games/mixed-icon.png);
     /*background-image:url(/images/games/all.svg);*/
     background-size:cover;
 }
-div[name="10"]{
+
+#addi10{
     background-image: url(../images/games/range-10-icon.png);
     /*background-image:url(/images/games/10.svg);*/
     background-size:cover;
 }
-div[name="20"]{
+
+#subt10{
+    background-image: url(../images/games/range-10-icon.png);
+    /*background-image:url(/images/games/10.svg);*/
+    background-size:cover;
+}
+
+#subt20{
     background-image: url(../images/games/range-20-icon.png);
     /*background-image:url(/images/games/20.svg);*/
     background-size:cover;
 }
-div[name="100"]{
+
+#addi20{
+    background-image: url(../images/games/range-20-icon.png);
+    /*background-image:url(/images/games/20.svg);*/
+    background-size:cover;
+}
+
+#subt100{
     background-image: url(../images/games/range-100-icon.png);
     /*background-image:url(/images/games/100.svg);*/
     background-size:cover;
 }
+
+#addi100{
+    background-image: url(../images/games/range-100-icon.png);
+    /*background-image:url(/images/games/100.svg);*/
+    background-size:cover;
+}
+
 div[name="small"]{
     /* muss noch geschrieben werden */
 }
@@ -105,5 +143,9 @@ div[name="time"]{
     background-color: #FFA726;
     position: absolute;
     z-index: 4;
-    margin: 5% auto auto -.75vw;
+    margin-left: auto;
+    margin-right: auto;
+    right: 0;
+    left: 0;
+    margin-top: 60%;
 }

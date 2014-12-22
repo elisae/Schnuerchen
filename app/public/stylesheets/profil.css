@@ -351,17 +351,14 @@ a {
     border-radius: 0.3em;
 }
 
-.shownFriends {
+.notYetRequestedFriends{
     border-color: #4dd0e1 !important;
     background-color: #EEEEEE !important;
 }
 
-#notYetRequestedFriends{
-    border-color: #4dd0e1 !important;
-    background-color: #EEEEEE !important;
-}
-
-#notYetRespondedFriends{
+.notYetRespondedFriends{
+    position: relative;
+    z-index: 4;
     border-color: #4dd0e1 !important;
     background-color: #EEEEEE !important;
 
@@ -375,7 +372,7 @@ a {
     background-color: #4dd0e1 !important;
 }
 
-#notYetRequestedFriends:hover{
+.notYetRequestedFriends:hover{
     transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -383,7 +380,7 @@ a {
     background-color: #4dd0e1 !important;
 }
 
-#notYetRespondedFriends:hover{
+.notYetRespondedFriends:hover{
     transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -392,13 +389,17 @@ a {
 }
 
 
-.fa-plus-square{
+.addBtn{
     font-size: 180%;
-    position: absolute;
-    z-index: 5;
-    right: 0;
+
+
+    margin-top: auto;
+    margin-bottom: auto;
+
     top: 0;
     bottom: 0;
-    margin-left: 1%;
-    margin-right: 1%;
+}
+
+.fa-plus-square:hover{
+    color: white;
 }

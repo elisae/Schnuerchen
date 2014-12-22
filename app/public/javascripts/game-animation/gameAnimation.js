@@ -26,12 +26,14 @@ function feedbackWrong(){
 
 $(document).ready(function(){
 
+    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+
     var start_div = $("#start_div");
     var pause_div = $("#pause_div");
     var game_div = $("#game_div");
     var end_game_div = $("#end_game_div");
 
-    $("html, body").animate({ scrollTop: $("#game").scrollTop() }, 500);
+
 
     $("#button_start").click(function(){
         $(pause_div).hide();

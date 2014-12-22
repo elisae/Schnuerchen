@@ -288,7 +288,7 @@ function init_game(){
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
     game_line.className = "game-elements";
-    game_line.innerHTML = "<span id='z1'></span><span id='operator'> + </span><span id='z2'></span>";
+    game_line.innerHTML = "<span id='z1'></span><span id='operator'> + </span><span id='z2'></span> = ?";
 
     game_div.appendChild(game_line);
 

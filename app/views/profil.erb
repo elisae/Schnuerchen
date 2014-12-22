@@ -136,7 +136,7 @@
                 <% if !@friendReqsOut.nil? %>
                     <% @friendReqsOut.each do |reqsOut|
                         unless reqsOut.nil? %>
-                          <a href="/users/<%= reqsOut[:id] %>/profil"><li id="notYetRequestedFriends"><%= reqsOut[:username] %></li></a>
+                          <a href="/users/<%= reqsOut[:id] %>/profil"><li class="notYetRequestedFriends"><%= reqsOut[:username] %></li></a>
                         <%end
                        end
                     end %>
@@ -144,9 +144,10 @@
                     <% @friendReqsIn.each do |reqsIn|
                         unless reqsIn.nil? %>
 
-                          <li id="notYetRespondedFriends">
+                          <li class="notYetRespondedFriends">
                             <a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a>
-                            <div id = "<%= reqsIn[:id] %>" class="addBtn fa fa-plus-square" onclick="window.location.reload()">
+                            <div id = "<%= reqsIn[:id] %>" class="addBtn btn btn-outline btn-xl btn-lg" onclick="window.location.reload()">
+                              Hinzufügen
                             </div>
                           </li>
                     <% end %>

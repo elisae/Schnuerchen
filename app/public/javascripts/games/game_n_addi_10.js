@@ -174,18 +174,23 @@ function init_game(){
 
         <!-- Game Stuff -->
 
-    var result_line = document.createElement('h2');
+/*    var points = document.createElement('h2');
+    points.id = 'Punkte';
+    points.className = 'game-elements';
+    points.innerHTML = 'Punkte: ' + score;
+    game_div.appendChild(points);*/
+
+    var result_line = document.createElement('h3');
     result_line.id='result_line';
     result_line.className = "game-elements";
     result_line.innerHTML="Los Gehts!";
-
     document.getElementById('game_div').appendChild(result_line);
+
 
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
     game_line.className = "game-elements";
-    game_line.innerHTML = "<span id='z1'></span><span id='operator'> + </span><span id='z2'></span>";
-
+    game_line.innerHTML = "<span id='z1'></span><span id='operator'> + </span><span id='z2'></span> = ";
     game_div.appendChild(game_line);
 
     var user_tip = document.createElement('input');
@@ -196,7 +201,7 @@ function init_game(){
     user_tip.placeholder = "Hier kommt das Ergebnis rein";
     user_tip.onkeydown = clean;
     user_tip.onkeyup = clean;
-    game_div.appendChild(user_tip);
+    game_line.appendChild(user_tip);
     user_tip.focus();
 
     var stop_watch = document.createElement('h2');
@@ -205,20 +210,30 @@ function init_game(){
     stop_watch.innerHTML = "<span id='sw_min'>0</span>:<span id='sw_s'>00</span>";
     game_div.appendChild(stop_watch);
 
-    var stat_table = document.createElement('table');
-    stat_table.id='stat_table';
-    stat_table.className = "table game-elements";
-    stat_table.innerHTML="<tr>" +
-        "<td>Richtig</td>" +
-        "<td>Falsch</td>" +
-        "<td id='score1' >Punkte</td>" +
-        "</tr>" +
-        "<tr>" +
-        "<td id='c_r' >"+counter_right+"</td>" +
-        "<td id='c_w' >"+counter_wrong+"</td>" +
-        "<td id='score' >"+score+"</td>" +
-        "</tr>";
-    game_div.appendChild(stat_table);
+
+    /*var points = document.createElement('h2');
+    points.id = 'Punkte';
+    points.className = 'game-elements';
+    points.innerHTML = 'Punkte: ' + score;
+    game_div.appendChild(points); */
+
+
+     var stat_table = document.createElement('table');
+     stat_table.id='stat_table';
+     stat_table.className = "table game-elements";
+     stat_table.innerHTML="<tr>" +
+         "<td>Richtig</td>" +
+         "<td>Falsch</td>" +
+         "<td id='score1' >Punkte</td>" +
+         "</tr>" +
+         "<tr>" +
+         "<td id='c_r' >"+counter_right+"</td>" +
+         "<td id='c_w' >"+counter_wrong+"</td>" +
+         "<td id='score' >"+score+"</td>" +
+         "</tr>";
+     game_div.appendChild(stat_table);
+
+
 
     var button_leave = document.createElement('div');
     button_leave.id = 'button_leave';
