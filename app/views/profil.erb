@@ -125,7 +125,7 @@
 
               <ul>
                 <% if @friends.nil? %>
-                    <p>Du hast noch keine Freunde hinzugefügt. Gib oben den Namen ein, um nach Freunden zu suchen</p>
+                    <h3 id="noFriendInfo">Du hast noch keine Freunde hinzugefügt. <br/><br/>Gib oben den Namen ein, um nach Freunden zu suchen</h3>
                 <% else %>
                     <% @friends.each do |friend|%>
                         <% unless friend.nil? %>

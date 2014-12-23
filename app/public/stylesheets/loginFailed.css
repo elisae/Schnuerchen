@@ -1,0 +1,34 @@
+body{
+
+    background-image: url(/images/landingpage/about-background.png);
+    color: black;
+    overflow: hidden;
+}
+
+h1, h2, h3, h4{
+    line-height: 150%;
+}
+
+#loginFailedMessage{
+    width: 80%;
+    text-align: center;
+    margin: 7% auto auto auto;
+    background-color: #FFA726 !important;
+    padding-top: 2%;
+    border-radius: 0.5em;
+
+}
+
+#retryLogin{
+    margin: auto auto 2% auto;
+    width: 40%;
+}
+
+#backToIndex{
+
+    padding: 2%;
+    font-size: 150%;
+    margin-bottom: 2%;
+    color: white;
+}
+

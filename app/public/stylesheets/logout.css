@@ -1,0 +1,22 @@
+body{
+    background-image: url(/images/landingpage/about-background.png);
+    color: black;
+    overflow: hidden;
+}
+
+#logoutMessage{
+    width: 80%;
+    text-align: center;
+    margin: 12% auto auto auto;
+    background-color: #4dd0e1 !important;
+    padding-top: 5%;
+    border-radius: 0.5em;
+
+}
+
+#backToIndex{
+    padding: 3%;
+    font-size: 200%;
+    margin-bottom: 6%;
+}
+

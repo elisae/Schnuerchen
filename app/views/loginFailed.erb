@@ -1,5 +1,29 @@
-<div class="box">
-	<h1>du bisch dumm, du dummi</h1>
 
-	<a href="/">zur startseite</a>
+<link href="/stylesheets/loginFailed.css" rel="stylesheet">
+
+<div id="loginFailedMessage">
+
+  <h4>Deine Anmeldung hat leider nicht geklappt</h4>
+  <h3>Du hast deinen Benutzernamen oder dein Passwort falsch eingeben</h3>
+  <h4>Versuch es noch einmal</h4>
+
+
+  <div id="retryLogin">
+    <form role="form" action="/login" method="post">
+      <div class="form-group">
+        <input type="text" class="form-control input-lg" id="username"  name="name" placeholder="Name">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password">
+      </div>
+      <input type="submit" class="btn btn-xl btn-lg btn-xl btn-outline" value="Los!"/>
+    </form>
+  </div>
+
+  <a href="/">
+    <div class="btn btn-lg btn-xl btn-outline" id="backToIndex">
+      Hier gehts zu zurück zur Startseite
+    </div>
+  </a>
+
 </div>

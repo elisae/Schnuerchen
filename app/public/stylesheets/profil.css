@@ -334,8 +334,29 @@ a {
     border: 1px solid #4dd0e1;
     border-radius: inherit;
 }
+
+#friendsearch{
+    font-size: 150%;
+}
 .input-group-addon{
     background-color: #FFA726;
+}
+
+#responseList li:hover{
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    background-color: #FFA726 !important;
+}
+
+#noFriendInfo{
+    margin: 2% auto auto auto;
+    padding: 2%;
+    border-radius: 0.2em;
+    text-align: center;
+    width: 85%;
+    background-color: #ffffff;
 }
 
 #friendResponse{
@@ -389,11 +410,34 @@ a {
     background-color: #4dd0e1 !important;
 }
 
+
+#responseList li{
+    margin-top: 50%;
+}
+
+
+.friendInfo{
+    text-align: center;
+    line-height: 150%;
+}
+
 .addBtn{
     margin-top: auto;
     margin-bottom: auto;
     top: 0;
     bottom: 0;
-    font-size: 70%;
-    padding: 2%;
+
+}
+
+#btn-add{
+    font-size: 150%;
+}
+
+#userOption{
+    text-align: center;
+    width: 80%;
+}
+
+#friendOption{
+    margin-top: 3vh;
 }

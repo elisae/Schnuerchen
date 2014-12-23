@@ -42,10 +42,10 @@ function searchFriend(){
                 if(msg.length != 0){
                     for(i=0;i<msg.length;i++){
                         var str =  msg[i]["username"];
-                        resultString = resultString + "<li><a href='/users/"+msg[i]["id"]+"/profil'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</a></li>"
+                        resultString = resultString + "<a href='/users/"+msg[i]["id"]+"/profil'><li><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</li></a>"
                     }
                 }else{
-                    resultString = "Keine Suchergebnisse";
+                    resultString = "<h4>Leider können wir nichts finden</h4>";
                 }
                 friendResponse.show();
                 responseList.html(resultString);
