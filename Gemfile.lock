@@ -1,19 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    backports (3.6.3)
-    json (1.7.7)
-    minitest (5.4.2)
+    backports (3.6.4)
+    json (1.8.1)
+    minitest (5.5.0)
     multi_json (1.10.1)
     pg (0.17.1)
     pg (0.17.1-x64-mingw32)
-    rack (1.5.2)
+    rack (1.6.0)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rake (10.3.2)
-    sequel (4.16.0)
+    rake (10.4.2)
+    sequel (4.17.0)
     sinatra (1.4.5)
       rack (~> 1.4)
       rack-protection (~> 1.4)

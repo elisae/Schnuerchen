@@ -13,10 +13,10 @@ function postScore(score, g_id){
         },
         cache: false,
         success: function () {
-            console.log("hat funktioniert");
+            console.log("Highscore posted");
         },
         error: function () {
-            console.log("hat nicht funktioniert");
-        },
+            console.log("Highscore not posted");
+        }
     })
 }

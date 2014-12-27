@@ -2,6 +2,8 @@
 body {
     overflow-x: hidden;
     font-family: 'Josefin Sans', 'Quicksand', sans-serif;
+    background-color: black;
+    color: white;
 }
 
 p {
@@ -27,18 +29,22 @@ h3,
 h4,
 h5,
 h6 {
+    position: relative;
+    z-index: 10;
     text-transform: uppercase;
     font-weight: 700;
 }
 
 .form-group {
    margin-bottom: 2%;
+
 }
 
 .floating-label-form-group {
     position: relative;
     /*padding-bottom: 0.5em;*/
     border-bottom: 1px solid #eee;
+
 }
 
 .floating-label-form-group input{
@@ -52,6 +58,7 @@ h6 {
     background: 0 0;
     box-shadow: none!important;
     resize: none;
+    color: white;
 }
 
 .floating-label-form-group label {
@@ -107,7 +114,7 @@ form .row:first-child .floating-label-form-group {
     border-radius: 3px;
     text-transform: uppercase;
     font-weight: 700;
-    color: #000;
+
     margin-bottom: 5%;
 }
 
@@ -142,3 +149,87 @@ form .row:first-child .floating-label-form-group {
     font-size: 170%;
     padding: 7%;
 }
+
+#valid{
+    margin-top: 2%;
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+@-webkit-keyframes greenPulse {
+    from { background-color: #75C3B3; -webkit-box-shadow: 0 0 60px #333; }
+    50% { background-color: #75C3B3; -webkit-box-shadow: 0 0 120px #75C3B3; }
+    to { background-color: #75C3B3; -webkit-box-shadow: 0 0 60px #333; }
+}
+
+@-moz-keyframes swing{
+    0%{-moz-transform:rotate(-3deg)}
+    50%{-moz-transform:rotate(3deg)}
+    100%{-moz-transform:rotate(-3deg)}
+}
+@-webkit-keyframes swing{
+    0%{-webkit-transform:rotate(-3deg)}
+    50%{-webkit-transform:rotate(3deg)}
+    100%{-webkit-transform:rotate(-3deg)}
+}
+
+#glow{
+    -webkit-animation: greenPulse 4s infinite;
+}
+
+#glow{
+    -moz-animation: 3s ease 0s normal none infinite swing;
+    -moz-transform-origin: center top;
+    /*-webkit-animation:swing 3s infinite ease-in-out;
+    -webkit-transform-origin:top;*/
+}
+
+#bulb{
+    margin-left: -5%;
+    margin-right: auto;
+    position: fixed;
+    z-index: 5;
+    top: 0;
+    margin-top: 0;
+    height: 30%;
+    width: 30%;
+}
+
+#bulb{
+    -moz-animation: 3s ease 0s normal none infinite swing;
+    -moz-transform-origin: center top;
+    -webkit-animation:swing 3s infinite ease-in-out;
+    -webkit-transform-origin:top;
+}
+
+#bulb img{
+    width: 42%;
+    height: auto;
+    position: relative;
+    z-index: 5;
+    left: 0;
+    margin-left: 25%;
+}
+
+#glow{
+    height: 12.5vw;
+    width:  12.5vw;
+    border-radius: 100%;
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    bottom: 0;
+    margin-top: 85%;
+    left: 0;
+    margin-left: 25%;
+}
+
+#letsGo{
+
+    text-align: center;
+    bottom: 0;
+    position: relative;
+    z-index: 500;
+}
+
