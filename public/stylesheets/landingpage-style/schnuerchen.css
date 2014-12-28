@@ -297,6 +297,26 @@ hr {
     margin: 1em 0; padding: 0;
 }
 
+#grapics1{
+    background-image: url(../../images/landingpage/can-do-calculations.png);
+    background-size: cover;
+
+    height: 24vw;
+    width: 24vw;
+}
+
+#grapics2{
+    background-image: url(../../images/landingpage/can-do-medalls.png);
+    background-size: cover;
+
+    height: 26vw;
+    width: 26vw;
+}
+
+#grapics3{
+
+}
+
 #contact-content{
     padding-top: 4%;
 }
@@ -512,13 +532,55 @@ body {
 }
 
 #explanation{
+    display: none;
     top:0;
-    position: absolute;
-    background-color: grey;
-    z-index: 2;
+    margin-top: 0;
+    position: fixed;
+    z-index: 5;
     height: 100%;
     width: 100%;
 }
+
+#step1Explanation{
+    display: none;
+    height: 80%;
+    width: 90%;
+    top: 0;
+    margin: 5% auto auto auto;
+    position: relative;
+    background-color: #fff;
+    border-radius: 0.5em;
+    border: 2px solid #E57373;
+    opacity: 0.95;
+}
+
+#step2Explanation{
+    display: none;
+    height: 80%;
+    width: 90%;
+    top: 0;
+    margin: 5% auto auto auto;
+    position: relative;
+    background-color: #fff;
+    border-radius: 0.5em;
+    border: 2px solid #B39DDB;
+    opacity: 0.95;
+}
+
+
+#step3Explanation{
+    display: none;
+    height: 80%;
+    width: 90%;
+    top: 0;
+    margin: 5% auto auto auto;
+    position: relative;
+    background-color: #fff;
+    border-radius: 0.5em;
+    border: 2px solid #66BB6A;
+    opacity: 0.95;
+}
+
 
 
 
