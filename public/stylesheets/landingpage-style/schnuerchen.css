@@ -297,10 +297,12 @@ hr {
     margin: 1em 0; padding: 0;
 }
 
+p{
+    font-size: 2vw;
+}
 #grapics1{
     background-image: url(../../images/landingpage/can-do-calculations.png);
     background-size: cover;
-
     height: 24vw;
     width: 24vw;
 }
@@ -308,12 +310,8 @@ hr {
 #grapics2{
     background-image: url(../../images/landingpage/can-do-medalls.png);
     background-size: cover;
-
     height: 26vw;
     width: 26vw;
-}
-
-#grapics3{
 
 }
 
