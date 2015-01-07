@@ -38,5 +38,27 @@ $('.navbar-collapse ul li a').click(function() {
     $('.navbar-toggle:visible').click();
 });
 
+var explanation = $("#explanation");
+var backToSteps = $(".backToSteps");
+
+$("#step1").click(function(){
+    explanation.show();
+    $("#step1Explanation").show();
+});
+
+$("#step2").click(function(){
+    explanation.show();
+    $("#step2Explanation").show();
+});
+
+$("#step3").click(function(){
+    explanation.show();
+    $("#step3Explanation").show();
+});
+
+backToSteps.click(function(){
+    explanation.hide();
+    $(".stepExplanation").hide();
+});
 
 

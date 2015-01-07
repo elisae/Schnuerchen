@@ -56,13 +56,16 @@ hr {
 }
 
 .trophy.won[data-pod="1"] {
-    background-color: #FFC23D;
+    background-image: url(/images/profile/Schnuerchen_Medaille_Gold.png);
+    background-size: cover;
 }
 .trophy.won[data-pod="2"] {
-    background-color: #CBD1D2;
+    background-image: url(/images/profile/Schnuerchen_Medaille_Silber.png);
+    background-size: cover;
 }
 .trophy.won[data-pod="3"] {
-    background-color: #D77950;
+    background-image: url(/images/profile/Schnuerchen_Medialle_Bronzw.png);
+    background-size: cover;
 }
 
 .trophy.won {

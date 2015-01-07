@@ -1,5 +1,8 @@
 $(function() {
 
+    var letsGo = $("#letsGo");
+    letsGo.hide();
+
     $("input,textarea").jqBootstrapValidation({
         preventSubmit: true,
         submitError: function($form, event, errors) {
@@ -35,7 +38,7 @@ $(function() {
                         .append("<strong>Jetzt bist du registriert und kannst spielen. </strong>");
                     $('#success > .alert-success')
                         .append('</div>');
-
+                    letsGo.show();
                     //clear all fields
                     $('#contactForm').trigger("reset");
                 },
@@ -44,12 +47,13 @@ $(function() {
                     $('#success').html("<div class='alert alert-danger'>");
                     $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
                         .append("</button>");
-                    $('#success > .alert-danger').append("<strong>Sorry " + firstname + ", scheissdreck, des goooht ned");
+                    $('#success > .alert-danger').append("<strong>Sorry " + firstname + ", die Registrierung hat leider nicht funktioniert</strong>");
                     $('#success > .alert-danger').append('</div>');
+
                     //clear all fields
                     $('#contactForm').trigger("reset");
-                },
-            })
+                }
+            });
 
 
 /*------------------------------------------------------------------------------*/
@@ -64,6 +68,32 @@ $(function() {
         e.preventDefault();
         $(this).tab("show");
     });
+
+    var username;
+    var password;
+
+    $("#registerButton").click(function(){
+        username = $("input#username").val();
+        password = $("input#password").val();
+    });
+
+
+    letsGo.click(function(){
+        $.ajax({
+            url: "/login",
+            type: "POST",
+            data: {
+                username: username,
+                password: password
+            },
+            cache: false,
+            success: function() {
+                window.location = "/games";
+            }
+        });
+    });
+
+
 });
 
 
@@ -71,3 +101,4 @@ $(function() {
 $('#name').focus(function() {
     $('#success').html('');
 });
+
