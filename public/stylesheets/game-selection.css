@@ -85,57 +85,53 @@
     background-size:cover;
 }
 
-#addi10{
+.r10{
     background-image: url(../images/games/range-10-icon.png);
     /*background-image:url(/images/games/10.svg);*/
     background-size:cover;
 }
 
-#subt10{
-    background-image: url(../images/games/range-10-icon.png);
-    /*background-image:url(/images/games/10.svg);*/
-    background-size:cover;
-}
-
-#subt20{
+.r20{
     background-image: url(../images/games/range-20-icon.png);
     /*background-image:url(/images/games/20.svg);*/
     background-size:cover;
 }
 
-#addi20{
-    background-image: url(../images/games/range-20-icon.png);
-    /*background-image:url(/images/games/20.svg);*/
-    background-size:cover;
-}
-
-#subt100{
+.r100{
     background-image: url(../images/games/range-100-icon.png);
     /*background-image:url(/images/games/100.svg);*/
     background-size:cover;
 }
 
-#addi100{
-    background-image: url(../images/games/range-100-icon.png);
-    /*background-image:url(/images/games/100.svg);*/
+.rsmall{
+    background-image: url(/images/games/small.png);
     background-size:cover;
 }
 
-div[name="small"]{
-    /* muss noch geschrieben werden */
-}
-div[name="big"]{
-    /* muss auch noch geschrieben werden */
-}
-div[name="scale"]{
-    background-image:url(/images/games/scale.svg);
-    background-size:cover;
-}
-div[name="time"]{
-    background-image:url(/images/games/time.svg);
+.rbig{
+    background-image: url(../images/games/big.png);
     background-size:cover;
 }
 
+.score{
+    background-image: url(/images/games/score.png);
+    background-size:cover;
+}
+
+.time{
+    background-image: url(/images/games/time.png);
+    background-size:cover;
+}
+
+.marathon{
+    background-image: url(/images/games/marathon.png);
+    background-size:cover;
+}
+
+.choice{
+    background-image: url(/images/games/choice.png);
+    background-size:cover;
+}
 
 .indicator{
     border-radius: 100%;
