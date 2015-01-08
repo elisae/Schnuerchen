@@ -28,7 +28,7 @@
 
 
 //-------------------------------------SETTINGS----------------------------------\\
-var quantity = 10;                  //How many tasks are there
+var quantity = 20;                  //How many tasks are there
 var lower_bound = 1;                //lower number bound
 var upper_bound = 5;  //100       //upper number bound
 
@@ -92,6 +92,7 @@ var score = 0;
 var counter = 0;
 var counter_right = 0;
 var counter_wrong = 0;
+var progress = 0;
 
 var pause_time = 0;
 var pause_start = 0;
@@ -186,6 +187,10 @@ function init_game(){
     result_line.innerHTML="Los Gehts!";
     document.getElementById('game_div').appendChild(result_line);
 
+    var score_line = document.createElement('p');
+    score_line.id='score_line';
+    score_line.innerHTML="Punkte: <span id='score_a'>"+score+"</span>";
+    game_div.appendChild(score_line);
 
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
@@ -203,6 +208,21 @@ function init_game(){
     user_tip.onkeyup = clean;
     game_line.appendChild(user_tip);
     user_tip.focus();
+
+    var progress_bar = document.createElement('div');
+    progress_bar.id='progress_bar';
+    var bar = document.createElement('div');
+    bar.id='bar';
+    var percent = document.createElement('div');
+    percent.id='percent';
+
+
+    bar.appendChild(percent);
+    progress_bar.appendChild(bar);
+    game_div.appendChild(progress_bar);
+
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
 
     var stop_watch = document.createElement('h2');
     stop_watch.id='stop_watch';
@@ -232,6 +252,8 @@ function init_game(){
          "<td id='score' >"+score+"</td>" +
          "</tr>";
      game_div.appendChild(stat_table);
+
+
 
 
 
@@ -449,9 +471,15 @@ document.onkeydown = function (event) {
             score = score - score_wrong;
             feedbackWrong();
         }
+        progress = progress + 5;
+        if(progress <= quantity * 5){
+            document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+            document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
+        }
+
         score_control();
         document.getElementById('score').innerHTML = score;
-
+        document.getElementById('score_a').innerHTML = score;
 
         create_numbers();
 

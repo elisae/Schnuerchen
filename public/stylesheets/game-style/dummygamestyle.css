@@ -220,3 +220,22 @@
 }
 
 
+#progress_bar{
+    width: 350px; /* Laenge des Balkens */
+    hight: 20px;  /* Hoehe des Balkens */
+    border: 1px solid black;
+}
+
+#bar{
+    width: 250px; /* Laenge des Balkens */
+    hight: 20px;  /* Hoehe des Balkens */
+    border-right: 1px solid black;
+    background: #11A2A2 /* Balkenfarbe */
+}
+
+#percent{
+    width: 350px;
+    text-align: center;
+    color: black;
+    font: normal 1.0em;
+}
