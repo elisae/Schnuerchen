@@ -130,11 +130,11 @@
             		<h3 class="friendInfo">Möchtest du <%= @friend[:firstname] %>s Freund werden?</h3>
                     <input class="addBtn btn btn-lg btn-outline btn-xl" type="button" value="Freund werden" id="<%= @friend[:id] %>">
             	<% when 1 %>
-                  <h3 class="friendInfo">Du hast <%= @friend[:firstname] %> gefragt ob ihr befreundet sein wollt.</h3>
-                  <input class = "unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Anfrage absagen" id="<%= @friend[:id] %>">
+                    <h3 class="friendInfo">Du hast <%= @friend[:firstname] %> gefragt ob ihr befreundet sein wollt.</h3>
+                    <input class = "unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Anfrage absagen" id="<%= @friend[:id] %>">
             	<% when 2 %>
-            		<h3 class="friendInfo">Freunschafsanfrage annehmen</h3>
-                    <input class="addBtn btn btn-lg btn-xl btn-outline" type="button" value="Freund werden" id="<%= @friend[:id] %> btn-add">
+                    <h3 class="friendInfo">Freunschafsanfrage annehmen</h3>
+                    <input class="addBtn btn-btn-lg btn-xl btn-outline" type="button" value="Freund werden" id="<%= @friend[:id] %>">
             	<% when 3 %>
               		<h3 class="friendInfo">Möchtest du nicht mehr mit  <%= @friend[:firstname] %> befreundet sein?</h3>
                     <input class="unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Aus deiner Liste nehmen" id="<%= @friend[:id] %>">

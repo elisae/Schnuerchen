@@ -122,7 +122,7 @@ def addTrophy(user_id, game_id, score)
 			ut = user.trophies_dataset.first(:trophy_id => tr.id)
 			unless ut 
 				user.add_trophy(tr)
-				puts "added Trophy #{tr.pod} id: #{tr.id}"
+				puts "added Trophy #{tr.pod} id: #{tr.id} user: #{user_id}"
 			end	
 		else
 			puts "not enough for Trophy #{tr.pod}"
@@ -132,7 +132,10 @@ end
 
 def getUserTrophies(user_id)
 	userTrophies = User.find(:id => user_id).trophies_dataset.to_hash_groups(:game_id, :pod)
-	puts userTrophies
+	puts " usertrophies: #{userTrophies}"
+  scores = Score.where(:user_id => user_id).map{|score|
+    score.to_hash
+  }
 	return userTrophies
 end
 
