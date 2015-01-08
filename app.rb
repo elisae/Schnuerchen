@@ -41,7 +41,7 @@ class App < Sinatra::Base
 	get "/games" do
 		if login?
 	    	@user = User.find(:id=>session[:u_id]).to_hash
-			@gamecategories = getGameCategories()
+			@gamecategories = getGameCategories
 			erb :games
 		else
 			redirect "/loginFailed"
@@ -57,12 +57,12 @@ class App < Sinatra::Base
 				@friendReqsOut = getReqsOut(session[:u_id])
 				@friendReqsIn = getReqsIn(session[:u_id])
 				@trophies = getUserTrophies(session[:u_id])
-				@gamecategories = getGameCategories()
+				@gamecategories = getGameCategories
 				erb :profil
 			else
 				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
 				@friend = User.find(:id=>params[:u_id]).to_hash
-				@gamecategories = getGameCategories()
+				@gamecategories = getGameCategories
 				@trophies = getUserTrophies(session[:u_id])
 				erb :user
 			end
@@ -115,7 +115,7 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
-  get "/search/*" do
+  get "/search" do
     require 'json'
     query = params[:query]
     responseArr = Array.new
@@ -136,12 +136,7 @@ class App < Sinatra::Base
 		print ""
 	end
 
-  post "/unfriend/:f_id" do
-    user_id = session[:u_id]
-    friend_id = params[:f_id].to_i
-    delFriend(user_id,friend_id)
-    puts "lol"
-  end
+
 
 
 
@@ -155,11 +150,20 @@ class App < Sinatra::Base
 					:email=>params[:email], 
 					:password=>params[:password])
 		puts "user angelegt"
-	  end
-
-	  post "/add/:f_id" do
-	  		addFriend(session[:u_id], Integer(params[:f_id]))
-	  		print ""
 	end
+
+  post "/add" do
+    user_id = session[:u_id]
+    friend_id = Integer(params[:f_id])
+	  addFriend(user_id, friend_id)
+	  print ""
+  end
+
+  post "/unfriend" do
+    user_id = session[:u_id]
+    friend_id = params[:f_id].to_i
+    delFriend(user_id,friend_id)
+    puts "lol"
+  end
 
 end
