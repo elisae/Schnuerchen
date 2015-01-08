@@ -621,6 +621,7 @@ function countdown(c){
 		document.getElementById('c_r').innerHTML = counter_right;
 		document.getElementById('c_w').innerHTML = counter_wrong;
 		document.getElementById('score').innerHTML = 0;
+        document.getElementById('score_a').innerHTML = 0;
 
 
         $("#game_div").show();

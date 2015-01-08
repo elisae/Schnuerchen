@@ -535,6 +535,7 @@ function stopwatch(){
             score_just_updated = true;
             score_update_cooler = (Math.round(time_needed/1000) + 5);
             document.getElementById('score').innerHTML = score;
+            document.getElementById('score_a').innerHTML = score;
         }
 
 
@@ -595,6 +596,7 @@ function countdown(c){
         document.getElementById('c_r').innerHTML = counter_right;
         document.getElementById('c_w').innerHTML = counter_wrong;
         document.getElementById('score').innerHTML = score;
+        document.getElementById('score_a').innerHTML = score;
 
         $("#game_div").show();
         $("#countdown_div").show();

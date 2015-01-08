@@ -540,6 +540,7 @@ function countdown(c){
         document.getElementById('c_r').innerHTML = counter_right;
         document.getElementById('c_w').innerHTML = counter_wrong;
         document.getElementById('score').innerHTML = score;
+        document.getElementById('score_a').innerHTML = score;
 
         document.getElementById('sw_min').innerHTML = "" + Math.floor(timer / 60);
         var sec = timer % 60;
