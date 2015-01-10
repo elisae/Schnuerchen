@@ -314,27 +314,6 @@ Friendship.create(:friends_with_id => 1, :friend_of_id => 3)
 Friendship.create(:friends_with_id => 1, :friend_of_id => 4)
 Friendship.create(:friends_with_id => 5, :friend_of_id => 1)
 
-friends = User.find(:id => 1).friends_with.map { |f|
-	f.to_hash
-} 
-
-puts "User 1 is friends_with"
-puts friends
-
-friends = User.find(:id => 1).friend_of.map { |f|
-	f.to_hash
-} 
-
-puts "User 1 is friend_of"
-puts friends
-
-puts friends?(1, 2)
-
-puts friends?(1, 3)
-
-puts friends?(1, 5)
-
-
 Gamerange.create(:name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
 Gamerange.create(:name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")
 Gamerange.create(:name=>"100", :long_descr=> "Rechne mit den Zahlen von 1-100!")
@@ -572,6 +551,22 @@ Score.create(:user_id=>2,
 			:game_id=>1,
 			:timestamp => DateTime.now,
 			:score => 60)
+Score.create(:user_id=>1,
+             :game_id=>1,
+             :timestamp => DateTime.now,
+             :score => 60)
+Score.create(:user_id=>1,
+             :game_id=>1,
+             :timestamp => DateTime.now,
+             :score => 60)
+Score.create(:user_id=>1,
+             :game_id=>3,
+             :timestamp => DateTime.now,
+             :score => 100)
+Score.create(:user_id=>1,
+             :game_id=>2,
+             :timestamp => DateTime.now,
+             :score => 100)
 
 
 

@@ -41,7 +41,7 @@ class App < Sinatra::Base
 	get "/games" do
 		if login?
 	    	@user = User.find(:id=>session[:u_id]).to_hash
-			@gamecategories = getGameCategories()
+			@gamecategories = getGameCategories
 			erb :games
 		else
 			redirect "/loginFailed"
@@ -57,13 +57,18 @@ class App < Sinatra::Base
 				@friendReqsOut = getReqsOut(session[:u_id])
 				@friendReqsIn = getReqsIn(session[:u_id])
 				@trophies = getUserTrophies(session[:u_id])
-				@gamecategories = getGameCategories()
+				@gamecategories = getGameCategories
 				erb :profil
 			else
 				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
 				@friend = User.find(:id=>params[:u_id]).to_hash
+<<<<<<< HEAD
 				@gamecategories = getGameCategories()
 				@trophies = getUserTrophies(params[:u_id])
+=======
+				@gamecategories = getGameCategories
+				@trophies = getUserTrophies(session[:u_id])
+>>>>>>> 67920631b6381e9885b5bcebb8e4f1d95c96bc7f
 				erb :user
 			end
 		else
@@ -115,7 +120,7 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
-  get "/search/*" do
+  get "/search" do
     require 'json'
     query = params[:query]
     responseArr = Array.new
@@ -136,17 +141,13 @@ class App < Sinatra::Base
 		print ""
 	end
 
-  post "/unfriend/:f_id" do
-    user_id = session[:u_id]
-    friend_id = params[:f_id].to_i
-    delFriend(user_id,friend_id)
-    puts "lol"
-  end
+
 
 
 
 # TODO automatischer LOGIN
 	post "/api/user" do
+
 		if User.find(:username=>params[:username])
 			puts "user existiert schon"
 			status 409 
@@ -168,5 +169,19 @@ class App < Sinatra::Base
 	  		addFriend(session[:u_id], Integer(params[:f_id]))
 	  		print ""
 	end
+
+  post "/add" do
+    user_id = session[:u_id]
+    friend_id = Integer(params[:f_id])
+	  addFriend(user_id, friend_id)
+	  print ""
+  end
+
+  post "/unfriend" do
+    user_id = session[:u_id]
+    friend_id = params[:f_id].to_i
+    delFriend(user_id,friend_id)
+    puts "lol"
+  end
 
 end

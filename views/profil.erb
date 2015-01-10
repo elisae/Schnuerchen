@@ -59,6 +59,7 @@
                                     <% else %>
                                       <% 3.downto(1) do |i| %>
                                           <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
+
                                       <% end %>
                                     <% end %>
                                   </div>
