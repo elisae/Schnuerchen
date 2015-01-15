@@ -18,6 +18,7 @@ require "sequel"
 require "sinatra/json"
 require "pp"
 require "date"
+require "bcrypt"
 
 # - Load app ------------------------------------------------
 require "app"

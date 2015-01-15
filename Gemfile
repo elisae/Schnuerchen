@@ -10,6 +10,8 @@ gem "pg"
 gem "json"
 gem "sinatra-contrib"
 
+gem 'bcrypt'
+
 group :development do
   gem "rake", "~> 10.0"
   gem "minitest", "~> 5.2"
