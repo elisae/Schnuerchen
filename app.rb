@@ -33,8 +33,7 @@ class App < Sinatra::Base
 			session[:u_id] = @user[:id]
 			redirect "/games"
 		else
-	      erb :loginFailed,
-	        :layout => :layout_notLoggedIn
+	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end
   	end
 
@@ -92,7 +91,7 @@ class App < Sinatra::Base
 								:gametype=>"#{params[:type]}").to_hash
 			erb :game
 		else
-			"Not logged in"
+			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
 
@@ -118,6 +117,20 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
+  get "/userscores" do
+    require 'json'
+    content_type :json
+    user_id = session[:u_id].to_i
+    friend_id = params[:u_id].to_i
+    game_id = params[:g_id].to_i
+    if user_id == friend_id
+      scores = getUserScore(user_id,game_id)
+    else
+      scores = getFriendScore(user_id,friend_id,game_id)
+    end
+    scores.to_json
+  end
+
   get "/search" do
     require 'json'
     query = params[:query]
@@ -136,17 +149,17 @@ class App < Sinatra::Base
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
 		saveScore(session[:u_id], params[:g_id], Integer(params[:score]))
-		print ""
+		status 200
 	end
-
-
-
 
 
 # TODO automatischer LOGIN
 	post "/api/user" do
 
-		if User.find(:username=>params[:username])
+		if /[^\x00-\x7F]/ =~ params[:username]
+			puts "Non-ASCII character found"
+			status 420
+		elsif User.find(:username=>params[:username])
 			puts "user existiert schon"
 			status 409 
 		else
@@ -165,21 +178,21 @@ class App < Sinatra::Base
 
 	  post "/add/:f_id" do
 	  		addFriend(session[:u_id], Integer(params[:f_id]))
-	  		print ""
+	  		status 200
 	end
 
   post "/add" do
     user_id = session[:u_id]
     friend_id = Integer(params[:f_id])
 	  addFriend(user_id, friend_id)
-	  print ""
+	  status 200
   end
 
   post "/unfriend" do
     user_id = session[:u_id]
     friend_id = params[:f_id].to_i
     delFriend(user_id,friend_id)
-    puts "lol"
+    status 200
   end
 
 end

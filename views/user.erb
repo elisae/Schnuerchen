@@ -5,7 +5,7 @@
     <section>
                        <!-- Trophähen -->
 
-        <div id="myProfil">
+        <div id="myProfil" user = "<%= @friend[:id] %>">
 
           <h1 id="page-info"><%= @friend[:firstname] %></h1>
 
@@ -60,7 +60,7 @@
                                         <div class=" col-md-offset-2 col-md-2 gamename">
                                           <h3><%= type[:name] %></h3>
                                         </div>
-                                        <div class="col-md-6 col-md-offset-1 gametrophies">
+                                        <div class="col-md-6 col-md-offset-1 gametrophies"  id="<%= type[:game_id]%>">
                                           <% game_trophies = @trophies[type[:game_id]] %>
                                           <% if (game_trophies == nil) %>
                                               <% 3.downto(1) do |i| %>
@@ -68,7 +68,7 @@
                                               <% end %>
                                           <% else %>
                                               <% 3.downto(1) do |i| %>
-                                                  <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
+                                                  <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" ></div>
                                               <% end %>
                                           <% end %>
                                         </div>
