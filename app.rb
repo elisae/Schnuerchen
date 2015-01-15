@@ -65,8 +65,10 @@ class App < Sinatra::Base
 					@friendReqsIn = getReqsIn(session[:u_id])
 					@trophies = getUserTrophies(session[:u_id])
 					@gamecategories = getGameCategories
+					@friendheader = false
 					erb :profil
 				else
+					@friendheader = true
 					@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
 					@friend = User.find(:id=>params[:u_id]).to_hash
 					@gamecategories = getGameCategories()
