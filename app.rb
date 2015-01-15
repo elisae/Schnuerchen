@@ -50,6 +50,7 @@ class App < Sinatra::Base
 
 	get "/users/:u_id/profil" do
 		if login?
+
 			@user = User.find(:id=>params[:u_id]).to_hash
 
 			if "#{session[:u_id]}" == params[:u_id]
@@ -58,17 +59,14 @@ class App < Sinatra::Base
 				@friendReqsIn = getReqsIn(session[:u_id])
 				@trophies = getUserTrophies(session[:u_id])
 				@gamecategories = getGameCategories
+        @friendheader = false
 				erb :profil
-			else
+      else
+        @friendheader = true
 				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
 				@friend = User.find(:id=>params[:u_id]).to_hash
-<<<<<<< HEAD
 				@gamecategories = getGameCategories()
 				@trophies = getUserTrophies(params[:u_id])
-=======
-				@gamecategories = getGameCategories
-				@trophies = getUserTrophies(session[:u_id])
->>>>>>> 67920631b6381e9885b5bcebb8e4f1d95c96bc7f
 				erb :user
 			end
 		else

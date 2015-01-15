@@ -14,7 +14,6 @@ hr {
     width: 75%;
     border: none;
     height: 1px;
-
     background-color: #333;
 }
 
@@ -38,11 +37,26 @@ hr {
 }
 
 #page-info{
-    margin-top: 2%;
+    margin-top: 5%;
     text-align: center;
 }
 
+#noFriendOverlay{
+    position: absolute;
+    background-color: darkgrey;
+    border-radius: 0.5em;
+    opacity: 0.95;
+    z-index: 100;
+    height: 100%;
+    width: 100%;
+    color: white;
+}
 
+#noFriendOverlay h1{
+    text-align: center;
+    margin: 10%;
+    line-height: 120%;
+}
 
 .trophy{
     border-radius: 100%;
@@ -129,7 +143,14 @@ hr {
     overflow-x: hidden;
     overflow-y: scroll;
     white-space: nowrap;
+    overflow-y: -moz-scrollbars-none;
 }
+
+.item::-webkit-scrollbar {
+    display: none;
+}
+
+.item { -ms-overflow-style: marquee; }
 
 .carousel-caption {
     color: black;
@@ -138,7 +159,6 @@ hr {
     left: 0;
     right: 0;
     padding-bottom: 0;
-
 }
 
 
@@ -194,12 +214,6 @@ a {
     text-decoration: none;
 }
 
-/*.carousel {
-    position: relative;
-    margin-bottom: 20px;
-    line-height: 1;
-}
-*/
 .carousel-indicators li {
     height: 19px;
     width: 19px;
@@ -258,19 +272,35 @@ a {
 
     /*------------------------Begin friendlist------------------------*/
 
+#friendcontainer{
+    position: relative;
+    overflow: hidden;
+    height: 65vh;
+    width: 100%;
+}
+
 #friendlist {
     background-image: url(../images/landingpage/background_intro.png);
     text-align: center;
-    overflow: scroll;
-    height: 65vh;
-    width: 85%;
     border-radius: 0.5em;
     -moz-box-shadow: inset 0 0 10px grey;
     -webkit-box-shadow: inset 0 0 10px grey;
     box-shadow: inset 0 0 10px grey;
     margin: auto;
     vertical-align: middle !important;
+    height: 65vh;
+    width: 85%;
+    left: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overflow-y: -moz-scrollbars-none;
 }
+
+#friendlist::-webkit-scrollbar {
+    display: none;
+}
+
+#friendlist { -ms-overflow-style: marquee; }
 
 #friendlist ul li {
     position: relative;
@@ -283,13 +313,11 @@ a {
     font-size: 200%;
     background-color: white;
     margin: 1% auto 1% auto;
-
 }
 
 #friendlist:hover ul li {
     background-color: white;
     cursor: pointer;
-
 }
 
 #friendlist a{

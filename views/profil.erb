@@ -1,172 +1,177 @@
-
-
 <link href="/stylesheets/profil.css" rel="stylesheet">
 
-    <section>
-                       <!-- Trophähen -->
+<section>
+  <!-- Trophähen -->
 
-        <div id="myProfil">
+  <div id="myProfil">
 
-          <h2 id="page-info">Hallo <%= @user[:firstname] %></h2>
+    <h1 id="page-info">Hallo <%= @user[:firstname] %></h1>
 
-          <div id="myCarousel" class="col-md-8 carousel slide">
+    <div id="myCarousel" class="col-md-8 carousel slide">
 
-            <!--
-              <div id="button2">
-                  <div class="trophy btn btn-lg">hover me</div>
-                  <div class="con" style="display: none;"></div>
+      <!--
+        <div id="button2">
+            <div class="trophy btn btn-lg">hover me</div>
+            <div class="con" style="display: none;"></div>
+        </div>
+
+        -->
+
+      <div id="trophies">
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+          <% i = 0 %>
+          <% @gamecategories.each do |cat| %>
+              <% if (i == 0) %>
+                  <div class="item active">
+              <% else %>
+                  <div class="item">
+              <% end %>
+
+              <div class="carousel-caption">
+                <h2 id="description"> <%= cat[:descr] %></h2>
               </div>
 
-              -->
+              <div class="fill">
+                <% unless cat[:ranges] == nil %>
+                    <% cat[:ranges].each do |range| %>
 
-            <div id="trophies">
-              <!-- Wrapper for Slides -->
-              <div class="carousel-inner">
-                  <% i = 0 %>
-                  <% @gamecategories.each do |cat| %>
-                    <% if (i == 0) %>
-                      <div class="item active">
-                    <% else %>
-                      <div class="item">
-                    <% end %>
+                        <div class="ranges ">
+                          <h2><%= range[:name] %></h2>
+                          <hr>
+                        </div>
 
-                    <div class="carousel-caption">
-                      <h1 id="description"> <%= cat[:descr]  %></h1>
-                    </div>
+                        <div class="row gametypes">
 
-                      <div class="fill">
-                        <% unless cat[:ranges] == nil %>
-                          <% cat[:ranges].each do |range| %>
-
-                             <div class="ranges ">
-                               <h2><%= range[:name] %></h2>
-                               <hr>
-                             </div>
-
-                            <div class="row gametypes">
-
-                              <% unless range[:types] == nil %>
-                                <% range[:types].each do |type| %>
+                          <% unless range[:types] == nil %>
+                              <% range[:types].each do |type| %>
                                   <div class=" col-md-offset-2 col-md-2 gamename">
                                     <h3><%= type[:name] %></h3>
                                   </div>
                                   <div class="col-md-6 col-md-offset-1 gametrophies">
                                     <% game_trophies = @trophies[type[:game_id]] %>
                                     <% if (game_trophies == nil) %>
-                                      <% 3.downto(1) do |i| %>
-                                          <div class="trophy notwon %>" data-pod="<%= i %>"></div>
-                                      <% end %>
+                                        <% 3.downto(1) do |i| %>
+                                            <div class="trophy notwon %>" data-pod="<%= i %>"></div>
+                                        <% end %>
                                     <% else %>
-                                      <% 3.downto(1) do |i| %>
-                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
+                                        <% 3.downto(1) do |i| %>
+                                            <div class="trophy <%= game_trophies.include?(i) ? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
 
-                                      <% end %>
+                                        <% end %>
                                     <% end %>
                                   </div>
-                                <% end %>
                               <% end %>
-
-                            </div>
                           <% end %>
-                        <% end %>
-                      </div>
 
-                    </div>
-
-                    <% i+= 1 %>
-                  <% end %>
-
-              </div>
-
-              <!-- Controls -->
-              <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="icon-prev"></span>
-              </a>
-              <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="icon-next"></span>
-              </a>
-
-
-
-
-              </div>
-
-
-              <!-- Indicators -->
-              <ol class="carousel-indicators">
-
-                <% i = 0 %>
-                <% @gamecategories.each do |cat| %>
-                    <% if (i == 0) %>
-                        <li data-target="#myCarousel" data-slide-to="<%= i %>" class="active"></li>
-                    <% else %>
-                        <li data-target="#myCarousel" data-slide-to="<%= i %>"></li>
+                        </div>
                     <% end %>
-                    <% i+= 1 %>
                 <% end %>
+              </div>
 
-              </ol>
+              </div>
+
+              <% i+= 1 %>
+          <% end %>
 
           </div>
-          <!-- --------------Freundesliste-------------- -->
 
-          <div class="col-md-4">
-            <div id="friendlist" >
-              <div class="input-group input-group-lg" id="friendsearchinput">
+          <!-- Controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="icon-prev"></span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="icon-next"></span>
+          </a>
+
+
+        </div>
+
+
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+
+          <% i = 0 %>
+          <% @gamecategories.each do |cat| %>
+              <% if (i == 0) %>
+                  <li data-target="#myCarousel" data-slide-to="<%= i %>" class="active"></li>
+              <% else %>
+                  <li data-target="#myCarousel" data-slide-to="<%= i %>"></li>
+              <% end %>
+              <% i+= 1 %>
+          <% end %>
+
+        </ol>
+
+      </div>
+      <!-- --------------Freundesliste-------------- -->
+
+      <div class="col-md-4">
+        <div id="friendcontainer">
+
+          <div id="friendlist">
+            <div class="input-group input-group-lg" id="friendsearchinput">
                 <span class="input-group-addon">
                   <i class="fa fa-search"></i>
                 </span>
-                <input class="form-control" placeholder="Nach Freunden suchen" type ="text" id="friendsearch" oninput="searchFriend()"/>
-              </div>
+              <input class="form-control" placeholder="Nach Freunden suchen" type="text" id="friendsearch" oninput="searchFriend()"/>
+            </div>
 
 
-                <div id="friendResponse">
-                  <ul id="responseList"></ul>
-                </div>
+            <div id="friendResponse">
+              <ul id="responseList"></ul>
+            </div>
 
-              <ul>
-                <% if @friends.nil? %>
-                    <h3 id="noFriendInfo">Du hast noch keine Freunde hinzugefügt. <br/><br/>Gib oben den Namen ein, um nach Freunden zu suchen</h3>
-                <% else %>
-                    <% @friends.each do |friend|%>
-                        <% unless friend.nil? %>
-                            <a href="/users/<%= friend[:id] %>/profil"><li><%= friend[:username] %></li></a>
-                        <% end %>
-                    <% end %>
-                <% end %>
-                <% if !@friendReqsOut.nil? %>
-                    <% @friendReqsOut.each do |reqsOut|
-                        unless reqsOut.nil? %>
-                          <a href="/users/<%= reqsOut[:id] %>/profil"><li class="notYetRequestedFriends"><%= reqsOut[:username] %></li></a>
-                        <%end
-                       end
-                    end %>
-                <% if !@friendReqsIn.nil? %>
-                    <% @friendReqsIn.each do |reqsIn|
-                        unless reqsIn.nil? %>
+            <ul>
+              <% if @friends.nil? %>
+                  <h3 id="noFriendInfo">Du hast noch keine Freunde hinzugefügt. <br/><br/>Gib oben den Namen ein, um
+                    nach Freunden zu suchen</h3>
+              <% else %>
+                  <% @friends.each do |friend| %>
+                      <% unless friend.nil? %>
+                          <a href="/users/<%= friend[:id] %>/profil">
+                            <li><%= friend[:username] %></li>
+                          </a>
+                      <% end %>
+                  <% end %>
+              <% end %>
+              <% if !@friendReqsOut.nil? %>
+                  <% @friendReqsOut.each do |reqsOut|
+                    unless reqsOut.nil? %>
+                          <a href="/users/<%= reqsOut[:id] %>/profil">
+                            <li class="notYetRequestedFriends"><%= reqsOut[:username] %></li>
+                          </a>
+                      <% end
+                         end
+                         end %>
+              <% if !@friendReqsIn.nil? %>
+                  <% @friendReqsIn.each do |reqsIn|
+                    unless reqsIn.nil? %>
 
                           <li class="notYetRespondedFriends">
                             <a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a>
                             <br/>
-                            <div id = "<%= reqsIn[:id] %>" class="addBtn btn btn-outline btn-xl btn-lg" onclick="window.location.reload()">
+
+                            <div id="<%= reqsIn[:id] %>" class="addBtn btn btn-outline btn-xl btn-lg" onclick="window.location.reload()">
 
                               Freund werden
                             </div>
                           </li>
-                    <% end %>
+                      <% end %>
                   <% end %>
-                <% end %>
+              <% end %>
 
-              </ul>
-            </div>
+            </ul>
           </div>
         </div>
-
-
       </div>
+    </div>
 
 
-    </section>
+  </div>
+
+
+</section>
 
 <script src="/javascripts/trophyAjax.js"></script>
 <script src="/javascripts/profil.js"></script>
