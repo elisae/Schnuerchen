@@ -115,6 +115,20 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
+  get "/userscores" do
+    require 'json'
+    content_type :json
+    user_id = session[:u_id].to_i
+    friend_id = params[:u_id].to_i
+    game_id = params[:g_id].to_i
+    if user_id == friend_id
+      scores = getUserScore(user_id,game_id)
+    else
+      scores = getFriendScore(user_id,friend_id,game_id)
+    end
+    scores.to_json
+  end
+
   get "/search" do
     require 'json'
     query = params[:query]

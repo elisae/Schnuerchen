@@ -95,6 +95,30 @@ $(document).ready(function() {
             }
         )
     });
+
+    /* This function gets called when you hover over a Trophy */
+
+    var gametrophies = $(".gametrophies > .trophy");
+    var timeout = null;
+
+    gametrophies.hover(function(event){
+        timeout = setTimeout(function(){
+            $.get(
+                "/userscores",
+                {g_id: $(event.target).parent().attr("id"),
+                    u_id: $("#myProfil").attr("user")},
+                function (msg) {
+                    if (msg.length != 0) {
+                        console.log(msg[0]["score"]);
+                    } else {
+                        console.log("Fehler");
+                    }
+                }
+            )
+        },100);
+    },function(){
+        clearTimeout(timeout);
+    });
 });
 
 /* ---------------------------- ENDE Freundessuche---------------------------- */
