@@ -556,10 +556,6 @@ Score.create(:user_id=>1,
              :timestamp => DateTime.now,
              :score => 60)
 Score.create(:user_id=>1,
-             :game_id=>1,
-             :timestamp => DateTime.now,
-             :score => 60)
-Score.create(:user_id=>1,
              :game_id=>3,
              :timestamp => DateTime.now,
              :score => 100)
@@ -567,14 +563,3 @@ Score.create(:user_id=>1,
              :game_id=>2,
              :timestamp => DateTime.now,
              :score => 100)
-
-
-
-
-
-
-
-
-
-
-
