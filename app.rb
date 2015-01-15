@@ -62,13 +62,8 @@ class App < Sinatra::Base
 			else
 				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
 				@friend = User.find(:id=>params[:u_id]).to_hash
-<<<<<<< HEAD
 				@gamecategories = getGameCategories()
 				@trophies = getUserTrophies(params[:u_id])
-=======
-				@gamecategories = getGameCategories
-				@trophies = getUserTrophies(session[:u_id])
->>>>>>> 67920631b6381e9885b5bcebb8e4f1d95c96bc7f
 				erb :user
 			end
 		else
