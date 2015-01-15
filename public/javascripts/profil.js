@@ -102,16 +102,46 @@ $(document).ready(function() {
     var timeout = null;
 
     gametrophies.hover(function(event){
+
+        var target = $(event.target);
+        var targetClass = target.attr("class");
+        var targetMinScore = target.attr("min_score");
+        var targetPod = Number(target.attr("data-pod"));
+
         timeout = setTimeout(function(){
             $.get(
                 "/userscores",
-                {g_id: $(event.target).parent().attr("id"),
-                    u_id: $("#myProfil").attr("user")},
-                function (msg) {
-                    if (msg.length != 0) {
-                        console.log(msg[0]["score"]);
-                    } else {
-                        console.log("Fehler");
+                {g_id: target.parent().attr("id"),
+                 u_id: $("#myProfil").attr("user")},
+                function (msg,statusText,xhr) {
+                    if(xhr.status == 200){
+                        if(target.hasClass("won")){
+                            switch(targetPod){
+                                case 1:
+                                    console.log("Goldmedaille! Gibts ab " + targetMinScore + " Punkten. Dein Punkte:" + msg[0]["score"]);
+                                    break;
+                                case 2:
+                                    console.log("Silbermedaille! Gibts ab " + targetMinScore + "Punkten. Deine Punkte:" + msg[0]["score"] + "Für Gold brauchst:  " + target.next().attr("min_score"));
+                                    break;
+                                case 3:
+                                    console.log("Bronze! Gibts ab" + targetMinScore + "Punkten. Deine Punkte" +  msg[0]["score"] + "Für silber brauchst:" + target.next().attr("min_score"));
+                                    break;
+                            }
+                        }else if(target.hasClass("notwon")){
+                            switch(targetPod){
+                                case 1:
+                                    console.log("Du hast diese Medaille noch nicht. Du brauchst:" + targetMinScore );
+                                    break;
+                                case 2:
+                                    console.log("Du hast diese Medaille noch nicht. Du brauchst:" + targetMinScore );
+                                    break;
+                                case 3:
+                                    console.log("Du hast diese Medaille noch nicht. Du brauchst:" + targetMinScore );
+                                    break;
+                            }
+                        }
+                    }else if(xhr.status == 204){
+                        console.log("(͡° ͜ʖ ͡°)");
                     }
                 }
             )

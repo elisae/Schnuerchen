@@ -126,7 +126,11 @@ class App < Sinatra::Base
     else
       scores = getFriendScore(user_id,friend_id,game_id)
     end
-    scores.to_json
+    if !scores.empty?
+      scores.to_json
+    else
+      204
+    end
   end
 
   get "/search" do

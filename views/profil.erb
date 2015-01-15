@@ -54,11 +54,11 @@
                                     <% game_trophies = @trophies[type[:game_id]] %>
                                     <% if (game_trophies == nil) %>
                                       <% 3.downto(1) do |i| %>
-                                          <div class="trophy notwon" data-pod="<%= i %>" ></div>
+                                          <div class="trophy notwon" data-pod="<%= i %>" min_score="<%=100 %>" ></div>
                                       <% end %>
                                     <% else %>
                                       <% 3.downto(1) do |i| %>
-                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
+                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" min_score="<%=100 %>"></div>
                                       <% end %>
                                     <% end %>
                                   </div>
