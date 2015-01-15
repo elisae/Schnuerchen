@@ -42,12 +42,19 @@ $(function() {
                     //clear all fields
                     $('#contactForm').trigger("reset");
                 },
-                error: function() {
+                error: function(xhr, status, text) {
                     // Fail message
                     $('#success').html("<div class='alert alert-danger'>");
                     $('#success > .alert-danger').html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;")
                         .append("</button>");
-                    $('#success > .alert-danger').append("<strong>Sorry " + firstname + ", den Benutzernamen " + username + " gibt es schon</strong>");
+
+                    if (xhr.status == 409) {
+                        $('#success > .alert-danger').append("<strong>Sorry " + firstname + ", den Benutzernamen " + username + " gibt es schon</strong>");
+                    } else if (xhr.status == 420) {
+                        $('#success > .alert-danger').append("<strong>Sorry, der Benutzername darf nicht Ä, Ö, Ü enthalten</strong>");
+                    } else {
+                        $('#success > .alert-danger').append("<strong>Sorry, etwas ist schief gelaufen. Bitte versuch es später noch einmal.</strong>");
+                    }
                     $('#success > .alert-danger').append('</div>');
 
                     //clear all fields

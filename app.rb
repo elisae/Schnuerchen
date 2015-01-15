@@ -33,8 +33,7 @@ class App < Sinatra::Base
 			session[:u_id] = @user[:id]
 			redirect "/games"
 		else
-	      erb :loginFailed,
-	        :layout => :layout_notLoggedIn
+	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end
   	end
 
@@ -50,6 +49,7 @@ class App < Sinatra::Base
 
 	get "/users/:u_id/profil" do
 		if login?
+
 			@user = User.find(:id=>params[:u_id]).to_hash
 
 			if "#{session[:u_id]}" == params[:u_id]
@@ -58,12 +58,14 @@ class App < Sinatra::Base
 				@friendReqsIn = getReqsIn(session[:u_id])
 				@trophies = getUserTrophies(session[:u_id])
 				@gamecategories = getGameCategories
+        @friendheader = false
 				erb :profil
-			else
+      else
+        @friendheader = true
 				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
 				@friend = User.find(:id=>params[:u_id]).to_hash
-				@gamecategories = getGameCategories
-				@trophies = getUserTrophies(session[:u_id])
+				@gamecategories = getGameCategories()
+				@trophies = getUserTrophies(params[:u_id])
 				erb :user
 			end
 		else
@@ -89,7 +91,7 @@ class App < Sinatra::Base
 								:gametype=>"#{params[:type]}").to_hash
 			erb :game
 		else
-			"Not logged in"
+			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
 
@@ -151,17 +153,17 @@ class App < Sinatra::Base
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
 		saveScore(session[:u_id], params[:g_id], Integer(params[:score]))
-		print ""
+		status 200
 	end
-
-
-
 
 
 # TODO automatischer LOGIN
 	post "/api/user" do
 
-		if User.find(:username=>params[:username])
+		if /[^\x00-\x7F]/ =~ params[:username]
+			puts "Non-ASCII character found"
+			status 420
+		elsif User.find(:username=>params[:username])
 			puts "user existiert schon"
 			status 409 
 		else
@@ -180,21 +182,21 @@ class App < Sinatra::Base
 
 	  post "/add/:f_id" do
 	  		addFriend(session[:u_id], Integer(params[:f_id]))
-	  		print ""
+	  		status 200
 	end
 
   post "/add" do
     user_id = session[:u_id]
     friend_id = Integer(params[:f_id])
 	  addFriend(user_id, friend_id)
-	  print ""
+	  status 200
   end
 
   post "/unfriend" do
     user_id = session[:u_id]
     friend_id = params[:f_id].to_i
     delFriend(user_id,friend_id)
-    puts "lol"
+    status 200
   end
 
 end
