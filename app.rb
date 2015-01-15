@@ -62,8 +62,13 @@ class App < Sinatra::Base
 			else
 				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
 				@friend = User.find(:id=>params[:u_id]).to_hash
+<<<<<<< HEAD
+				@gamecategories = getGameCategories()
+				@trophies = getUserTrophies(params[:u_id])
+=======
 				@gamecategories = getGameCategories
 				@trophies = getUserTrophies(session[:u_id])
+>>>>>>> 67920631b6381e9885b5bcebb8e4f1d95c96bc7f
 				erb :user
 			end
 		else
@@ -156,14 +161,27 @@ class App < Sinatra::Base
 
 # TODO automatischer LOGIN
 	post "/api/user" do
-		params.each { |p|
-			puts p
-		}
-		User.create(:username=>params[:username], 
-					:firstname=>params[:firstname], 
-					:email=>params[:email], 
-					:password=>params[:password])
-		puts "user angelegt"
+
+		if User.find(:username=>params[:username])
+			puts "user existiert schon"
+			status 409 
+		else
+			params.each { |p|
+				puts p
+			}
+			newUser = User.create(:username=>params[:username], 
+						:firstname=>params[:firstname], 
+						:email=>params[:email], 
+						:password=>params[:password])
+			session[:u_id] = newUser.id
+			puts "User angelegt und eingeloggt"
+			status 200
+		end
+	  end
+
+	  post "/add/:f_id" do
+	  		addFriend(session[:u_id], Integer(params[:f_id]))
+	  		print ""
 	end
 
   post "/add" do

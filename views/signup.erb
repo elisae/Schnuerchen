@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Schnuerchen - Registrieren</title>
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="/stylesheets/landingpage-style/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/stylesheets/signup.css" rel="stylesheet">
+
+    <link href='http://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body id="page-top" class="index">
+
+ <section id="registrieren" class="content-section">
+        <div id="heading">
+
+            <h2>Bei Schnürchen registrieren</h2>
+        </div>
+
+        <div id="contact">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-5">
+                    <div class="col-lg-8 col-lg-offset-2">
+
+                        <a class="btn btn-outline btn-xl btn-lg" id="backToIndex" href="/">Zurück zur Startseite</a>
+
+                        <form name="sentMessage" id="contactForm" novalidate class="error">
+
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Vorname</label>
+                                    <input type="text" class="form-control" placeholder="Vorname" id="firstname" required="true" data-validation-required-message="Bitte deinen Vornamen eingeben." aria-invalid="false">
+                                    <p class="help-block text-danger">
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Benutzername</label>
+                                    <input type="text" class="form-control" placeholder="Benutzername" id="username" required="true" data-validation-required-message="Bitte deinen Benutzernamen eingeben." aria-invalid="false">
+                                    <p class="help-block text-danger">
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row control-group">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Password</label>
+
+                                    <input type="password" class="form-control" placeholder="Password"  id="password" required="true" data-validation-required-message="Bitte dein Passwort eingeben." aria-invalid="true">
+
+                                    <p class="help-block text-danger">
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row control-group error">
+                                <div class="form-group col-xs-12 floating-label-form-group controls">
+                                    <label>Email Address</label>
+                                    <input type="email" class="form-control" placeholder="Email Addresse" id="email" required="true" data-validation-required-message="Bitte deine Emailadresse eingeben." aria-invalid="true">
+                                    <p class="help-block text-danger">
+                                    </p>
+                                </div>
+                            </div>
+
+                            <br>
+
+                            <div class="row">
+                                <div class="form-group col-xs-12">
+                                    <button type="submit" class="btn btn-outline btn-xl btn-lg" id="registerButton">Registrieren</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4 ">
+                    <div class="col-lg-8 col-lg-offset-2">
+
+                            <div id="bulb">
+                                <img  id="bulbitselft" src="/images/signup/signup-bulb.png">
+                                <div id="glow"></div>
+                                <div id="valid">
+                                    <div id="success"></div>
+                                    <div id="letsGo" class="btn btn-lg btn-xl btn-outline">Gleich spielen</div>
+                                </div>
+                            </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- jQuery -->
+    <script src="/javascripts/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/javascripts/landing-js/bootstrap.min.js"></script>
+
+
+    <script src="/javascripts/signup-js/jqBootstrapValidation.js"></script>
+    <script src="/javascripts/signup-js/userInsert.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/javascripts/signup-js/signup.js"></script>
+
+</body>
+
+</html>
