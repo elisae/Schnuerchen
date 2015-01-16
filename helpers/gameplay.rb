@@ -32,7 +32,7 @@ checks if score high enough for trophies, returns:
 3: bronze
 =end
 def addTrophy(user_id, game_id, score)
-	highest = 0
+	highest = 1
 	user = User.find(:id => user_id)
 	trophies = Trophy.filter(:game_id => game_id).order(:pod)
 
@@ -44,6 +44,9 @@ def addTrophy(user_id, game_id, score)
 			end	
 		else
 			highest = tr.pod + 1
+			if highest == 4
+				highest = 0
+			end
 		end
 	}
 	puts "Highest Trophy = #{highest}"
@@ -86,13 +89,14 @@ def saveScore(user_id, game_id, new_score)
 	else
 		puts "Kein neuer Highscore"
 		highscore = score.score
-		new_nigh = false
+		new_high = false
 	end
 
 	result = {
 		:pod => addTrophy(user_id, game_id, new_score),
 		:new_high => new_high,
-		:highscore => highscore
+		:highscore => highscore,
+		:score => new_score
 	}
 	return result
 end

@@ -271,15 +271,15 @@
     height: 11vh;
 }
 
-#trophyWon.won[data-pod="1"] {
+#trophyWon[data-pod="1"] {
     background-image: url(/images/profile/Schnuerchen_Medaille_Gold.png);
     background-size: cover;
 }
-#trophyWon.won[data-pod="2"] {
+#trophyWon[data-pod="2"] {
     background-image: url(/images/profile/Schnuerchen_Medaille_Silber.png);
     background-size: cover;
 }
-#trophyWon.won[data-pod="3"] {
+#trophyWon[data-pod="3"] {
     background-image: url(/images/profile/Schnuerchen_Medialle_Bronzw.png);
     background-size: cover;
 }

@@ -1,14 +1,11 @@
 /**
  * Created by manuelneufeld on 11/12/14.
  */
-
-
-var trophy = document.createElement("div");
-
-var end_game_div = document.getElementById("end_game_div");
-
-
 function postScore(score, g_id){
+
+    var trophy_id = "noTrophy";
+    var trophy_pod = "0";
+    
     $.ajax({
         url: "/score",
         type: "POST",
@@ -17,21 +14,17 @@ function postScore(score, g_id){
             g_id: g_id
         },
         cache: false,
+        dataType: 'json',
         success: function (data) {
-            console.log("Highscore posted");
-            if(data.pod =! 0){
-                console.log("got trophy");
-                trophy.id = "trophyWon";
-            }else{
-                trophy.id = "noTrophy";
-                console.log("got no trophy");
+            if (data.pod > 0) {
+                trophy_id = "trophyWon";
             }
+            trophy_pod = data.pod;
         },
         error: function () {
             console.log("Highscore not posted");
-            trophy.id = "noTrophy";
         }
+    }).done( function() {
+        $('#end_game_stats h1').after('<div id="'+trophy_id+'" data-pod="'+trophy_pod+'"></div>');
     });
-
-    end_game_div.appendChild(trophy);
 }

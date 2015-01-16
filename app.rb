@@ -160,6 +160,7 @@ class App < Sinatra::Base
 # - POST data -----------------------------------------------
 
 	post "/score" do
+		content_type :json
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
 		saveScore(session[:u_id], params[:g_id], Integer(params[:score])).to_json
