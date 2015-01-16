@@ -41,14 +41,12 @@ def addTrophy(user_id, game_id, score)
 			ut = user.trophies_dataset.first(:trophy_id => tr.id)
 			unless ut 
 				user.add_trophy(tr)
-				puts "added Trophy #{tr.pod} id: #{tr.id} user: #{user_id}"
 			end	
 		else
-			puts "not enough for Trophy #{tr.pod}"
 			highest = tr.pod + 1
 		end
 	}
-	puts "Highest = #{highest}"
+	puts "Highest Trophy = #{highest}"
 	return highest
 end
 
@@ -71,6 +69,8 @@ end
 # returns highest trophy reached (see addTrophy)
 def saveScore(user_id, game_id, new_score)
 	score = Score.find(:user_id => user_id, :game_id => game_id)
+	highscore = new_score
+	new_high = true
 		
 	if (score == nil)
 		puts "Neuer score angelegt (first time played)"
@@ -84,10 +84,17 @@ def saveScore(user_id, game_id, new_score)
 		score.set(:score => new_score)
 		score.save
 	else
-		puts "Goanix"
+		puts "Kein neuer Highscore"
+		highscore = score.score
+		new_nigh = false
 	end
 
-	return addTrophy(user_id, game_id, new_score)
+	result = {
+		:pod => addTrophy(user_id, game_id, new_score),
+		:new_high => new_high,
+		:highscore => highscore
+	}
+	return result
 end
 
 

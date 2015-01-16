@@ -162,8 +162,7 @@ class App < Sinatra::Base
 	post "/score" do
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
-		pod = saveScore(session[:u_id], params[:g_id], Integer(params[:score]))
-		{:pod => highest_pod}.to_json
+		saveScore(session[:u_id], params[:g_id], Integer(params[:score])).to_json
 	end
 
 	post "/api/user" do
