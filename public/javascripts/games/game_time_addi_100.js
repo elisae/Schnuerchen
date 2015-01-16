@@ -23,7 +23,7 @@ var upper_bound = 50;  //100       //upper number bound
 var score_right = 10;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
-var timer = 60;
+var timer = 5;
 
 //-----------------------------------END SETTINGS----------------------------------\\
 
@@ -304,6 +304,11 @@ function reset_game(){
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
 
+    progress = 100;
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+
+
 
     if(counter_wrong == 0 && counter_right > 0){
         document.getElementById('end_game_stats').innerHTML = "<h1>Du hast <span id='results_right'></span> Aufgaben in der Zeit richtig beantwortet!</h1>" +
@@ -351,6 +356,8 @@ function reset_game(){
     pause_time = 0;
     score_update_cooler = 0;
     game_left = false;
+
+
 
     $("#game_div").hide();
 
@@ -498,7 +505,9 @@ function game_timer(time_left){
         time_left = time_left -1;
         actual_time_left = time_left;
 
-
+        if(actual_time_left == timer - 1){
+            progress = progress + step;
+        }
         progress = progress - step;
 
         //balkenfüllung

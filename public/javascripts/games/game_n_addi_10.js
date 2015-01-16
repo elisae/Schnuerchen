@@ -93,6 +93,7 @@ var counter = 0;
 var counter_right = 0;
 var counter_wrong = 0;
 var progress = 0;
+var step = 100 / quantity;
 
 var pause_time = 0;
 var pause_start = 0;
@@ -221,6 +222,7 @@ function init_game(){
     progress_bar.appendChild(bar);
     game_div.appendChild(progress_bar);
 
+    step.toFixed(3);
     document.getElementById('bar').style.width = progress.toFixed(1) + "%";
     document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
 
@@ -334,6 +336,10 @@ function reset_game(){
     document.getElementById('score').innerHTML = score;
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
+
+    progress = 0;
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
 
     if(counter_wrong == 0){
         document.getElementById('end_game_stats').innerHTML = "<h1>Du hast alle <span id='results_right'></span> Aufgaben richtig</h1>" +
@@ -471,8 +477,9 @@ document.onkeydown = function (event) {
             score = score - score_wrong;
             feedbackWrong();
         }
-        progress = progress + 5;
-        if(progress <= quantity * 5){
+
+        progress = progress + step;
+        if(progress <= quantity * step){
             document.getElementById('bar').style.width = progress.toFixed(1) + "%";
             document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
         }

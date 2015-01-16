@@ -229,8 +229,19 @@ function init_game(){
     progress_bar.appendChild(bar);
     game_div.appendChild(progress_bar);
 
-    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    progress = actual_time_left * step;
+
+    //balkenfüllung
+    document.getElementById('bar').style.width = progress.toFixed(3) + "%";
     document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+
+    var sec_init = actual_time_left % 60;
+    document.getElementById('sw_min').innerHTML = "" + Math.floor(actual_time_left / 60);
+    if(sec_init < 10){
+        document.getElementById('sw_s').innerHTML = "0" + sec_init;
+    }else{
+        document.getElementById('sw_s').innerHTML = "" + sec_init;
+    }
 
 
 
@@ -398,6 +409,11 @@ function reset_game(){
     score_update_cooler = 0;
     actual_time_left = timer;
     game_left = false;
+
+    progress = actual_time_left * step;
+    document.getElementById('bar').style.width = progress.toFixed(3) + "%";
+    document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+
 
     $("#game_div").hide();
 
@@ -575,6 +591,7 @@ function game_timer(){
         var sec = actual_time_left % 60;
         score = score + score_per_time;
         score_control();
+
         if(sec < 10){
             document.getElementById('sw_s').innerHTML = "0" + sec;
         }else{
