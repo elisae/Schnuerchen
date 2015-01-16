@@ -153,17 +153,18 @@ class App < Sinatra::Base
     responseArr.to_json
   end
 
+  get "/test" do
+  	redirect "/test.html"
+  end
+
 # - POST data -----------------------------------------------
 
 	post "/score" do
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
-		saveScore(session[:u_id], params[:g_id], Integer(params[:score]))
-		status 200
+		saveScore(session[:u_id], params[:g_id], Integer(params[:score])).to_json
 	end
 
-
-# TODO automatischer LOGIN
 	post "/api/user" do
 		password_salt = BCrypt::Engine.generate_salt
   		password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
