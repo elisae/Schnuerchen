@@ -179,7 +179,22 @@
     margin-right: 1%;
     font-weight: 700;
     color: #000;
+}
 
+#button_res1{
+    font-size: 300%;
+}
+
+#button_res2{
+    font-size: 300%;
+}
+
+#button_res3{
+    font-size: 300%;
+}
+
+#button_res4{
+    font-size: 300%;
 }
 
 .res:hover{
@@ -238,4 +253,33 @@
     text-align: center;
     color: black;
     font: normal 1.0em;
+}
+
+#noTrophy {
+    margin: auto;
+    border-radius: 100%;
+    background-color: white;
+    border: 1px dotted grey;
+    display: inline-block;
+    width: 11vh;
+    height: 11vh;
+}
+
+#trophyWon{
+    margin: auto;
+    width: 11vh;
+    height: 11vh;
+}
+
+#trophyWon.won[data-pod="1"] {
+    background-image: url(/images/profile/Schnuerchen_Medaille_Gold.png);
+    background-size: cover;
+}
+#trophyWon.won[data-pod="2"] {
+    background-image: url(/images/profile/Schnuerchen_Medaille_Silber.png);
+    background-size: cover;
+}
+#trophyWon.won[data-pod="3"] {
+    background-image: url(/images/profile/Schnuerchen_Medialle_Bronzw.png);
+    background-size: cover;
 }
