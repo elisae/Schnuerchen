@@ -5,14 +5,14 @@
     <section>
                        <!-- Trophähen -->
 
-        <div id="myProfil">
+        <div id="myProfil" user = "<%= @friend[:id] %>">
 
-          <h2 id="page-info"><%= @friend[:firstname] %>s Profil</h2>
+          <h1 id="page-info"><%= @friend[:firstname] %></h1>
 
           
 
           <div id="myCarousel" class="col-md-8 carousel slide">
-			<% if (@friendStatus == 3) %>
+			<% if (@friendStatus != 3) %>
             <!--
               <div id="button2">
                   <div class="trophy btn btn-lg">hover me</div>
@@ -21,10 +21,15 @@
 
               -->
 
+             <div id="noFriendOverlay">
+               <h1>
+                 Du musst erst mit <%= @friend[:firstname] %> befreundet sein um die Medaillen sehen zu können
+               </h1>
+             </div>
+
+            <% end %>
+
             <div id="trophies">
-
-
-
               <!-- Wrapper for Slides -->
               <div class="carousel-inner">
                 <% i = 0 %>
@@ -36,7 +41,7 @@
                     <% end %>
 
                     <div class="carousel-caption">
-                      <h1 id="description"> <%= cat[:descr]  %></h1>
+                      <h2 id="description"> <%= cat[:descr]  %></h2>
                     </div>
 
                     <div class="fill">
@@ -55,7 +60,7 @@
                                         <div class=" col-md-offset-2 col-md-2 gamename">
                                           <h3><%= type[:name] %></h3>
                                         </div>
-                                        <div class="col-md-6 col-md-offset-1 gametrophies">
+                                        <div class="col-md-6 col-md-offset-1 gametrophies"  id="<%= type[:game_id]%>">
                                           <% game_trophies = @trophies[type[:game_id]] %>
                                           <% if (game_trophies == nil) %>
                                               <% 3.downto(1) do |i| %>
@@ -63,7 +68,7 @@
                                               <% end %>
                                           <% else %>
                                               <% 3.downto(1) do |i| %>
-                                                  <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
+                                                  <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" ></div>
                                               <% end %>
                                           <% end %>
                                         </div>
@@ -103,13 +108,6 @@
                   <% end %>
 
                 </ol>
-            <% else %>
-
-                <h1 class="friendInfo">
-                  Du kannst <%= @friend[:firstname] %>s Medaillen erst sehen, wenn er dich zu seiner Freundesliste hinzufügt
-                </h1>
-
-			<% end %>
             </div>
           </div>
 
@@ -117,27 +115,24 @@
           <! --------------------User Optionen -------------------- >
 
           <div class="col-md-4" >
-               <div id="userOption">
-            <div id="message">
-              <h3 class="friendInfo">Sende <%= @friend[:firstname] %> eine Nachricht</h3>
-              <input id="sendMessage" type="button" value="Nachricht senden" class="btn btn-outline btn-lg btn-xl">
-            </div>
-
-
+          <div id="userOption">
             <div id="friendOption">
 				<% case @friendStatus
 				   when 0 %>
-            		<h3 class="friendInfo">Möchtest du <%= @friend[:firstname] %>s Freund werden?</h3>  <input class="addBtn btn btn-lg btn-outline btn-xl" type="button" value="Freund werden" id="<%= @friend[:id] %>">
+            		<h3 class="friendInfo">Möchtest du <%= @friend[:firstname] %>s Freund werden?</h3>
+                    <input class="addBtn btn btn-lg btn-outline btn-xl" type="button" value="Freund werden" id="<%= @friend[:id] %>">
             	<% when 1 %>
-                  <h3 class="friendInfo">Du hast <%= @friend[:firstname] %> bereits gefragt ob ihr befreundet sein wollt.</h3> <input class = "unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Anfrage absagen" id="<%= @friend[:id] %>">
+                    <h3 class="friendInfo">Du hast <%= @friend[:firstname] %> gefragt ob ihr befreundet sein wollt.</h3>
+                    <input class = "unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Anfrage absagen" id="<%= @friend[:id] %>">
             	<% when 2 %>
-            		<h3 class="friendInfo">Freunschafsanfrage annehmen</h3> <input class="addBtn btn-btn-lg btn-xl btn-outline" type="button" value="Freund werden" id="<%= @friend[:id] %> btn-add">
+                    <h3 class="friendInfo">Freunschafsanfrage annehmen</h3>
+                    <input class="addBtn btn btn-lg btn-xl btn-outline" type="button" value="Freund werden" id="<%= @friend[:id] %>">
             	<% when 3 %>
-              		<h3 class="friendInfo">Möchtest du nicht mehr mit  <%= @friend[:firstname] %> befreundet sein?</h3> <input class="unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Aus deiner Liste nehmen" id="<%= @friend[:id] %>">
+              		<h3 class="friendInfo">Möchtest du nicht mehr mit  <%= @friend[:firstname] %> befreundet sein?</h3>
+                    <input class="unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Aus deiner Liste nehmen" id="<%= @friend[:id] %>">
             	<% else %>
                   <h3 class="friendInfo">Leider ist was schief gelaufen. Tut uns leid <%= @user[:firstname] %></h3>
             	<% end %>
-
             </div>
           </div>
           </div>

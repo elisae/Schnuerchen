@@ -24,7 +24,8 @@ unless DB.table_exists?(:users)
 		String		:username
 		String		:firstname
 		String		:email
-		String 		:password
+		String		:salt
+		String 		:password_hash
 	end
 end
 class User < Sequel::Model(:users)
@@ -34,8 +35,17 @@ class User < Sequel::Model(:users)
  	many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
 
 	def self.create(values = {}, &block)
-		puts "New User: #{values[:username]}"
-		super
+		password = values.delete(:password)
+		if password
+			password_salt = BCrypt::Engine.generate_salt
+  			password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+  			values = values.merge({:password_hash=>password_hash, :salt=>password_salt})
+			puts "New User: #{values[:username]} (from models.rb)"
+			super(values)
+		else
+			puts "New User: #{values[:username]}"
+			super
+		end
 	end
 end
 
@@ -100,7 +110,7 @@ unless DB.table_exists?(:gameranges)
 	DB.create_table(:gameranges) do
 		primary_key	:id
 		String 		:name, :unique=>true
-    String    	:long_descr
+    	String    	:long_descr
 		String		:img_filename
 	end
 end
@@ -293,47 +303,15 @@ end
 # - USERS ----------------------------------------
 
 User.create(:username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo")
-User.create(:username=>"jürgen231", :firstname=>"Jürgen", :email=>"jürgen@jürgen.de", :password=>"hallo")
-User.create(:username=>"rüdiger231", :firstname=>"Rüdiger", :email=>"rüdiger@rüdiger.de", :password=>"hallo")
 User.create(:username=>"kenny", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 
-# Friend.create(:user_id=>"1", :friend_id=>"2")
-# Friend.create(:user_id=>"1", :friend_id=>"3")
-# Friend.create(:user_id=>"2", :friend_id=>"1")
-# Friend.create(:user_id=>"3", :friend_id=>"1")
-# Friend.create(:user_id=>"1", :friend_id=>"4")
-# Friend.create(:user_id=>"2", :friend_id=>"3")
-
 Friendship.create(:friends_with_id => 1, :friend_of_id => 2)
 Friendship.create(:friends_with_id => 2, :friend_of_id => 1)
-
 Friendship.create(:friends_with_id => 1, :friend_of_id => 3)
 Friendship.create(:friends_with_id => 1, :friend_of_id => 4)
-Friendship.create(:friends_with_id => 5, :friend_of_id => 1)
-
-friends = User.find(:id => 1).friends_with.map { |f|
-	f.to_hash
-} 
-
-puts "User 1 is friends_with"
-puts friends
-
-friends = User.find(:id => 1).friend_of.map { |f|
-	f.to_hash
-} 
-
-puts "User 1 is friend_of"
-puts friends
-
-puts friends?(1, 2)
-
-puts friends?(1, 3)
-
-puts friends?(1, 5)
-
 
 Gamerange.create(:name=>"10", :long_descr=> "Rechne mit den Zahlen von 1-10!")
 Gamerange.create(:name=>"20", :long_descr=> "Rechne mit den Zahlen von 1-20!")
@@ -572,14 +550,15 @@ Score.create(:user_id=>2,
 			:game_id=>1,
 			:timestamp => DateTime.now,
 			:score => 60)
-
-
-
-
-
-
-
-
-
-
-
+Score.create(:user_id=>1,
+             :game_id=>1,
+             :timestamp => DateTime.now,
+             :score => 60)
+Score.create(:user_id=>1,
+             :game_id=>3,
+             :timestamp => DateTime.now,
+             :score => 100)
+Score.create(:user_id=>1,
+             :game_id=>2,
+             :timestamp => DateTime.now,
+             :score => 100)

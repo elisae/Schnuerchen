@@ -36,7 +36,14 @@
 <!-- Navigation -->
 
 
-<nav class="navbar navbar-custom" role="navigation">
+<nav class="navbar navbar-custom" role="navigation"
+     <% if (@friendheader) %>
+     style="background-color: #FFA726"
+     <% else %>
+     style="background-color: #4dd0e1"
+     <%end%>
+     >
+
 
   <div class="container">
     <div>

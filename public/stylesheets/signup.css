@@ -33,6 +33,7 @@ h6 {
     z-index: 10;
     text-transform: uppercase;
     font-weight: 700;
+    padding: 2%;
 }
 
 .form-group {
@@ -129,7 +130,8 @@ form .row:first-child .floating-label-form-group {
 }
 
 #heading{
-    padding-top: 4%;
+    margin-top: 4%;
+    padding: 2%;
     text-align: center;
 }
 

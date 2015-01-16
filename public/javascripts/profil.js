@@ -31,11 +31,8 @@ function searchFriend(){
         responseList.html("");
         friendResponse.hide();
     }else{
-
-
-        /*----------------------------------keine ahnung welche die richtige is--------------------------*/
         $.get(
-            "/search/",
+            "/search",
             {query:query},
             function(msg){
                 var resultString = "";
@@ -49,31 +46,10 @@ function searchFriend(){
                 }
                 friendResponse.show();
                 responseList.html(resultString);
-
             }
         );
     }
-
-
-    $.get(
-        "/search/"+query,
-        function(msg){
-            var resultString = "";
-
-            for(i=0;i<msg.length;i++){
-                var str =  msg[i]["username"];
-            resultString = resultString + "<a href='/users/"+msg[i]["id"]+"/profil'><li class='shownFriends hovered'><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</li></a>"
-            }
-            friendResponse.show();
-            responseList.html(resultString);
-            var listElements = document.getElementsByClassName("addFriend");
-            for(i=0;i<listElements.length;i++){
-                listElements[i].onclick = "addFriend()";
-            }
-
-        }
-    );
-}   /*---------------------------------------kenny muss das fixen :DD --------------------------*/
+}
 
 
 
@@ -98,7 +74,8 @@ $(document).ready(function() {
 
     addBtn.click(function(event){
         $.post(
-            "/add/"+event.target.id,
+            "/add",
+            {f_id:event.target.id},
             function(){
                 location.reload();
             }
@@ -111,11 +88,36 @@ $(document).ready(function() {
 
     unfriendBtn.click(function(event){
         $.post(
-            "/unfriend/"+event.target.id,
+            "/unfriend",
+            {f_id:event.target.id},
             function(){
                 location.reload();
             }
         )
+    });
+
+    /* This function gets called when you hover over a Trophy */
+
+    var gametrophies = $(".gametrophies > .trophy");
+    var timeout = null;
+
+    gametrophies.hover(function(event){
+        timeout = setTimeout(function(){
+            $.get(
+                "/userscores",
+                {g_id: $(event.target).parent().attr("id"),
+                    u_id: $("#myProfil").attr("user")},
+                function (msg) {
+                    if (msg.length != 0) {
+                        console.log(msg[0]["score"]);
+                    } else {
+                        console.log("Fehler");
+                    }
+                }
+            )
+        },100);
+    },function(){
+        clearTimeout(timeout);
     });
 });
 
