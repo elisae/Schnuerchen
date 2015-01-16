@@ -40,13 +40,13 @@ var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
 var score_per_time = 5;
 var timer = 15;
-var max_time = 60;
+var max_time = 90;
 
 var progress = 100;
 var step = progress / max_time;
 
-var time_right = 4;
-var time_wrong_factor = 0.5;
+var time_right = 5;
+var time_wrong_factor = 0.4;
 
 //-----------------------------------END SETTINGS----------------------------------\\
 
@@ -488,12 +488,14 @@ document.onkeydown = function (event) {
             user_input.value = "";
             counter_right++;
             actual_time_left += time_right;
+            time_control();
             feedbackRight();
         } else {
             result_line.innerHTML = "Falsch! Richtig wäre: " + result;
             user_input.value = "";
             counter_wrong++;
             actual_time_left -= Math.floor(actual_time_left * time_wrong_factor);
+            time_control();
             feedbackWrong();
         }
 
@@ -570,6 +572,13 @@ function score_control(){
     }else{
         document.getElementById('score').innerHTML = score;
         document.getElementById('score_a').innerHTML = score;
+    }
+}
+
+function time_control(){
+    if(actual_time_left > max_time){
+        score = score + score_per_time * (time_right - 1);
+        actual_time_left = max_time;
     }
 }
 

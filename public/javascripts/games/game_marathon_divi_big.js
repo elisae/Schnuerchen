@@ -40,6 +40,11 @@ var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
 var score_per_time = 5;
 var timer = 10;
+var max_time = 90;
+
+var progress = 100;
+var step = progress / max_time;
+
 var time_right = 4;
 var time_wrong_factor = 0.5;
 
@@ -198,10 +203,15 @@ function init_game(){
 
     document.getElementById('game_div').appendChild(result_line);
 
+    var score_line = document.createElement('p');
+    score_line.id='score_line';
+    score_line.innerHTML="Punkte: <span id='score_a'>"+0+"</span>";
+    game_div.appendChild(score_line);
+
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
     game_line.className = "game-elements";
-    game_line.innerHTML = "<span id='z1'></span><span id='operator'> : </span><span id='z2'></span>";
+    game_line.innerHTML = "<span id='z1'></span><span id='operator'> : </span><span id='z2'></span> = ";
 
     game_div.appendChild(game_line);
 
@@ -213,15 +223,43 @@ function init_game(){
     user_tip.placeholder = "Hier kommt das Ergebnis rein";
     user_tip.onkeydown = clean;
     user_tip.onkeyup = clean;
-    game_div.appendChild(user_tip);
+    game_line.appendChild(user_tip);
     user_tip.focus();
 
+    var progress_bar = document.createElement('div');
+    progress_bar.id='progress_bar';
+    var bar = document.createElement('div');
+    bar.id='bar';
+    var percent = document.createElement('div');
+    percent.id='percent';
+
+
+    bar.appendChild(percent);
+    progress_bar.appendChild(bar);
+    game_div.appendChild(progress_bar);
+
+    progress = actual_time_left * step;
+
+    //balkenfüllung
+    document.getElementById('bar').style.width = progress.toFixed(3) + "%";
+    document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+
+    var sec_init = actual_time_left % 60;
+    document.getElementById('sw_min').innerHTML = "" + Math.floor(actual_time_left / 60);
+    if(sec_init < 10){
+        document.getElementById('sw_s').innerHTML = "0" + sec_init;
+    }else{
+        document.getElementById('sw_s').innerHTML = "" + sec_init;
+    }
+
+
+    /*
     var stop_watch = document.createElement('h2');
     stop_watch.id='stop_watch';
     stop_watch.className = "game-elements";
     stop_watch.innerHTML = "<span id='sw_min'>0</span>:<span id='sw_s'>"+timer+"</span>";
     game_div.appendChild(stop_watch);
-
+    */
     var stat_table = document.createElement('table');
     stat_table.id='stat_table';
     stat_table.className = "table game-elements";
@@ -378,6 +416,11 @@ function reset_game(){
     actual_time_left = timer;
     game_left = false;
 
+    progress = actual_time_left * step;
+    document.getElementById('bar').style.width = progress.toFixed(3) + "%";
+    document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+
+
     $("#game_div").hide();
 
 }
@@ -451,12 +494,14 @@ document.onkeydown = function (event) {
             user_input.value = "";
             counter_right++;
             actual_time_left += time_right;
+            time_control();
             feedbackRight();
         } else {
             result_line.innerHTML = "Falsch! Richtig wäre: " + result;
             user_input.value = "";
             counter_wrong++;
             actual_time_left -= Math.floor(actual_time_left * time_wrong_factor);
+            time_control();
             feedbackWrong();
         }
 
@@ -529,10 +574,20 @@ function clean(){
 function score_control(){
     if(score < 0){
         document.getElementById('score').innerHTML = 0;
+        document.getElementById('score_a').innerHTML = 0;
     }else{
         document.getElementById('score').innerHTML = score;
+        document.getElementById('score_a').innerHTML = score;
     }
 }
+
+function time_control(){
+    if(actual_time_left > max_time){
+        score = score + score_per_time * (time_right - 1);
+        actual_time_left = max_time;
+    }
+}
+
 
 function correct_order(){
 
@@ -557,6 +612,14 @@ function game_timer(){
         }else{
             document.getElementById('sw_s').innerHTML = "" + sec;
         }
+
+        progress = actual_time_left * step;
+
+        //balkenfüllung
+        document.getElementById('bar').style.width = progress.toFixed(3) + "%";
+        //Prozentanzeige + nur theoretisch bitte nicht einkommentieren!!
+        //document.getElementById('percent').innerHTML = progress.toFixed(3) + "%";
+
 
         actual_time_left = actual_time_left -1;
         setTimeout('game_timer()', 1000);
@@ -591,6 +654,7 @@ function countdown(c){
 		document.getElementById('c_r').innerHTML = counter_right;
 		document.getElementById('c_w').innerHTML = counter_wrong;
 		document.getElementById('score').innerHTML = 0;
+        document.getElementById('score_a').innerHTML = 0;
 
 
         $("#game_div").show();
