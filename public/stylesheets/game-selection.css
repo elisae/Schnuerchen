@@ -1,3 +1,6 @@
+div.selection a:hover {
+    text-decoration: none;
+}
 
 .selection{
     text-align: center;
