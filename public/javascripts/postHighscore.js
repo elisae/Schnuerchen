@@ -1,6 +1,7 @@
 /**
  * Created by manuelneufeld on 11/12/14.
  */
+
 function postScore(score, g_id){
 
     var trophy_id = "noTrophy";

@@ -203,7 +203,7 @@ function init_game(){
     user_tip.id = 'tip';
     user_tip.className = "game-elements";
     user_tip.className = "input-lg";
-    user_tip.placeholder = "Hier kommt das Ergebnis rein";
+    user_tip.placeholder = "Ergebnis";
     user_tip.onkeydown = clean;
     user_tip.onkeyup = clean;
     game_line.appendChild(user_tip);
@@ -341,6 +341,7 @@ function reset_game(){
         "                   <p>Zeit: <span id='results_time'></span> Sekunden</p>" +
         "                   <p>Punkte: <span id='results_score'></span></p> " +
         "                   <p id='result_message'></p>";
+
         document.getElementById('results_right').innerHTML = counter_right;
     }else if(counter_wrong == quantity){
         document.getElementById('end_game_stats').innerHTML = "<h1>Du hast keine der <span id='results_wrong'></span> Aufgaben richtig</h1>" +
