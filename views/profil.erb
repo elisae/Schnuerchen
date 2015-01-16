@@ -3,6 +3,7 @@
 <section>
   <!-- Trophähen -->
 
+
     <div id="myProfil" user="<%= @user[:id] %>">
 
     <h1 id="page-info">Hallo <%= @user[:firstname] %></h1>
@@ -14,7 +15,6 @@
             <div class="trophy btn btn-lg">hover me</div>
             <div class="con" style="display: none;"></div>
         </div>
-
         -->
 
       <div id="trophies">
@@ -48,7 +48,7 @@
                                   <div class=" col-md-offset-2 col-md-2 gamename">
                                     <h3><%= type[:name] %></h3>
                                   </div>
-                                  <div class="col-md-6 col-md-offset-1 gametrophies" id="<%= type[:game_id]%>">
+                                  <div class="col-md-6 col-md-offset-1 gametrophies" id="<%= type[:game_id] %>">
                                     <% game_trophies = @trophies[type[:game_id]] %>
                                     <% count = 20 %>
                                     <% if (game_trophies == nil) %>
@@ -65,7 +65,6 @@
                                   </div>
                               <% end %>
                           <% end %>
-
                         </div>
                     <% end %>
                 <% end %>
@@ -149,31 +148,22 @@
               <% if !@friendReqsIn.nil? %>
                   <% @friendReqsIn.each do |reqsIn|
                     unless reqsIn.nil? %>
-
                           <li class="notYetRespondedFriends">
                             <a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a>
                             <br/>
-
                             <div id="<%= reqsIn[:id] %>" class="addBtn btn btn-outline btn-xl btn-lg" onclick="window.location.reload()">
-
                               Freund werden
                             </div>
                           </li>
                       <% end %>
                   <% end %>
               <% end %>
-
             </ul>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
-
-
 </section>
-
 <script src="/javascripts/trophyAjax.js"></script>
 <script src="/javascripts/profil.js"></script>

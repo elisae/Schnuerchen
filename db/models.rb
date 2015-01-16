@@ -24,7 +24,8 @@ unless DB.table_exists?(:users)
 		String		:username
 		String		:firstname
 		String		:email
-		String 		:password
+		String		:salt
+		String 		:password_hash
 	end
 end
 class User < Sequel::Model(:users)
@@ -34,8 +35,17 @@ class User < Sequel::Model(:users)
  	many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
 
 	def self.create(values = {}, &block)
-		puts "New User: #{values[:username]}"
-		super
+		password = values.delete(:password)
+		if password
+			password_salt = BCrypt::Engine.generate_salt
+  			password_hash = BCrypt::Engine.hash_secret(password, password_salt)
+  			values = values.merge({:password_hash=>password_hash, :salt=>password_salt})
+			puts "New User: #{values[:username]} (from models.rb)"
+			super(values)
+		else
+			puts "New User: #{values[:username]}"
+			super
+		end
 	end
 end
 
@@ -100,7 +110,7 @@ unless DB.table_exists?(:gameranges)
 	DB.create_table(:gameranges) do
 		primary_key	:id
 		String 		:name, :unique=>true
-    String    	:long_descr
+    	String    	:long_descr
 		String		:img_filename
 	end
 end
@@ -252,7 +262,6 @@ class Score < Sequel::Model(:scores)
 
 	def save
 		puts "New Score: #{self.score}"
-		addTrophy(self.user_id, self.game_id, self.score)
 		super
 	end
 

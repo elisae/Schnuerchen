@@ -1,3 +1,5 @@
+# encoding: UTF-8
+ENV['LANG'] = 'de_DE.UTF-8'
 class App < Sinatra::Base
 
 # - Settings ------------------------------------------------
@@ -29,12 +31,18 @@ class App < Sinatra::Base
 
 	post "/login" do
 		@user = User.find(:username => params[:name])
-		if (@user && (@user[:password] == params[:password]))
-			session[:u_id] = @user[:id]
-			redirect "/games"
+		if @user
+			if (@user[:password_hash] == BCrypt::Engine.hash_secret(params[:password], @user[:salt]))
+				session[:u_id] = @user[:id]
+				redirect "/games"
+			end
 		else
 	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end
+  	end
+
+  	get "/login" do
+  		erb :loginFailed, :layout => :layout_notLoggedIn
   	end
 
 	get "/games" do
@@ -43,30 +51,32 @@ class App < Sinatra::Base
 			@gamecategories = getGameCategories
 			erb :games
 		else
-			redirect "/loginFailed"
+			erb :loginFailed, :layout => :layout_notLoggedIn
 		end
 	end
 
 	get "/users/:u_id/profil" do
 		if login?
-
-			@user = User.find(:id=>params[:u_id]).to_hash
-
-			if "#{session[:u_id]}" == params[:u_id]
-				@friends = getFriendsInfo(session[:u_id])
-				@friendReqsOut = getReqsOut(session[:u_id])
-				@friendReqsIn = getReqsIn(session[:u_id])
-				@trophies = getUserTrophies(session[:u_id])
-				@gamecategories = getGameCategories
-        @friendheader = false
-				erb :profil
-      else
-        @friendheader = true
-				@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
-				@friend = User.find(:id=>params[:u_id]).to_hash
-				@gamecategories = getGameCategories()
-				@trophies = getUserTrophies(params[:u_id])
-				erb :user
+			if @user = User.find(:id=>params[:u_id])
+				@user = @user.to_hash
+				if "#{session[:u_id]}" == params[:u_id]
+					@friends = getFriendsInfo(session[:u_id])
+					@friendReqsOut = getReqsOut(session[:u_id])
+					@friendReqsIn = getReqsIn(session[:u_id])
+					@trophies = getUserTrophies(session[:u_id])
+					@gamecategories = getGameCategories
+					@friendheader = false
+					erb :profil
+				else
+					@friendheader = true
+					@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
+					@friend = User.find(:id=>params[:u_id]).to_hash
+					@gamecategories = getGameCategories()
+					@trophies = getUserTrophies(params[:u_id])
+					erb :user
+				end
+			else
+				erb :notfound
 			end
 		else
 			erb :notloggedin, :layout => :layout_notLoggedIn
@@ -149,18 +159,21 @@ class App < Sinatra::Base
     responseArr.to_json
   end
 
+  get "/test" do
+  	redirect "/test.html"
+  end
+
 # - POST data -----------------------------------------------
 
 	post "/score" do
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
-		saveScore(session[:u_id], params[:g_id], Integer(params[:score]))
-		status 200
+		saveScore(session[:u_id], params[:g_id], Integer(params[:score])).to_json
 	end
 
-
-# TODO automatischer LOGIN
 	post "/api/user" do
+		password_salt = BCrypt::Engine.generate_salt
+  		password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
 
 		if /[^\x00-\x7F]/ =~ params[:username]
 			puts "Non-ASCII character found"
@@ -175,7 +188,8 @@ class App < Sinatra::Base
 			newUser = User.create(:username=>params[:username], 
 						:firstname=>params[:firstname], 
 						:email=>params[:email], 
-						:password=>params[:password])
+						:salt=>password_salt,
+						:password_hash=>password_hash)
 			session[:u_id] = newUser.id
 			puts "User angelegt und eingeloggt"
 			status 200

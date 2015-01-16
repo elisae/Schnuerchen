@@ -1,10 +1,44 @@
-def login?
-	if (session[:u_id] == nil)
-		return false
-	else
-		return session[:u_id]
-	end
+def getReqsOut(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{ |user|
+      if friends?(userId,user[:id]) == 1
+        user.to_hash
+      end
+    }
+  end
 end
+
+
+def getReqsIn(userId)
+  user = User.find(:id => userId)
+  if user.friend_of.empty?
+    nil
+  else
+    user.friend_of.map{ |user|
+      if friends?(userId,user[:id]) == 2
+        user.to_hash
+      end
+    }
+  end
+end
+
+
+def getFriendsInfo(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{|user|
+      if friends?(userId,user[:id]) == 3
+        user.to_hash
+      end
+    }
+  end
+end
+
 
 =begin
 	returns 
@@ -168,10 +202,10 @@ def saveScore(user_id, game_id, new_score)
 	end
 end
 
-
 def addFriend(user_id, friend_id)
 	Friendship.find_or_create(:friends_with_id => user_id,:friend_of_id=> friend_id)
 end
+
 
 def delFriend(user_id,friend_id)
   if friends?(user_id,friend_id) == 1
@@ -185,13 +219,3 @@ def delFriend(user_id,friend_id)
     0
     end
 end
-
-
-
-
-
-
-
-
-
-
