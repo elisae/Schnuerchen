@@ -3,9 +3,9 @@
  */
 
 
-var trophy = document.createElement("div");
+var trophy = document.createElement('div');
 
-var end_game_div = document.getElementById("end_game_div");
+var end_game_div = document.getElementById('end_game_div');
 
 
 function postScore(score, g_id){
@@ -17,11 +17,14 @@ function postScore(score, g_id){
             g_id: g_id
         },
         cache: false,
+        dataType:"json",
         success: function (data) {
             console.log("Highscore posted");
-            if(data.pod =! 0){
+            console.log(data);
+            if(data.pod != 0){
                 console.log("got trophy");
                 trophy.id = "trophyWon";
+                $("#trophyWon").attr("data-pod", data.pod);
             }else{
                 trophy.id = "noTrophy";
                 console.log("got no trophy");
