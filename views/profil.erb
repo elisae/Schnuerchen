@@ -3,11 +3,7 @@
 <section>
   <!-- Trophähen -->
 
-<<<<<<< HEAD
-  <div id="myProfil">
-=======
-        <div id="myProfil" user="<%= @user[:id] %>">
->>>>>>> FETCH_HEAD
+    <div id="myProfil" user="<%= @user[:id] %>">
 
     <h1 id="page-info">Hallo <%= @user[:firstname] %></h1>
 
@@ -54,13 +50,16 @@
                                   </div>
                                   <div class="col-md-6 col-md-offset-1 gametrophies" id="<%= type[:game_id]%>">
                                     <% game_trophies = @trophies[type[:game_id]] %>
+                                    <% count = 20 %>
                                     <% if (game_trophies == nil) %>
                                       <% 3.downto(1) do |i| %>
-                                          <div class="trophy notwon" data-pod="<%= i %>" min_score="<%=100 %>" ></div>
+                                          <div class="trophy notwon" data-pod="<%= i %>" min_score="<%= count %>" ></div>
+                                          <% count = count*2 %>
                                       <% end %>
                                     <% else %>
                                       <% 3.downto(1) do |i| %>
-                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" min_score="<%=100 %>"></div>
+                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" min_score="<%= count %>"></div>
+                                          <% count = count*2 %>
                                       <% end %>
                                     <% end %>
                                   </div>

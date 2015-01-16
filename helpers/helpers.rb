@@ -138,10 +138,11 @@ def getUserTrophies(user_id)
 end
 
 def getUserScore(user_id,game_id)
-  scores = Score.where{Sequel.&({:user_id => user_id}, {:game_id => game_id})}.select(:score).map{|score|
-    score.to_hash
+  scoresArr = Array.new
+  Score.where{Sequel.&({:user_id => user_id}, {:game_id => game_id})}.select(:score).map{|score|
+    scoresArr.push(score.to_hash)
   }
-  return scores
+  return scoresArr
 end
 
 def getFriendScore(user_id,friend_id,game_id)

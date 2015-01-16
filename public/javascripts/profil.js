@@ -34,12 +34,12 @@ function searchFriend(){
         $.get(
             "/search",
             {query:query},
-            function(msg){
+            function(res){
                 var resultString = "";
-                if(msg.length != 0){
-                    for(i=0;i<msg.length;i++){
-                        var str =  msg[i]["username"];
-                        resultString = resultString + "<a href='/users/"+msg[i]["id"]+"/profil'><li><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</li></a>"
+                if(res.length != 0){
+                    for(i=0;i<res.length;i++){
+                        var str =  res[i]["username"];
+                        resultString = resultString + "<a href='/users/"+res[i]["id"]+"/profil'><li><b>"+ str.substring(0,query.length) + "</b>" + str.substring(query.length,str.length)+"</li></a>"
                     }
                 }else{
                     resultString = "<h4>Leider können wir nichts finden</h4>";
@@ -113,18 +113,19 @@ $(document).ready(function() {
                 "/userscores",
                 {g_id: target.parent().attr("id"),
                  u_id: $("#myProfil").attr("user")},
-                function (msg,statusText,xhr) {
+                function (res,statusText,xhr) {
                     if(xhr.status == 200){
                         if(target.hasClass("won")){
                             switch(targetPod){
                                 case 1:
-                                    console.log("Goldmedaille! Gibts ab " + targetMinScore + " Punkten. Dein Punkte:" + msg[0]["score"]);
+                                    console.log("Goldmedaille! Gibts ab " + targetMinScore + " Punkten. Dein Punkte:" + res[0]["score"]);
                                     break;
                                 case 2:
-                                    console.log("Silbermedaille! Gibts ab " + targetMinScore + "Punkten. Deine Punkte:" + msg[0]["score"] + "Für Gold brauchst:  " + target.next().attr("min_score"));
+                                    target.append("<div> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " +  res[0]["score"] + "<br>Für Gold brauchst:" + target.next().attr("min_score") + "</div>")
                                     break;
                                 case 3:
-                                    console.log("Bronze! Gibts ab" + targetMinScore + "Punkten. Deine Punkte" +  msg[0]["score"] + "Für silber brauchst:" + target.next().attr("min_score"));
+                                    target.append("<div> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " +  res[0]["score"] + "<br>Für Silber brauchst:" + target.next().attr("min_score") + "</div>")
+                                    console.log();
                                     break;
                             }
                         }else if(target.hasClass("notwon")){
@@ -148,6 +149,7 @@ $(document).ready(function() {
         },100);
     },function(){
         clearTimeout(timeout);
+        $(".trophy > div").hide();
     });
 });
 

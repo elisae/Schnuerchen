@@ -124,15 +124,17 @@ class App < Sinatra::Base
     friend_id = params[:u_id].to_i
     game_id = params[:g_id].to_i
     if user_id == friend_id
-      scores = getUserScore(user_id,game_id)
+      scoresArr = getUserScore(user_id,game_id)
+      if !scoresArr.empty?
+        return scoresArr.to_json
+      else
+        status 204
+      end
     else
-      scores = getFriendScore(user_id,friend_id,game_id)
+      scoresArr = getFriendScore(user_id,friend_id,game_id)
+      return 200
     end
-    if !scores.empty?
-      scores.to_json
-    else
-      204
-    end
+
   end
 
   get "/search" do
