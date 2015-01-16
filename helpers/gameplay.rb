@@ -24,8 +24,15 @@ def getGameCategories
 	return operators
 end
 
-
+=begin
+checks if score high enough for trophies, returns:
+0: no trophy
+1: gold
+2: silber
+3: bronze
+=end
 def addTrophy(user_id, game_id, score)
+	highest = 0
 	user = User.find(:id => user_id)
 	trophies = Trophy.filter(:game_id => game_id).order(:pod)
 
@@ -38,8 +45,11 @@ def addTrophy(user_id, game_id, score)
 			end	
 		else
 			puts "not enough for Trophy #{tr.pod}"
+			highest = tr.pod + 1
 		end
 	}
+	puts "Highest = #{highest}"
+	return highest
 end
 
 
@@ -58,7 +68,7 @@ def getUserScore(user_id,game_id)
   return scores
 end
 
-
+# returns highest trophy reached (see addTrophy)
 def saveScore(user_id, game_id, new_score)
 	score = Score.find(:user_id => user_id, :game_id => game_id)
 		
@@ -76,6 +86,8 @@ def saveScore(user_id, game_id, new_score)
 	else
 		puts "Goanix"
 	end
+
+	return addTrophy(user_id, game_id, new_score)
 end
 
 

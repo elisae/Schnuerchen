@@ -262,7 +262,6 @@ class Score < Sequel::Model(:scores)
 
 	def save
 		puts "New Score: #{self.score}"
-		addTrophy(self.user_id, self.game_id, self.score)
 		super
 	end
 
