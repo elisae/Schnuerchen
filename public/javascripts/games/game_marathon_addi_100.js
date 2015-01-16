@@ -595,7 +595,7 @@ function correct_order(){
 
 function game_timer(){
 
-    if(actual_time_left >= 0 && game_is_paused == false){
+    if(actual_time_left >= 0 && game_is_paused == false && game_is_running == true){
         document.getElementById('sw_min').innerHTML = "" + Math.floor(actual_time_left / 60);
         var sec = actual_time_left % 60;
         score = score + score_per_time;

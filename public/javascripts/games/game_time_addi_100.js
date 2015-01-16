@@ -494,7 +494,7 @@ var actual_time_left;
 
 function game_timer(time_left){
 
-    if(time_left >= 0 && game_is_paused == false){
+    if(time_left >= 0 && game_is_paused == false && game_is_running == true){
         document.getElementById('sw_min').innerHTML = "" + Math.floor(time_left / 60);
         var sec = time_left % 60;
         if(sec < 10){
