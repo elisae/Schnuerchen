@@ -27,21 +27,21 @@ hr {
 
 }
 
-
 #trophies .gametypes {
     line-height: 5vh;
     margin-bottom: 5%;
 }
-#description{
+
+#description {
     margin: 2%;
 }
 
-#page-info{
+#page-info {
     margin-top: 5%;
     text-align: center;
 }
 
-#noFriendOverlay{
+#noFriendOverlay {
     position: absolute;
     background-color: darkgrey;
     border-radius: 0.5em;
@@ -52,13 +52,13 @@ hr {
     color: white;
 }
 
-#noFriendOverlay h1{
+#noFriendOverlay h1 {
     text-align: center;
     margin: 10%;
     line-height: 120%;
 }
 
-.trophy{
+.trophy {
     border-radius: 100%;
     background-color: white;
     border: 1px dotted grey;
@@ -73,10 +73,12 @@ hr {
     background-image: url(/images/profile/Schnuerchen_Medaille_Gold.png);
     background-size: cover;
 }
+
 .trophy.won[data-pod="2"] {
     background-image: url(/images/profile/Schnuerchen_Medaille_Silber.png);
     background-size: cover;
 }
+
 .trophy.won[data-pod="3"] {
     background-image: url(/images/profile/Schnuerchen_Medialle_Bronzw.png);
     background-size: cover;
@@ -138,7 +140,7 @@ hr {
 .carousel-inner {
     height: 100%;
     color: black;
-    box-sizing:border-box;
+    box-sizing: border-box;
     width: auto;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -150,7 +152,9 @@ hr {
     display: none;
 }
 
-.item { -ms-overflow-style: marquee; }
+.item {
+    -ms-overflow-style: marquee;
+}
 
 .carousel-caption {
     color: black;
@@ -161,8 +165,6 @@ hr {
     padding-bottom: 0;
 }
 
-
-
 .carousel-control {
     height: 80px;
     margin-top: -8%;
@@ -172,7 +174,7 @@ hr {
     width: 10%;
     color: #000;
     text-align: center;
-    font-family:  'Quicksand', 'Josefin Sans', sans-serif;
+    font-family: 'Quicksand', 'Josefin Sans', sans-serif;
     text-shadow: none;
     opacity: 1;
 
@@ -181,7 +183,7 @@ hr {
 .carousel-control .icon-prev, .carousel-control .icon-next {
     width: 40px;
     height: 40px;
-    font-family:  'Quicksand', 'Josefin Sans', sans-serif;
+    font-family: 'Quicksand', 'Josefin Sans', sans-serif;
 
 }
 
@@ -210,36 +212,32 @@ hr {
 }
 
 a {
-
     text-decoration: none;
 }
 
 .carousel-indicators li {
     height: 19px;
     width: 19px;
-
     background-color: #fff;
     border: 0.1em solid #4dd0e1;
-    border-radius: 20px;
-
+    border-radius: 19px;
+    overflow: hidden;
 }
 
 .carousel-indicators {
-     position: relative;
-     bottom: 40px;
-    /* left: 50%; */
+    position: relative;
+    bottom: 40px;
     z-index: 0;
-    /* width: 60%; */
-    /* padding-left: 0; */
-    /* margin-left: -30%; */
     text-align: center;
     list-style: none;
+    overflow: hidden;
 }
 
 .carousel-indicators .active {
     width: 20px;
     height: 20px;
     background-color: #4dd0e1;
+    overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {
@@ -260,19 +258,22 @@ a {
     -o-background-size: cover;
 }
 
-.ranges{
+.ranges {
     text-align: center;
     margin-top: 2%;
 }
 
-.gamename{
+.gamename {
     margin-top: 2.5%;
-
 }
 
-    /*------------------------Begin friendlist------------------------*/
+.gamename h3{
+    font-size: 200%;
+}
 
-#friendcontainer{
+/*------------------------Begin friendlist------------------------*/
+
+#friendcontainer {
     position: relative;
     overflow: hidden;
     height: 65vh;
@@ -300,7 +301,9 @@ a {
     display: none;
 }
 
-#friendlist { -ms-overflow-style: marquee; }
+#friendlist {
+    -ms-overflow-style: marquee;
+}
 
 #friendlist ul li {
     position: relative;
@@ -320,7 +323,7 @@ a {
     cursor: pointer;
 }
 
-#friendlist a{
+#friendlist a {
     text-decoration: none;
     color: black;
 }
@@ -333,7 +336,7 @@ a {
     background-color: #FFA726;
 }
 
-.hovered{
+.hovered {
     transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -354,11 +357,10 @@ a {
 }
 
 .input-group-addon, .input-group-btn, .input-group .form-control {
-     display: table-cell;
+    display: table-cell;
 }
 
-
-#friendsearchinput{
+#friendsearchinput {
     margin: 2% auto auto auto;
     width: 85%;
     text-align: center;
@@ -366,14 +368,15 @@ a {
     border-radius: inherit;
 }
 
-#friendsearch{
+#friendsearch {
     font-size: 150%;
 }
-.input-group-addon{
+
+.input-group-addon {
     background-color: #FFA726;
 }
 
-#responseList li:hover{
+#responseList li:hover {
     transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -381,7 +384,7 @@ a {
     background-color: #FFA726 !important;
 }
 
-#noFriendInfo{
+#noFriendInfo {
     margin: 2% auto auto auto;
     padding: 2%;
     border-radius: 0.2em;
@@ -390,7 +393,7 @@ a {
     background-color: #ffffff;
 }
 
-#friendResponse{
+#friendResponse {
     margin-top: 0.5%;
     padding: 3%;
     display: none;
@@ -404,12 +407,12 @@ a {
     border-radius: 0.3em;
 }
 
-.notYetRequestedFriends{
+.notYetRequestedFriends {
     border-color: #4dd0e1 !important;
     background-color: #EEEEEE !important;
 }
 
-.notYetRespondedFriends{
+.notYetRespondedFriends {
     position: relative;
     z-index: 4;
     border-color: #4dd0e1 !important;
@@ -417,7 +420,7 @@ a {
 
 }
 
-.shownFriends:hover{
+.shownFriends:hover {
     transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -425,7 +428,7 @@ a {
     background-color: #4dd0e1 !important;
 }
 
-.notYetRequestedFriends:hover{
+.notYetRequestedFriends:hover {
     transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -433,7 +436,7 @@ a {
     background-color: #4dd0e1 !important;
 }
 
-.notYetRespondedFriends:hover{
+.notYetRespondedFriends:hover {
     transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
     -moz-transition: all 0.5s ease-in-out;
@@ -441,35 +444,32 @@ a {
     background-color: #4dd0e1 !important;
 }
 
-
-#responseList li{
+#responseList li {
     margin-top: 50%;
 }
 
-
-.friendInfo{
+.friendInfo {
     padding: 3%;
     text-align: center;
     line-height: 150%;
 }
 
-.addBtn{
+.addBtn {
     margin-top: auto;
     margin-bottom: auto;
     top: 0;
     bottom: 0;
-
 }
 
-#btn-add{
+#btn-add {
     font-size: 150%;
 }
 
-#userOption{
+#userOption {
     text-align: center;
     width: 80%;
 }
 
-#friendOption{
+#friendOption {
     margin-top: 3vh;
 }

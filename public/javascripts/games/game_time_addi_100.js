@@ -304,6 +304,11 @@ function reset_game(){
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
 
+    progress = 100;
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+
+
 
     if(counter_wrong == 0 && counter_right > 0){
         document.getElementById('end_game_stats').innerHTML = "<h1>Du hast <span id='results_right'></span> Aufgaben in der Zeit richtig beantwortet!</h1>" +
@@ -351,6 +356,8 @@ function reset_game(){
     pause_time = 0;
     score_update_cooler = 0;
     game_left = false;
+
+
 
     $("#game_div").hide();
 
@@ -487,7 +494,7 @@ var actual_time_left;
 
 function game_timer(time_left){
 
-    if(time_left >= 0 && game_is_paused == false){
+    if(time_left >= 0 && game_is_paused == false && game_is_running == true){
         document.getElementById('sw_min').innerHTML = "" + Math.floor(time_left / 60);
         var sec = time_left % 60;
         if(sec < 10){
@@ -498,7 +505,9 @@ function game_timer(time_left){
         time_left = time_left -1;
         actual_time_left = time_left;
 
-
+        if(actual_time_left == timer - 1){
+            progress = progress + step;
+        }
         progress = progress - step;
 
         //balkenfüllung
@@ -540,6 +549,7 @@ function countdown(c){
         document.getElementById('c_r').innerHTML = counter_right;
         document.getElementById('c_w').innerHTML = counter_wrong;
         document.getElementById('score').innerHTML = score;
+        document.getElementById('score_a').innerHTML = score;
 
         document.getElementById('sw_min').innerHTML = "" + Math.floor(timer / 60);
         var sec = timer % 60;

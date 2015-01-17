@@ -82,6 +82,8 @@ var score = 0;
 var counter = 0;
 var counter_right = 0;
 var counter_wrong = 0;
+var progress = 100;
+var step = progress / timer;
 
 var pause_time = 0;
 var pause_start = 0;
@@ -170,10 +172,15 @@ function init_game(){
 
     document.getElementById('game_div').appendChild(result_line);
 
+    var score_line = document.createElement('p');
+    score_line.id='score_line';
+    score_line.innerHTML="Punkte: <span id='score_a'>"+score+"</span>";
+    game_div.appendChild(score_line);
+
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
     game_line.className = "game-elements";
-    game_line.innerHTML = "<span id='z1'></span><span id='operator'> - </span><span id='z2'></span>";
+    game_line.innerHTML = "<span id='z1'></span><span id='operator'> - </span><span id='z2'></span> = ";
 
     game_div.appendChild(game_line);
 
@@ -185,14 +192,31 @@ function init_game(){
     user_tip.placeholder = "Hier kommt das Ergebnis rein";
     user_tip.onkeydown = clean;
     user_tip.onkeyup = clean;
-    game_div.appendChild(user_tip);
+    game_line.appendChild(user_tip);
     user_tip.focus();
 
-    var stop_watch = document.createElement('h2');
-    stop_watch.id='stop_watch';
-    stop_watch.className = "game-elements";
-    stop_watch.innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
-    game_div.appendChild(stop_watch);
+    var progress_bar = document.createElement('div');
+    progress_bar.id='progress_bar';
+    var bar = document.createElement('div');
+    bar.id='bar';
+    var percent = document.createElement('div');
+    percent.id='percent';
+
+
+    bar.appendChild(percent);
+    progress_bar.appendChild(bar);
+    game_div.appendChild(progress_bar);
+
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+
+    /*
+     var stop_watch = document.createElement('h2');
+     stop_watch.id='stop_watch';
+     stop_watch.className = "game-elements";
+     stop_watch.innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
+     game_div.appendChild(stop_watch);
+     */
 
     var stat_table = document.createElement('table');
     stat_table.id='stat_table';
@@ -282,6 +306,10 @@ function reset_game(){
     document.getElementById('score').innerHTML = score;
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
+
+    progress = 100;
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = "<span id='sw_min'></span>:<span id='sw_s'></span>";
 
 
     if(counter_wrong == 0 && counter_right > 0){
@@ -412,6 +440,7 @@ document.onkeydown = function (event) {
 
         score_control();
         document.getElementById('score').innerHTML = score;
+        document.getElementById('score_a').innerHTML = score;
 
         create_numbers();
 
@@ -465,7 +494,7 @@ var actual_time_left;
 
 function game_timer(time_left){
 
-    if(time_left >= 0 && game_is_paused == false){
+    if(time_left >= 0 && game_is_paused == false && game_is_running == true){
         document.getElementById('sw_min').innerHTML = "" + Math.floor(time_left / 60);
         var sec = time_left % 60;
         if(sec < 10){
@@ -475,6 +504,18 @@ function game_timer(time_left){
         }
         time_left = time_left -1;
         actual_time_left = time_left;
+
+        if(actual_time_left == timer - 1){
+            progress = progress + step;
+        }
+        progress = progress - step;
+
+        //balkenfüllung
+        document.getElementById('bar').style.width = progress.toFixed(3) + "%";
+        //Prozentanzeige + nur theoretisch bitte nicht einkommentieren!!
+        //document.getElementById('percent').innerHTML = progress.toFixed(3) + "%";
+
+
         setTimeout('game_timer('+time_left+')', 1000);
     }else if(game_is_paused == true){
         actual_time_left = time_left;
@@ -507,6 +548,7 @@ function countdown(c){
         document.getElementById('c_r').innerHTML = counter_right;
         document.getElementById('c_w').innerHTML = counter_wrong;
         document.getElementById('score').innerHTML = score;
+        document.getElementById('score_a').innerHTML = score;
 
         document.getElementById('sw_min').innerHTML = "" + Math.floor(timer / 60);
         var sec = timer % 60;

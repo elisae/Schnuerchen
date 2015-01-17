@@ -11,7 +11,6 @@
     width: inherit;
 }
 
-
 .btn-outline {
     border: solid 2px;
     font-size: 20px;
@@ -80,6 +79,20 @@
     width: inherit;
 }
 
+#end_game_stats{
+    width: 60%;
+    margin: auto;
+}
+
+#end_game_stats h1 {
+    font-size: 250%;
+}
+
+
+#end_game_stats p {
+    font-size: 200%;
+}
+
                 /*Z INDEXIERUNG */
 
 #answerResponse{
@@ -88,7 +101,6 @@
     z-index: 4;
     position: absolute;
     opacity: 0.1;
-
 }
 
 #pause_div{
@@ -192,13 +204,13 @@
     width: 30%; /* Laenge des Balkens */
     height: 8%;  /* Hoehe des Balkens */
     border-radius: 0.5em;
-    margin: auto;
+    margin:  2% auto 5% auto;
     text-align: center;
     background-color: #B2EBF2;
+
 }
 
 #bar{
-
     text-align: center;
     width: 30%; /* Laenge des Balkens */
     height: 100%;  /* Hoehe des Balkens */
@@ -214,18 +226,22 @@
 
 #button_res1{
     font-size: 300%;
+    padding: 1%;
 }
 
 #button_res2{
     font-size: 300%;
+    padding: 1%;
 }
 
 #button_res3{
     font-size: 300%;
+    padding: 1%;
 }
 
 #button_res4{
     font-size: 300%;
+    padding: 1%;
 }
 
 .res:hover{
@@ -267,20 +283,20 @@
 
 
 #noTrophy {
-    margin: auto;
+    margin: 2% auto 4% auto;
     border-radius: 100%;
     background-color: white;
     border: 1px dotted grey;
     display: inline-block;
-    width: 11vh;
-    height: 11vh;
+    width: 15vh;
+    height: 15vh;
 }
 
 #trophyWon{
     display: block;
-    margin: auto;
-    width: 11vh;
-    height: 11vh;
+    margin: 2% auto 4% auto;
+    width: 15vh;
+    height: 15vh;
 }
 
 #trophyWon[data-pod="1"] {
