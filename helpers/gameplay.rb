@@ -5,7 +5,7 @@ def getGameCategories
 				op_name = op.name
 				gr_name = gr.name
 				gt_name = gt.name
-				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name)
+				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype_name => gt_name)
 				unless (game == nil) 
 					game_id = game.id
 				end

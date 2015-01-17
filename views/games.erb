@@ -16,7 +16,7 @@
   <div class="selection" id="operation">
     <% @gamecategories.each do |k1|  %>
 
-        <div class = "btn btn-lg selection-button operators" long_descr="<%= k1[:long_descr] %>" id="<%= k1[:name] %>"></div>
+        <div class = "btn btn-lg selection-button operators" long_descr="<%= k1[:long_descr] %>" id="<%= k1[:name] %>" style="background-image: url(/images/games/<%= k1[:img_filename]%>);"></div>
     <% end %>
   </div>
 
@@ -30,7 +30,7 @@
         <%if !k1[:ranges].nil? %>
             <% k1[:ranges].each do |k2| %>
 
-                <div class ="btn btn-lg selection-button range r<%= k2[:name] %>" long_descr="<%= k2[:long_descr] %>" id="<%= k1[:name] + k2[:name] %>"></div>
+                <div class ="btn btn-lg selection-button range r<%= k2[:name] %>" long_descr="<%= k2[:long_descr] %>" id="<%= k1[:name] + k2[:name] %>" style="background-image: url(/images/games/<%= k2[:img_filename]%>);"></div>
 
             <% end %>
         <% end %>
@@ -47,7 +47,7 @@
             <div class="selection" id="<%= k1[:name] + k2[:name]%>games" style="display:none">
               <% k2[:types].each do |k3| %>
                 <a href="/games/<%= k1[:name] %>/<%= k2[:name] %>/<%= k3[:name] %>">
-                    <div class = "btn btn-lg selection-button games <%= k3[:name] %>" id="<%= k1[:name] + k2[:name] + k3[:name] %>"></div>
+                    <div class = "btn btn-lg selection-button games <%= k3[:name] %>" id="<%= k1[:name] + k2[:name] + k3[:name] %>" style="background-image: url(/images/games/<%= k3[:img_filename]%>);"></div>
                 </a>
               <% end %>
             </div>

@@ -11,6 +11,7 @@ div.selection a:hover {
     margin: 2%;
     padding: 4%;
     border: 1px solid black;
+    background-size:cover;
 }
 
 #selection-info{
@@ -60,80 +61,6 @@ div.selection a:hover {
     -moz-transition: all 0.5s ease-in-out;
     -o-transition: all 0.5s ease-in-out;
     background-color: #66BB6A;
-}
-
-#addi{
-    background-image: url(/images/games/addition-icon.png);
-   /* background-image:url(/images/games/plus.svg);*/
-    background-size:cover;
-}
-#subt{
-    background-image: url(/images/games/substraction-icon.png);
-    /*background-image:url(/images/games/minus.svg);*/
-    background-size:cover;
-}
-#mult{
-    background-image: url(/images/games/multiplikation-icon.png);
-    /*background-image:url(/images/games/multi.svg);*/
-    background-size:cover;
-}
-#divi{
-    background-image: url(/images/games/division-icon.png);
-    /*background-image:url(/images/games/division.svg);*/
-    background-size:cover;
-}
-#mix{
-    background-image: url(/images/games/mixed-icon.png);
-    /*background-image:url(/images/games/all.svg);*/
-    background-size:cover;
-}
-
-.r10{
-    background-image: url(../images/games/range-10-icon.png);
-    /*background-image:url(/images/games/10.svg);*/
-    background-size:cover;
-}
-
-.r20{
-    background-image: url(../images/games/range-20-icon.png);
-    /*background-image:url(/images/games/20.svg);*/
-    background-size:cover;
-}
-
-.r100{
-    background-image: url(../images/games/range-100-icon.png);
-    /*background-image:url(/images/games/100.svg);*/
-    background-size:cover;
-}
-
-.rsmall{
-    background-image: url(/images/games/small.png);
-    background-size:cover;
-}
-
-.rbig{
-    background-image: url(../images/games/big.png);
-    background-size:cover;
-}
-
-.score{
-    background-image: url(/images/games/score.png);
-    background-size:cover;
-}
-
-.time{
-    background-image: url(/images/games/time.png);
-    background-size:cover;
-}
-
-.marathon{
-    background-image: url(/images/games/marathon.png);
-    background-size:cover;
-}
-
-.choice{
-    background-image: url(/images/games/choice.png);
-    background-size:cover;
 }
 
 .indicator{
