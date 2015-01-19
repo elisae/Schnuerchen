@@ -285,6 +285,11 @@ function init_game(){
 
     document.getElementById('game_div').appendChild(result_line);
 
+    var score_line = document.createElement('p');
+    score_line.id='score_line';
+    score_line.innerHTML="Punkte: <span id='score_a'>"+score+"</span>";
+    game_div.appendChild(score_line);
+
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
     game_line.className = "game-elements";
@@ -508,6 +513,7 @@ function reset_game(){
 
 
     document.getElementById('score').innerHTML = score;
+    document.getElementById('score_a').innerHTML = score;
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
 
@@ -632,7 +638,7 @@ function resolute(user_tip){
     }
     score_control();
     document.getElementById('score').innerHTML = score;
-
+    document.getElementById('score_a').innerHTML = score;
 
     create_numbers();
     create_results();
@@ -692,6 +698,7 @@ function stopwatch(){
             score_just_updated = true;
             score_update_cooler = (Math.round(time_needed/1000) + 5);
             document.getElementById('score').innerHTML = score;
+            document.getElementById('score_a').innerHTML = score;
         }
 
 
@@ -717,6 +724,7 @@ function countdown(c){
         document.getElementById('c_r').innerHTML = counter_right;
         document.getElementById('c_w').innerHTML = counter_wrong;
         document.getElementById('score').innerHTML = score;
+        document.getElementById('score_a').innerHTML = score;
 
         $("#game_div").show();
         $("#countdown_div").show();

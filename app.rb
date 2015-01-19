@@ -98,7 +98,7 @@ class App < Sinatra::Base
 			@user = User.find(:id=>session[:u_id]).to_hash
 			@game = Game.first(:operator=>"#{params[:operator]}", 
 								:gamerange=>"#{params[:range]}", 
-								:gametype=>"#{params[:type]}").to_hash
+								:gametype_name=>"#{params[:type]}").to_hash
 			erb :game
 		else
 			erb :notloggedin, :layout => :layout_notLoggedIn
@@ -155,6 +155,7 @@ class App < Sinatra::Base
 # - POST data -----------------------------------------------
 
 	post "/score" do
+		content_type :json
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
 		saveScore(session[:u_id], params[:g_id], Integer(params[:score])).to_json
