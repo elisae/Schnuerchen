@@ -39,7 +39,7 @@ class App < Sinatra::Base
 		else
 	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end
-  	end
+  end
 
   	get "/login" do
   		erb :loginFailed, :layout => :layout_notLoggedIn
@@ -131,20 +131,9 @@ class App < Sinatra::Base
     require 'json'
     content_type :json
     user_id = session[:u_id].to_i
-    friend_id = params[:u_id].to_i
     game_id = params[:g_id].to_i
-    if user_id == friend_id
-      scoresArr = getUserScore(user_id,game_id)
-      if !scoresArr.empty?
-        return scoresArr.to_json
-      else
-        status 204
-      end
-    else
-      scoresArr = getFriendScore(user_id,friend_id,game_id)
-      return 200
-    end
-
+    scoreArr = getUserScore(user_id,game_id)
+    scoreArr.to_json
   end
 
   get "/search" do
@@ -214,5 +203,4 @@ class App < Sinatra::Base
     delFriend(user_id,friend_id)
     status 200
   end
-
 end

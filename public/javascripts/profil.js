@@ -96,57 +96,89 @@ $(document).ready(function() {
         )
     });
 
-    /* This function gets called when you hover over a Trophy */
+    /* Diese Funktion wird gerufen, wenn über eine Trophae auf der eigenen Profilseite gehovert wird. */
 
-    var gametrophies = $(".gametrophies > .trophy");
+    var gametrophiesuser = $(".gametrophiesuser > .trophy");
     var timeout = null;
 
-    gametrophies.hover(function(event){
+    gametrophiesuser.hover(function(event){
 
         var target = $(event.target);
-        var targetClass = target.attr("class");
+        var targetScore = target.attr("with_score");
         var targetMinScore = target.attr("min_score");
         var targetPod = Number(target.attr("data-pod"));
+        var cache = target.children("div");
 
-        timeout = setTimeout(function(){
-            $.get(
-                "/userscores",
-                {g_id: target.parent().attr("id"),
-                 u_id: $("#myProfil").attr("user")},
-                function (res,statusText,xhr) {
-                    if(xhr.status == 200){
-                        if(target.hasClass("won")){
-                            switch(targetPod){
+        if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
+                timeout = setTimeout(function(){
+                    $.get(
+                        "/userscores",
+                        {g_id: target.parent().attr("id"),
+                         u_id: $("#myProfil").attr("user")},
+                        function (res,statusText,xhr) {
+                            console.log(res.length);
+                                if (xhr.status == 200) {
+                                        switch (targetPod) {
+                                            case 1:
+                                                target.append("<div> Goldmedaille! Gibts ab " + targetMinScore + " Punkten. <br> Deine Punkte: " + res[0]["score"] + "</div>");
+                                                break;
+                                            case 2:
+                                                target.append("<div> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " + res[0]["score"] + "</div>")
+                                                break;
+                                            case 3:
+                                                target.append("<div> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " + res[0]["score"] + "</div>")
+                                                break;
+                                        }
+                                }
+                        }
+                    )
+                },100);
+        }else{
+            cache.show();
+        }
+    },function(){
+        clearTimeout(timeout);
+        $(".trophy > div").hide();
+    });
+
+
+    var gametrophiesfriend = $(".gametrophiesfriend > .trophy")
+    gametrophiesfriend.hover(function(event){
+
+        var target = $(event.target);
+        var targetScore = target.parent().attr("with_score");
+        var targetMinScore = target.attr("min_score");
+        var targetPod = Number(target.attr("data-pod"));
+        var cache = target.children("div");
+
+
+        if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
+            timeout = setTimeout(function(){
+                $.get(
+                    "/userscores",
+                    {g_id: target.parent().attr("id"),
+                        u_id: $("#myProfil").attr("user")},
+                    function (res,statusText,xhr) {
+                        console.log(res.length);
+                        if (xhr.status == 200) {
+                            switch (targetPod) {
                                 case 1:
-                                    console.log("Goldmedaille! Gibts ab " + targetMinScore + " Punkten. Dein Punkte:" + res[0]["score"]);
+                                    target.append("<div class='scoreWindow'> Goldmedaille! Gibts ab " + targetMinScore + " Punkten.<br> Hat "+ targetScore + " Punkte <br> Deine Punkte: " + res[0]["score"] + "</div>");
                                     break;
                                 case 2:
-                                    target.append("<div> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " +  res[0]["score"] + "<br>Für Gold brauchst:" + target.next().attr("min_score") + "</div>")
+                                    target.append("<div class='scoreWindow'> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> Hat "+ targetScore + " Punkte <br> Deine Punkte " + res[0]["score"] + "</div>")
                                     break;
                                 case 3:
-                                    target.append("<div> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " +  res[0]["score"] + "<br>Für Silber brauchst:" + target.next().attr("min_score") + "</div>")
-                                    console.log();
-                                    break;
-                            }
-                        }else if(target.hasClass("notwon")){
-                            switch(targetPod){
-                                case 1:
-                                    console.log("Du hast diese Medaille noch nicht. Du brauchst:" + targetMinScore );
-                                    break;
-                                case 2:
-                                    console.log("Du hast diese Medaille noch nicht. Du brauchst:" + targetMinScore );
-                                    break;
-                                case 3:
-                                    console.log("Du hast diese Medaille noch nicht. Du brauchst:" + targetMinScore );
+                                    target.append("<div class='scoreWindow'> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> Hat "+ targetScore + " Punkte <br> Deine Punkte " + res[0]["score"] + "</div>")
                                     break;
                             }
                         }
-                    }else if(xhr.status == 204){
-                        console.log("(͡° ͜ʖ ͡°)");
                     }
-                }
-            )
-        },100);
+                )
+            },100);
+        }else{
+            cache.show();
+        }
     },function(){
         clearTimeout(timeout);
         $(".trophy > div").hide();

@@ -166,22 +166,21 @@ end
 
 def getUserTrophies(user_id)
 	userTrophies = User.find(:id => user_id).trophies_dataset.to_hash_groups(:game_id, :pod)
+
 	puts "usertrophies: #{userTrophies}"
 
 	return userTrophies
 end
 
+# Holt die eigene Score für das jeweilige Spiel aus der Datenbank und speichert sie in einem Array.
 def getUserScore(user_id,game_id)
-  scoresArr = Array.new
+  scoreArr = Array.new
   Score.where{Sequel.&({:user_id => user_id}, {:game_id => game_id})}.select(:score).map{|score|
-    scoresArr.push(score.to_hash)
+    scoreArr.push(score.to_hash)
   }
-  return scoresArr
+  scoreArr
 end
 
-def getFriendScore(user_id,friend_id,game_id)
-
-end
 
 def saveScore(user_id, game_id, new_score)
 	score = Score.find(:user_id => user_id, :game_id => game_id)
