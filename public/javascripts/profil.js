@@ -118,15 +118,16 @@ $(document).ready(function() {
                         function (res,statusText,xhr) {
                             console.log(res.length);
                                 if (xhr.status == 200) {
-                                        switch (targetPod) {
+                                    var str = (res[0]["score"] == 0) ? "Du hast die Medaille nicht." : res[0]["score"];
+                                    switch (targetPod) {
                                             case 1:
-                                                target.append("<div> Goldmedaille! Gibts ab " + targetMinScore + " Punkten. <br> Deine Punkte: " + res[0]["score"] + "</div>");
+                                                target.append("<div class='scoreWindow'> Goldmedaille! Gibts ab " + targetMinScore + " Punkten. <br>" + str +" </div>");
                                                 break;
                                             case 2:
-                                                target.append("<div> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " + res[0]["score"] + "</div>")
+                                                target.append("<div class='scoreWindow'> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "</div>")
                                                 break;
                                             case 3:
-                                                target.append("<div> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> Deine Punkte " + res[0]["score"] + "</div>")
+                                                target.append("<div class='scoreWindow'> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br>" + str +"</div>")
                                                 break;
                                         }
                                 }
@@ -142,7 +143,7 @@ $(document).ready(function() {
     });
 
 
-    var gametrophiesfriend = $(".gametrophiesfriend > .trophy")
+    var gametrophiesfriend = $(".gametrophiesfriend > .trophy");
     gametrophiesfriend.hover(function(event){
 
         var target = $(event.target);
@@ -161,15 +162,16 @@ $(document).ready(function() {
                     function (res,statusText,xhr) {
                         console.log(res.length);
                         if (xhr.status == 200) {
+                            var str = (targetScore == 0) ? $("#userName").html() + " hat die Medaille nicht." : "Punkte in dem Spiel: " + targetScore;
                             switch (targetPod) {
                                 case 1:
-                                    target.append("<div class='scoreWindow'> Goldmedaille! Gibts ab " + targetMinScore + " Punkten.<br> Hat "+ targetScore + " Punkte <br> Deine Punkte: " + res[0]["score"] + "</div>");
+                                    target.append("<div class='scoreWindow'> Goldmedaille! Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "  <br> Deine Punkte: " + res[0]["score"] + "</div>");
                                     break;
                                 case 2:
-                                    target.append("<div class='scoreWindow'> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> Hat "+ targetScore + " Punkte <br> Deine Punkte " + res[0]["score"] + "</div>")
+                                    target.append("<div class='scoreWindow'> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> " + str + "<br> Deine Punkte " + res[0]["score"] + "</div>")
                                     break;
                                 case 3:
-                                    target.append("<div class='scoreWindow'> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> Hat "+ targetScore + " Punkte <br> Deine Punkte " + res[0]["score"] + "</div>")
+                                    target.append("<div class='scoreWindow'> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> "+ str +" <br> Deine Punkte " + res[0]["score"] + "</div>")
                                     break;
                             }
                         }

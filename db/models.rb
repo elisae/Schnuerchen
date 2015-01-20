@@ -624,5 +624,5 @@ Game.create(:name=>"Time Divi Big",
 			:css_filename=>"dummygamestyle.css")
 
 saveScore(1, 3, 180)
-saveScore(1,2, 1000)
+saveScore(1,2, 700)
 saveScore(2,2,10000)
