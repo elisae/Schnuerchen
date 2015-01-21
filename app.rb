@@ -50,7 +50,7 @@ class App < Sinatra::Base
 	    	@user = User.find(:id=>session[:u_id]).to_hash
 			@gamecategories = getGameCategories
 			erb :games
-		else
+    else
 			erb :loginFailed, :layout => :layout_notLoggedIn
 		end
 	end
@@ -95,12 +95,14 @@ class App < Sinatra::Base
 
 	get "/games/:operator/:range/:type" do
 		if login?
+      @gameheader = true
 			@user = User.find(:id=>session[:u_id]).to_hash
 			@game = Game.first(:operator=>"#{params[:operator]}", 
 								:gamerange=>"#{params[:range]}", 
 								:gametype_name=>"#{params[:type]}").to_hash
 			erb :game
-		else
+    else
+      @gameheader = false
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end

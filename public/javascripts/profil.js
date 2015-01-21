@@ -121,13 +121,13 @@ $(document).ready(function() {
                                     var str = (res[0]["score"] == 0) ? "Du hast die Medaille nicht." : res[0]["score"];
                                     switch (targetPod) {
                                             case 1:
-                                                target.append("<div class='scoreWindow'> Goldmedaille! Gibts ab " + targetMinScore + " Punkten. <br>" + str +" </div>");
+                                                target.append("<div class='scoreWindow' id='profilHover'> Goldmedaille</br> Gibts ab " + targetMinScore + " Punkten. <br>" + str +" </div>");
                                                 break;
                                             case 2:
-                                                target.append("<div class='scoreWindow'> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "</div>")
+                                                target.append("<div class='scoreWindow' id='profilHover'> Silbermedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "</div>");
                                                 break;
                                             case 3:
-                                                target.append("<div class='scoreWindow'> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br>" + str +"</div>")
+                                                target.append("<div class='scoreWindow' id='profilHover'> Bronzemedaille</br> Gibts ab " + targetMinScore + " Punkten.<br>" + str +"</div>");
                                                 break;
                                         }
                                 }
@@ -165,13 +165,13 @@ $(document).ready(function() {
                             var str = (targetScore == 0) ? $("#userName").html() + " hat die Medaille nicht." : "Punkte in dem Spiel: " + targetScore;
                             switch (targetPod) {
                                 case 1:
-                                    target.append("<div class='scoreWindow'> Goldmedaille! Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "  <br> Deine Punkte: " + res[0]["score"] + "</div>");
+                                    target.append("<div class='scoreWindow' id='userHover'> Goldmedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "  <br> Deine Punkte: " + res[0]["score"] + "</div>");
                                     break;
                                 case 2:
-                                    target.append("<div class='scoreWindow'> Silbermedaille! Gibts ab " + targetMinScore + " Punkten.<br> " + str + "<br> Deine Punkte " + res[0]["score"] + "</div>")
+                                    target.append("<div class='scoreWindow' id='userHover'> Silbermedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> " + str + "<br> Deine Punkte " + res[0]["score"] + "</div>");
                                     break;
                                 case 3:
-                                    target.append("<div class='scoreWindow'> Bronzemedaille! Gibts ab " + targetMinScore + " Punkten.<br> "+ str +" <br> Deine Punkte " + res[0]["score"] + "</div>")
+                                    target.append("<div class='scoreWindow' id='userHover'> Bronzemedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> "+ str +" <br> Deine Punkte " + res[0]["score"] + "</div>");
                                     break;
                             }
                         }
