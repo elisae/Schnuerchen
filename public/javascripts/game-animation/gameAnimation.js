@@ -26,7 +26,7 @@ function feedbackWrong(){
 
 $(document).ready(function(){
 
-    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+
 
     var start_div = $("#start_div");
     var pause_div = $("#pause_div");
@@ -42,7 +42,6 @@ $(document).ready(function(){
 
     $("#button_to_start").click(function(){
         $(start_div).slideDown("slow");
-
     });
 
     $("#button_leave").click(function(){

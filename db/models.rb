@@ -187,7 +187,6 @@ unless DB.table_exists?(:games)
 		String		:gametype_name
 		String	 	:scoretype
 		String		:long_descr
-		String 		:img_filename
 		unique([:operator, :gamerange, :gametype_name])
 		foreign_key [:gametype_name], :gametypes, :key => :name
 	end
@@ -383,16 +382,16 @@ Gametype.create(:name=>"choice",
 				:descr=>"Auswahl", 
 				:long_descr=>"Wähl die richtige Antwort aus",
 				:img_filename=>"choice.png",
-				:pod_1=>150,
-				:pod_2=>100,
-				:pod_3=>50)
+				:pod_1=>300,
+				:pod_2=>250,
+				:pod_3=>120)
 Gametype.create(:name=>"score", 
 				:descr=>"Punkte sammeln", 
 				:long_descr=>"Finde so schnell wie möglich die richtigen Lösungen",
 				:img_filename=>"score.png",
-				:pod_1=>150,
-				:pod_2=>100,
-				:pod_3=>50)
+				:pod_1=>170,
+				:pod_2=>120,
+				:pod_3=>100)
 Gametype.create(:name=>"time", 
 				:descr=>"Countdown", 
 				:long_descr=>"Löse so viele Aufgaben wie möglich, bis die Zeit abgelaufen ist",
@@ -404,9 +403,9 @@ Gametype.create(:name=>"marathon",
 				:descr=>"Marathon", 
 				:long_descr=>"Wie lange hältst du durch? Für jede richtige Aufgabe bekommst du Bonus-Zeit, für jede falsche Zeit-Abzug.",
 				:img_filename=>"marathon.png",
-				:pod_1=>150,
-				:pod_2=>100,
-				:pod_3=>50)
+				:pod_1=>400,
+				:pod_2=>300,
+				:pod_3=>200)
 
 
 # - GAMES ----------------------------------------
@@ -426,7 +425,54 @@ Game.create(:name=>"Choice Addi 100",
 			:gametype_name=>"choice", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
-# Score Addi ------------------------------------------
+# Choice Subt--------------------------------
+Game.create(:name=>"Choice Subt 20", 
+			:filename=>"game_choice_subt_20.js", 
+			:operator=>"subt", 
+			:gamerange=>"20", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Choice Subt 100", 
+			:filename=>"game_choice_subt_100.js", 
+			:operator=>"subt", 
+			:gamerange=>"100", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Choice Mult--------------------------------
+Game.create(:name=>"Choice Mult Small", 
+			:filename=>"game_choice_mult_small.js", 
+			:operator=>"mult", 
+			:gamerange=>"small", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Choice Mult Big", 
+			:filename=>"game_choice_mult_big.js", 
+			:operator=>"mult", 
+			:gamerange=>"big", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Choice Divi--------------------------------
+Game.create(:name=>"Choice Divi Small", 
+			:filename=>"game_choice_divi_small.js", 
+			:operator=>"divi", 
+			:gamerange=>"small", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Choice Divi Big", 
+			:filename=>"game_choice_divi_big.js", 
+			:operator=>"divi", 
+			:gamerange=>"big", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+
+
+#Score Addi ------------------------------------------
 Game.create(:name=>"Addi 10", 
 			:filename=>"game_n_addi_10.js", 
 			:operator=>"addi", 
@@ -500,6 +546,14 @@ Game.create(:name=>"Divi Big",
 			:gametype_name=>"score", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
+#Score Mix ------------------------------------------
+Game.create(:name=>"Score Mix 100", 
+			:filename=>"game_n_mix_100.js", 
+			:operator=>"mix", 
+			:gamerange=>"100", 
+			:gametype_name=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
 # Marathon Addi ----------------------------------------
 Game.create(:name=>"Marathon Addi 20", 
 			:filename=>"game_marathon_addi_20.js", 
@@ -557,6 +611,14 @@ Game.create(:name=>"Marathon Mult Big",
 			:filename=>"game_marathon_divi_big.js", 
 			:operator=>"divi", 
 			:gamerange=>"big", 
+			:gametype_name=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+#Marathon Mix ------------------------------------------
+Game.create(:name=>"Marathon Mix 100", 
+			:filename=>"game_marathon_mix_100.js", 
+			:operator=>"mix", 
+			:gamerange=>"100", 
 			:gametype_name=>"marathon", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
@@ -619,6 +681,14 @@ Game.create(:name=>"Time Divi Big",
 			:filename=>"game_time_divi_big.js", 
 			:operator=>"divi", 
 			:gamerange=>"big", 
+			:gametype_name=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+#Time Mix ------------------------------------------
+Game.create(:name=>"Time Mix 100", 
+			:filename=>"game_time_mix_100.js", 
+			:operator=>"mix", 
+			:gamerange=>"100", 
 			:gametype_name=>"time", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")

@@ -39,9 +39,9 @@
 //-------------------------------------SETTINGS----------------------------------\\
 var quantity = 20;                  //How many tasks are there
 var lower_bound = 1;                //lower number bound
-var upper_bound = 10;  //100       //upper number bound
+var upper_bound = 100;  //100       //upper number bound
 
-var score_right = 20;               //Points for a right answer
+var score_right = 10;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
 //-----------------------------------END SETTINGS----------------------------------\\
@@ -85,29 +85,75 @@ $(document).ready(function(){
 function create_numbers(){
     z1_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
     z2_n = Math.floor(Math.random() * (upper_bound - lower_bound + 1)) + lower_bound;
-    result = z1_n + z2_n;
+
+    correct_order();
+
+    result = z1_n - z2_n;
 }
 
 function create_results(){
 
-    var fake_plus = (Math.floor(Math.random() * (7 - 2 + 1)) + 2);
-    var fake_minus = (Math.floor(Math.random() * (7 - 2 + 1)) + 2);
+    var min_o = result + 1;
+    var max_o = z1_n - 1;
+
+    var fake_plus_upper = max_o - min_o;
+    var fake_minus_upper = result - 1;
+
+    var fake_plus = Math.floor(Math.random() * (fake_plus_upper - 2 + 1)) + 2;
+    var fake_minus = (Math.floor(Math.random() * (fake_minus_upper - 2 + 1)) + 2);
 
     var fake_res_1 = result + fake_plus;
     var fake_res_2 = result - fake_minus;
     var fake_res_3;
 
+
+
+
+
+
     if(Math.random() <  0.5){
-        fake_res_3 = result + 10;
+        if(result + 10 > z1_n){
+            fake_res_3 = result + 10;
+        }else{
+            fake_res_3 = result + 1;
+        }
+
     }else{
-        fake_res_3 = result -10;
+        if(result >= 10){
+            fake_res_3 = result - 10;
+        }else{
+            fake_res_3 = result - 1;
+        }
+
     }
 
-    if(fake_res_2 < 0){
-        fake_res_2 = fake_res_2 + 17;
+    var f_1 = 1;
+    while(fake_res_1 == result || fake_res_1 == fake_res_2 || fake_res_1 == fake_res_3){
+        fake_res_1 = result + f_1;
+        f_1++;
     }
-    if(fake_res_3 < 0){
-        fake_res_3 = fake_res_3 + 17;
+
+    f_1 = 1;
+    while(fake_res_2 == result || fake_res_2 == fake_res_1 || fake_res_2 == fake_res_3){
+        fake_res_2 = result - f_1;
+        f_1++;
+    }
+
+    f_1 = 1;
+
+    while(fake_res_3 == result || fake_res_3 == fake_res_1 || fake_res_3 == fake_res_2){
+        fake_res_3 = result - f_1;
+        f_1++;
+    }
+
+    if(result == 0){
+        fake_res_1 = 1;
+        fake_res_2 = 2;
+        fake_res_3 = 3;
+    }else if(result == 1){
+        fake_res_1 = 0;
+        fake_res_2 = 2;
+        fake_res_3 = 3;
     }
 
     var result_button_random = Math.random();
@@ -204,42 +250,42 @@ function init_game(){
     var pause_div = document.getElementById('pause_div');//<------------------------|
     var end_game_div = document.getElementById('end_game_div');//<------------------|
 
-   /* //--------Start Div
-    var button_start = document.createElement('input');
-    button_start.id ='button_start';
-    button_start.type="button";
-    button_start.value = "Spiel starten";
-    button_start.onclick=countdown;
-    start_div.appendChild(button_start);
-    //-----------------------------------------------------------------------
+    /* //--------Start Div
+     var button_start = document.createElement('input');
+     button_start.id ='button_start';
+     button_start.type="button";
+     button_start.value = "Spiel starten";
+     button_start.onclick=countdown;
+     start_div.appendChild(button_start);
+     //-----------------------------------------------------------------------
 
-    //--------------------------------Game Div-------------------------------
-    var button_leave = document.createElement('input');
-    button_leave.id = 'button_leave';
-    button_leave.type="button";
-    button_leave.value= "Spiel beenden";
-    button_leave.onclick=leave_game;
-    game_div.appendChild(button_leave);
+     //--------------------------------Game Div-------------------------------
+     var button_leave = document.createElement('input');
+     button_leave.id = 'button_leave';
+     button_leave.type="button";
+     button_leave.value= "Spiel beenden";
+     button_leave.onclick=leave_game;
+     game_div.appendChild(button_leave);
 
-    var button_pause = document.createElement('input');
-    button_pause.id = 'button_pause';
-    button_pause.type = "button";
-    button_pause.value = "Pause";
-    button_pause.onclick=pause_game;
-    game_div.appendChild(button_pause);
+     var button_pause = document.createElement('input');
+     button_pause.id = 'button_pause';
+     button_pause.type = "button";
+     button_pause.value = "Pause";
+     button_pause.onclick=pause_game;
+     game_div.appendChild(button_pause);
 
 
-    var stat_table = document.createElement('table');
-    stat_table.id='stat_table';
-    stat_table.innerHTML="<tr><td style='border: double'>Anz. Richtig</td><td style='border: double'>Anz. Falsch</td><td id='score1' style='border: double'>Punkte</td></tr><tr><td id='c_r' style='border: double'>"+counter_right+"</td><td id='c_w' style='border: double'>"+counter_wrong+"</td><td id='score' style='border: double'>"+score+"</td></tr>";
-    stat_table.style.border="double";
-    game_div.appendChild(stat_table);
+     var stat_table = document.createElement('table');
+     stat_table.id='stat_table';
+     stat_table.innerHTML="<tr><td style='border: double'>Anz. Richtig</td><td style='border: double'>Anz. Falsch</td><td id='score1' style='border: double'>Punkte</td></tr><tr><td id='c_r' style='border: double'>"+counter_right+"</td><td id='c_w' style='border: double'>"+counter_wrong+"</td><td id='score' style='border: double'>"+score+"</td></tr>";
+     stat_table.style.border="double";
+     game_div.appendChild(stat_table);
 
-    var game_line = document.createElement('p');
-    game_line.id = 'game_line';
-    game_line.innerHTML = "<span id='z1'></span> + <span id='z2'></span> = <br> ";
-    game_div.appendChild(game_line);
-*/
+     var game_line = document.createElement('p');
+     game_line.id = 'game_line';
+     game_line.innerHTML = "<span id='z1'></span> + <span id='z2'></span> = <br> ";
+     game_div.appendChild(game_line);
+     */
     /*-------------- ANZUPASSEN ------------*/
 
     end_game_div.innerHTML="<div id ='end_game_stats'>" +
@@ -295,20 +341,20 @@ function init_game(){
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';
     game_line.className = "game-elements";
-    game_line.innerHTML = "<span id='z1'></span><span id='operator'> + </span><span id='z2'></span> = ?";
+    game_line.innerHTML = "<span id='z1'></span><span id='operator'> - </span><span id='z2'></span> = ?";
 
     game_div.appendChild(game_line);
 
-   /* var user_tip = document.createElement('input');
-    user_tip.type = "text";
-    user_tip.id = 'tip';
-    user_tip.className = "game-elements";
-    user_tip.className = "input-lg";
-    user_tip.placeholder = "Hier kommt das Ergebnis rein";
-    user_tip.onkeydown = clean;
-    user_tip.onkeyup = clean;
-    game_div.appendChild(user_tip);
-    user_tip.focus();*/
+    /* var user_tip = document.createElement('input');
+     user_tip.type = "text";
+     user_tip.id = 'tip';
+     user_tip.className = "game-elements";
+     user_tip.className = "input-lg";
+     user_tip.placeholder = "Hier kommt das Ergebnis rein";
+     user_tip.onkeydown = clean;
+     user_tip.onkeyup = clean;
+     game_div.appendChild(user_tip);
+     user_tip.focus();*/
 
     var button_res1 = document.createElement('input');
     button_res1.id = 'button_res1';
@@ -361,6 +407,7 @@ function init_game(){
     step.toFixed(3);
     document.getElementById('bar').style.width = progress.toFixed(1) + "%";
     document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
+
 
     var stop_watch = document.createElement('h2');
     stop_watch.id='stop_watch';
@@ -437,58 +484,58 @@ function init_game(){
 
     /* ---------ENDE ANZUPASSEN -----------*/
 
-/*
-    var result_line = document.createElement('p');
-    result_line.id='result_line';
-    result_line.innerHTML="Los Gehts!";
-    game_div.appendChild(result_line);
+    /*
+     var result_line = document.createElement('p');
+     result_line.id='result_line';
+     result_line.innerHTML="Los Gehts!";
+     game_div.appendChild(result_line);
 
 
-    var stop_watch = document.createElement('p');
-    stop_watch.id='stop_watch';
-    stop_watch.innerHTML = "<span id='sw_min'>00</span>:<span id='sw_s'>00</span>:<span id='sw_ms'>00</span>";
-    game_div.appendChild(stop_watch);
-    //-------------------------End Game Div------------------------------------------
+     var stop_watch = document.createElement('p');
+     stop_watch.id='stop_watch';
+     stop_watch.innerHTML = "<span id='sw_min'>00</span>:<span id='sw_s'>00</span>:<span id='sw_ms'>00</span>";
+     game_div.appendChild(stop_watch);
+     //-------------------------End Game Div------------------------------------------
 
 
-    //----------------------------Pause Div--------------------------
-    var button_continue = document.createElement('input');
-    button_continue.id = 'button_continue';
-    button_continue.type="button";
-    button_continue.value= "Weiter";
-    button_continue.onclick=pause_game;
-    pause_div.appendChild(button_continue);
-    //-------------------------End Pause div---------------------------------------
+     //----------------------------Pause Div--------------------------
+     var button_continue = document.createElement('input');
+     button_continue.id = 'button_continue';
+     button_continue.type="button";
+     button_continue.value= "Weiter";
+     button_continue.onclick=pause_game;
+     pause_div.appendChild(button_continue);
+     //-------------------------End Pause div---------------------------------------
 
-    //------------------------End_game_div------------------------------------------
-    end_game_div.innerHTML="<p>Richtige: <span id='results_right'></span> Falsche: <span id='results_wrong'></span></p>" +
-        "                   <p>Zeit: <span id='results_time'></span> Sekunden</p>" +
-        "                   <p>Punkte: <span id='results_score'></span></p> " +
-        "                   <p id='result_message'></p>";
+     //------------------------End_game_div------------------------------------------
+     end_game_div.innerHTML="<p>Richtige: <span id='results_right'></span> Falsche: <span id='results_wrong'></span></p>" +
+     "                   <p>Zeit: <span id='results_time'></span> Sekunden</p>" +
+     "                   <p>Punkte: <span id='results_score'></span></p> " +
+     "                   <p id='result_message'></p>";
 
-    var button_main_menu = document.createElement('input');
-    button_main_menu.id = 'button_main_menu';
-    button_main_menu.type = "button";
-    button_main_menu.value = "Auswahl";
-    button_main_menu.onclick=back_to_mainmenu;
-    end_game_div.appendChild(button_main_menu);
+     var button_main_menu = document.createElement('input');
+     button_main_menu.id = 'button_main_menu';
+     button_main_menu.type = "button";
+     button_main_menu.value = "Auswahl";
+     button_main_menu.onclick=back_to_mainmenu;
+     end_game_div.appendChild(button_main_menu);
 
-    var button_to_start = document.createElement('input');
-    button_to_start.id = 'button_to_start';
-    button_to_start.type = "button";
-    button_to_start.value = "Noch eine Runde";
-    button_to_start.onclick=back_to_start;
-    end_game_div.appendChild(button_to_start);
-
-
+     var button_to_start = document.createElement('input');
+     button_to_start.id = 'button_to_start';
+     button_to_start.type = "button";
+     button_to_start.value = "Noch eine Runde";
+     button_to_start.onclick=back_to_start;
+     end_game_div.appendChild(button_to_start);
 
 
-    //------------------ENd End_Game_div-------------------------------------------------
 
-    $(game_div).hide();
-    $(pause_div).hide();
-    $(end_game_div).hide();
-*/
+
+     //------------------ENd End_Game_div-------------------------------------------------
+
+     $(game_div).hide();
+     $(pause_div).hide();
+     $(end_game_div).hide();
+     */
 
 }
 
@@ -605,10 +652,10 @@ function back_to_mainmenu(){
 function back_to_start(){
 
     /*$(game_div).hide();
-    $(pause_div).hide();
-    $(end_game_div).hide();
-    $(start_div).show();
-    */
+     $(pause_div).hide();
+     $(end_game_div).hide();
+     $(start_div).show();
+     */
 }
 
 function pause_game(){

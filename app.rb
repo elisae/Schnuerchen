@@ -50,7 +50,7 @@ class App < Sinatra::Base
 	    	@user = User.find(:id=>session[:u_id]).to_hash
 			@gamecategories = getGameCategories
 			erb :games
-		else
+    else
 			erb :loginFailed, :layout => :layout_notLoggedIn
 		end
 	end
@@ -95,12 +95,14 @@ class App < Sinatra::Base
 
 	get "/games/:operator/:range/:type" do
 		if login?
+      @gameheader = true
 			@user = User.find(:id=>session[:u_id]).to_hash
 			@game = Game.first(:operator=>"#{params[:operator]}", 
 								:gamerange=>"#{params[:range]}", 
 								:gametype_name=>"#{params[:type]}").to_hash
 			erb :game
-		else
+    else
+      @gameheader = false
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
@@ -156,6 +158,26 @@ class App < Sinatra::Base
   end
 
 # - POST data -----------------------------------------------
+
+	get "/games/upload" do
+		@operators = Operator.all.map { |op|
+			op.to_hash
+		}
+		puts @operators
+		@ranges = Gamerange.all.map { |rng|
+			rng.to_hash
+		}
+		puts @ranges
+		@types = Gametype.all.map { |tp|
+			tp.to_hash
+		}
+		puts @types
+		@scoretypes = Scoretype.all.map { |st|
+			st.to_hash
+		}
+		puts @scoretypes
+		erb :gameupload
+	end
 
 	post "/score" do
 		content_type :json

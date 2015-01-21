@@ -417,7 +417,6 @@ a {
     z-index: 4;
     border-color: #4dd0e1 !important;
     background-color: #EEEEEE !important;
-
 }
 
 .shownFriends:hover {
@@ -473,13 +472,26 @@ a {
 #friendOption {
     margin-top: 3vh;
 }
+
 .scoreWindow{
     position: absolute;
-    opacity: 0.8;
+    opacity: 0.9;
     font-size: 150%;
     text-align: center;
-    z-index:10;
-    background-color:white;
-    border: solid black 2px;
+    z-index: 50000;
+    font-weight: 900;
+    border-radius: 0.5em;
+    margin-top: -18%;
+    margin-left: -12%;
     padding: 2%;
+}
+
+#profilHover{
+    background-color: #B2EBF2;
+}
+
+#userHover{
+    background-color: #FFE0B2;
+    margin-top: -25%;
+    margin-left: -22%;
 }
