@@ -382,16 +382,16 @@ Gametype.create(:name=>"choice",
 				:descr=>"Auswahl", 
 				:long_descr=>"Wähl die richtige Antwort aus",
 				:img_filename=>"choice.png",
-				:pod_1=>150,
-				:pod_2=>100,
-				:pod_3=>50)
+				:pod_1=>300,
+				:pod_2=>250,
+				:pod_3=>120)
 Gametype.create(:name=>"score", 
 				:descr=>"Punkte sammeln", 
 				:long_descr=>"Finde so schnell wie möglich die richtigen Lösungen",
 				:img_filename=>"score.png",
-				:pod_1=>150,
-				:pod_2=>100,
-				:pod_3=>50)
+				:pod_1=>170,
+				:pod_2=>120,
+				:pod_3=>100)
 Gametype.create(:name=>"time", 
 				:descr=>"Countdown", 
 				:long_descr=>"Löse so viele Aufgaben wie möglich, bis die Zeit abgelaufen ist",
@@ -403,9 +403,9 @@ Gametype.create(:name=>"marathon",
 				:descr=>"Marathon", 
 				:long_descr=>"Wie lange hältst du durch? Für jede richtige Aufgabe bekommst du Bonus-Zeit, für jede falsche Zeit-Abzug.",
 				:img_filename=>"marathon.png",
-				:pod_1=>150,
-				:pod_2=>100,
-				:pod_3=>50)
+				:pod_1=>400,
+				:pod_2=>300,
+				:pod_3=>200)
 
 
 # - GAMES ----------------------------------------
