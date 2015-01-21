@@ -433,6 +433,44 @@ Game.create(:name=>"Choice Subt 20",
 			:gametype_name=>"choice", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Choice Subt 100", 
+			:filename=>"game_choice_subt_100.js", 
+			:operator=>"subt", 
+			:gamerange=>"100", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Choice Mult--------------------------------
+Game.create(:name=>"Choice Mult Small", 
+			:filename=>"game_choice_mult_small.js", 
+			:operator=>"mult", 
+			:gamerange=>"small", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Choice Mult Big", 
+			:filename=>"game_choice_mult_big.js", 
+			:operator=>"mult", 
+			:gamerange=>"big", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+# Choice Divi--------------------------------
+Game.create(:name=>"Choice Divi Small", 
+			:filename=>"game_choice_divi_small.js", 
+			:operator=>"divi", 
+			:gamerange=>"small", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Choice Divi Big", 
+			:filename=>"game_choice_divi_big.js", 
+			:operator=>"divi", 
+			:gamerange=>"big", 
+			:gametype_name=>"choice", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+
 
 #Score Addi ------------------------------------------
 Game.create(:name=>"Addi 10", 
