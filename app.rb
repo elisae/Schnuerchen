@@ -132,7 +132,10 @@ class App < Sinatra::Base
     content_type :json
     user_id = session[:u_id].to_i
     game_id = params[:g_id].to_i
-    scoreArr = getUserScore(user_id,game_id)
+    pod = params[:pod].to_i
+    scoreArr = Array.new
+    scoreArr.push(getUserScore(user_id,game_id))
+    scoreArr.push(getMinScore(game_id,pod))
     scoreArr.to_json
   end
 

@@ -47,7 +47,7 @@
             <div class="selection" id="<%= k1[:name] + k2[:name]%>games" style="display:none">
               <% k2[:types].each do |k3| %>
                 <a href="/games/<%= k1[:name] %>/<%= k2[:name] %>/<%= k3[:name] %>">
-                    <div class = "btn btn-lg selection-button games <%= k3[:name] %>" id="<%= k1[:name] + k2[:name] + k3[:name] %>" style="background-image: url(/images/games/<%= k3[:img_filename]%>);"></div>
+                    <div class = "btn btn-lg selection-button games <%= k3[:name] %>" long_descr="<%= k3[:long_descr]%>"id="<%= k1[:name] + k2[:name] + k3[:name] %>" style="background-image: url(/images/games/<%= k3[:img_filename]%>);"></div>
                 </a>
               <% end %>
             </div>

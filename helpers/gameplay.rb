@@ -57,25 +57,28 @@ end
 def getUserTrophies(user_id)
 	userTrophies = User.find(:id => user_id).trophies_dataset.to_hash_groups(:game_id, :pod)
   userTrophies.each do |game_id,values|
-    userTrophies[game_id].push(getUserScore(user_id,game_id)[0][:score])
+    userTrophies[game_id].push(getUserScore(user_id,game_id))
   end
 	puts "usertrophies: #{userTrophies}"
-
 	return userTrophies
 end
 
+def getMinScore(game_id,pod)
+  min_score = Trophy.where{Sequel.&({:game_id=>game_id},{:pod=>pod})}.select(:min_score).map{|min_score|
+    min_score.to_hash
+  }
+  min_score[0]
+end
 
 def getUserScore(user_id,game_id)
-  scoreArr = Array.new
-
   if !Score.where{Sequel.&({:user_id => user_id}, {:game_id => game_id})}.select(:score).empty?
-    Score.where{Sequel.&({:user_id => user_id}, {:game_id => game_id})}.select(:score).map{|score|
-      scoreArr.push(score.to_hash)
+    score = (Score.where{Sequel.&({:user_id => user_id}, {:game_id => game_id})}.select(:score)).map{|score|
+      score.to_hash
     }
+    score[0]
   else
-    scoreArr.push(:score=>0)
+    Hash[:score,0]
   end
-  scoreArr
 end
 
 # returns highest trophy reached (see addTrophy)
