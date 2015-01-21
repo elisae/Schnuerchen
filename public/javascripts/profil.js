@@ -114,20 +114,21 @@ $(document).ready(function() {
                     $.get(
                         "/userscores",
                         {g_id: target.parent().attr("id"),
-                         u_id: $("#myProfil").attr("user")},
+                         u_id: $("#myProfil").attr("user"),
+                         pod: targetPod},
                         function (res,statusText,xhr) {
                             console.log(res.length);
                                 if (xhr.status == 200) {
-                                    var str = (res[0]["score"] == 0) ? "Du hast die Medaille nicht." : res[0]["score"];
+                                    var str = (res[0]["score"] == 0) ? "Du hast die Medaille nicht." :"Deine Punkte " + res[0]["score"];
                                     switch (targetPod) {
                                             case 1:
-                                                target.append("<div class='scoreWindow' id='profilHover'> Goldmedaille</br> Gibts ab " + targetMinScore + " Punkten. <br>" + str +" </div>");
+                                                target.append("<div class='scoreWindow' id='profilHover'> Goldmedaille! Gibts ab " + res[1]["min_score"] + " Punkten. <br>" + str +" </div>");
                                                 break;
                                             case 2:
-                                                target.append("<div class='scoreWindow' id='profilHover'> Silbermedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "</div>");
+                                                target.append("<div class='scoreWindow' id='profilHover'> Silbermedaille! Gibts ab " + res[1]["min_score"] + " Punkten.<br> "+ str + "</div>")
                                                 break;
                                             case 3:
-                                                target.append("<div class='scoreWindow' id='profilHover'> Bronzemedaille</br> Gibts ab " + targetMinScore + " Punkten.<br>" + str +"</div>");
+                                                target.append("<div class='scoreWindow' id='profilHover'> Bronzemedaille! Gibts ab " + res[1]["min_score"] + " Punkten.<br>" + str +"</div>")
                                                 break;
                                         }
                                 }
@@ -158,20 +159,22 @@ $(document).ready(function() {
                 $.get(
                     "/userscores",
                     {g_id: target.parent().attr("id"),
-                        u_id: $("#myProfil").attr("user")},
+                     u_id: $("#myProfil").attr("user"),
+                     pod: targetPod},
                     function (res,statusText,xhr) {
                         console.log(res.length);
                         if (xhr.status == 200) {
                             var str = (targetScore == 0) ? $("#userName").html() + " hat die Medaille nicht." : "Punkte in dem Spiel: " + targetScore;
                             switch (targetPod) {
                                 case 1:
-                                    target.append("<div class='scoreWindow' id='userHover'> Goldmedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> "+ str + "  <br> Deine Punkte: " + res[0]["score"] + "</div>");
+                                    target.append("<div class='scoreWindow' id='userHover'> Goldmedaille! Gibts ab " + res[1]["min_score"] + " Punkten.<br> "+ str + "  <br> Deine Punkte: " + res[0]["score"] + "</div>");
                                     break;
                                 case 2:
-                                    target.append("<div class='scoreWindow' id='userHover'> Silbermedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> " + str + "<br> Deine Punkte " + res[0]["score"] + "</div>");
+                                    target.append("<div class='scoreWindow' id='userHover'> Silbermedaille! Gibts ab " + res[1]["min_score"] + " Punkten.<br> " + str + "<br> Deine Punkte " + res[0]["score"] + "</div>")
                                     break;
                                 case 3:
-                                    target.append("<div class='scoreWindow' id='userHover'> Bronzemedaille</br> Gibts ab " + targetMinScore + " Punkten.<br> "+ str +" <br> Deine Punkte " + res[0]["score"] + "</div>");
+                                    target.append("<div class='scoreWindow' id='userHover'> Bronzemedaille! Gibts ab " + res[1]["min_score"] + " Punkten.<br> "+ str +" <br> Deine Punkte " + res[0]["score"] + "</div>")
+
                                     break;
                             }
                         }

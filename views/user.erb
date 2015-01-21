@@ -60,8 +60,8 @@
                                         <div class=" col-md-offset-2 col-md-2 gamename">
                                           <h3><%= type[:name] %></h3>
                                         </div>
-                                        <div class="col-md-6 col-md-offset-1 gametrophiesfriend"  id="<%= type[:game_id]%>" with_score="<%= @trophies[type[:game_id]].nil?? '0' : @trophies[type[:game_id]].last %>">
-                                          <% game_trophies = @trophies[type[:game_id]] %>
+                                        <% game_trophies = @trophies[type[:game_id]] %>
+                                        <div class="col-md-6 col-md-offset-1 gametrophiesfriend"  id="<%= type[:game_id]%>" with_score="<%= game_trophies.nil?? '0' : game_trophies[(game_trophies.length-1)][:score] %>">
                                           <% count = 20 %> <!-- wurde nur für Testzwecke angelegt -->
                                           <% if (game_trophies == nil) %>
                                               <% 3.downto(1) do |i| %>

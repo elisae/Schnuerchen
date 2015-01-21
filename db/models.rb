@@ -696,3 +696,5 @@ Game.create(:name=>"Time Mix 100",
 saveScore(1, 3, 180)
 saveScore(1,2, 700)
 saveScore(2,2,10000)
+saveScore(2,3,50)
+saveScore(2,1,1088)
