@@ -546,6 +546,14 @@ Game.create(:name=>"Divi Big",
 			:gametype_name=>"score", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
+#Score Mix ------------------------------------------
+Game.create(:name=>"Score Mix 100", 
+			:filename=>"game_n_mix_100.js", 
+			:operator=>"mix", 
+			:gamerange=>"100", 
+			:gametype_name=>"score", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
 # Marathon Addi ----------------------------------------
 Game.create(:name=>"Marathon Addi 20", 
 			:filename=>"game_marathon_addi_20.js", 
@@ -603,6 +611,14 @@ Game.create(:name=>"Marathon Mult Big",
 			:filename=>"game_marathon_divi_big.js", 
 			:operator=>"divi", 
 			:gamerange=>"big", 
+			:gametype_name=>"marathon", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+#Marathon Mix ------------------------------------------
+Game.create(:name=>"Marathon Mix 100", 
+			:filename=>"game_marathon_mix_100.js", 
+			:operator=>"mix", 
+			:gamerange=>"100", 
 			:gametype_name=>"marathon", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
@@ -665,6 +681,14 @@ Game.create(:name=>"Time Divi Big",
 			:filename=>"game_time_divi_big.js", 
 			:operator=>"divi", 
 			:gamerange=>"big", 
+			:gametype_name=>"time", 
+			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+#Time Mix ------------------------------------------
+Game.create(:name=>"Time Mix 100", 
+			:filename=>"game_time_mix_100.js", 
+			:operator=>"mix", 
+			:gamerange=>"100", 
 			:gametype_name=>"time", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
