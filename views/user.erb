@@ -11,7 +11,7 @@
 
           
 
-          <div id="myCarousel" class="col-md-8 carousel slide">
+          <div id="myCarousel" class="col-lg-offset-1 col-lg-7 col-md-8 carousel slide">
 			<% if (@friendStatus != 3) %>
             <!--
               <div id="button2">
@@ -117,7 +117,7 @@
 
           <! --------------------User Optionen -------------------- >
 
-          <div class="col-md-4" >
+          <div class="col-md-4 col-lg-3">
           <div id="userOption">
             <div id="friendOption">
 				<% case @friendStatus
@@ -132,7 +132,7 @@
                     <input class="addBtn btn btn-lg btn-xl btn-outline" type="button" value="Freund werden" id="<%= @friend[:id] %>">
             	<% when 3 %>
               		<h3 class="friendInfo">Möchtest du nicht mehr mit  <%= @friend[:firstname] %> befreundet sein?</h3>
-                    <input class="unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Aus deiner Liste nehmen" id="<%= @friend[:id] %>">
+                    <div class="unfriendBtn btn btn-lg btn-xl btn-outline" id="<%= @friend[:id] %>">Aus deiner <br>Liste nehmen</div>
             	<% else %>
                   <h3 class="friendInfo">Leider ist was schief gelaufen. Tut uns leid <%= @user[:firstname] %></h3>
             	<% end %>

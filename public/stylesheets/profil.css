@@ -48,8 +48,12 @@ hr {
     opacity: 0.95;
     z-index: 100;
     height: 100%;
-    width: 100%;
+    width: 95%;
     color: white;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 }
 
 #noFriendOverlay h1 {
@@ -63,8 +67,8 @@ hr {
     background-color: white;
     border: 1px dotted grey;
     display: inline-block;
-    width: 8vw;
-    height: 8vw;
+    width: 7vw;
+    height: 7vw;
     margin-left: 0.5vw;
     margin-right: 0.5vw;
 }
@@ -146,6 +150,14 @@ hr {
     overflow-y: scroll;
     white-space: nowrap;
     overflow-y: -moz-scrollbars-none;
+}
+
+.fill{
+    overflow-y: -moz-scrollbars-none;
+}
+
+.fill::-webkit-scrollbar{
+    display: none;
 }
 
 .item::-webkit-scrollbar {
@@ -269,6 +281,7 @@ a {
 
 .gamename h3{
     font-size: 130%;
+    width: 50%;
 }
 
 /*------------------------Begin friendlist------------------------*/
@@ -326,6 +339,10 @@ a {
 #friendlist a {
     text-decoration: none;
     color: black;
+}
+
+.addBtn{
+    font-size: 2.5vh;
 }
 
 .n1 {
@@ -453,16 +470,6 @@ a {
     line-height: 150%;
 }
 
-.addBtn {
-    margin-top: auto;
-    margin-bottom: auto;
-    top: 0;
-    bottom: 0;
-}
-
-#btn-add {
-    font-size: 150%;
-}
 
 #userOption {
     text-align: center;
@@ -476,14 +483,16 @@ a {
 .scoreWindow{
     position: absolute;
     opacity: 0.9;
-    font-size: 150%;
+    font-size: 120%;
     text-align: center;
     z-index: 50000;
     font-weight: 900;
     border-radius: 0.5em;
-    margin-top: -18%;
-    margin-left: -12%;
-    padding: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    right: 20%;
+    left: 20%;
+    margin-top: -25%;
 }
 
 #profilHover{
@@ -492,6 +501,5 @@ a {
 
 #userHover{
     background-color: #FFE0B2;
-    margin-top: -25%;
-    margin-left: -22%;
+
 }
