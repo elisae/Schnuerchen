@@ -4,10 +4,9 @@
   <!-- Trophähen -->
 
 
-  <div id="myProfil" user="<%= @user[:id] %>">
+    <div id="myProfil" user="<%= @user[:id] %>">
 
-
-    <h1 id="page-info">Hallo <%= @user[:firstname] %></h1>
+    <h1 id="page-info">Hallo <span id="userName"><%= @user[:firstname] %></span></h1>
 
     <div id="myCarousel" class="col-md-8 carousel slide">
 
@@ -49,16 +48,19 @@
                                   <div class=" col-md-offset-2 col-md-2 gamename">
                                     <h3><%= type[:descr] %></h3>
                                   </div>
-                                  <div class="col-md-6 col-md-offset-1 gametrophies" id="<%= type[:game_id] %>">
+                                  <div class="col-md-6 col-md-offset-1 gametrophiesuser" id="<%= type[:game_id] %>">
                                     <% game_trophies = @trophies[type[:game_id]] %>
+                                    <% count = 20 %> <!-- wurde nur für Testzwecke angelegt -->
                                     <% if (game_trophies == nil) %>
-                                        <% 3.downto(1) do |i| %>
-                                            <div class="trophy notwon" data-pod="<%= i %>"></div>
-                                        <% end %>
+                                      <% 3.downto(1) do |i| %>
+                                          <div class="trophy notwon" data-pod="<%= i %>" min_score="<%= count %>"  ></div>
+                                          <% count = count*2 %>
+                                      <% end %>
                                     <% else %>
-                                        <% 3.downto(1) do |i| %>
-                                            <div class="trophy <%= game_trophies.include?(i) ? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
-                                        <% end %>
+                                      <% 3.downto(1) do |i| %>
+                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" min_score="<%= count %>"></div>
+                                          <% count = count*2 %>
+                                      <% end %>
                                     <% end %>
                                   </div>
                               <% end %>
@@ -146,31 +148,22 @@
               <% if !@friendReqsIn.nil? %>
                   <% @friendReqsIn.each do |reqsIn|
                     unless reqsIn.nil? %>
-
                           <li class="notYetRespondedFriends">
                             <a href="/users/<%= reqsIn[:id] %>/profil"><%= reqsIn[:username] %></a>
                             <br/>
-
                             <div id="<%= reqsIn[:id] %>" class="addBtn btn btn-outline btn-xl btn-lg" onclick="window.location.reload()">
-
                               Freund werden
                             </div>
                           </li>
                       <% end %>
                   <% end %>
               <% end %>
-
             </ul>
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
-
-
 </section>
-
 <script src="/javascripts/trophyAjax.js"></script>
 <script src="/javascripts/profil.js"></script>

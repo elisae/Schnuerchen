@@ -82,6 +82,124 @@ def friends?(user_id, friend_id)
 	end
 end
 
+def getGameCategories
+	operators = Operator.map { |op|
+		ranges = op.gameranges.map { |gr|
+			types = gr.gametypes.map { |gt|
+				op_name = op.name
+				gr_name = gr.name
+				gt_name = gt.name
+				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype => gt_name)
+				unless (game == nil) 
+					game_id = game.id
+				end
+				gt.to_hash.merge(:game_id => game_id)
+			}
+			unless types.any?
+				types = nil
+			end
+			gr.to_hash.merge(:types=>types)
+		}
+		unless ranges.any?
+			ranges = nil
+		end
+		op.to_hash.merge(:ranges=>ranges)
+	}
+	return operators
+end
+
+def getFriendsInfo(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{|user|
+      if friends?(userId,user[:id]) == 3
+        user.to_hash
+      end
+    }
+  end
+end
+
+def getReqsOut(userId)
+  user = User.find(:id => userId)
+  if user.friends_with.empty?
+    nil
+  else
+    user.friends_with.map{ |user|
+      if friends?(userId,user[:id]) == 1
+        user.to_hash
+      end
+    }
+  end
+end
+
+def getReqsIn(userId)
+  user = User.find(:id => userId)
+  if user.friend_of.empty?
+    nil
+  else
+    user.friend_of.map{ |user|
+      if friends?(userId,user[:id]) == 2
+        user.to_hash
+      end
+    }
+  end
+end
+
+def addTrophy(user_id, game_id, score)
+	user = User.find(:id => user_id)
+	trophies = Trophy.filter(:game_id => game_id).order(:pod)
+
+	trophies.map { |tr|
+		if (score >= tr.min_score)
+			ut = user.trophies_dataset.first(:trophy_id => tr.id)
+			unless ut 
+				user.add_trophy(tr)
+				puts "added Trophy #{tr.pod} id: #{tr.id} user: #{user_id}"
+			end	
+		else
+			puts "not enough for Trophy #{tr.pod}"
+		end
+	}
+end
+
+def getUserTrophies(user_id)
+	userTrophies = User.find(:id => user_id).trophies_dataset.to_hash_groups(:game_id, :pod)
+
+	puts "usertrophies: #{userTrophies}"
+
+	return userTrophies
+end
+
+# Holt die eigene Score für das jeweilige Spiel aus der Datenbank und speichert sie in einem Array.
+def getUserScore(user_id,game_id)
+  scoreArr = Array.new
+  Score.where{Sequel.&({:user_id => user_id}, {:game_id => game_id})}.select(:score).map{|score|
+    scoreArr.push(score.to_hash)
+  }
+  scoreArr
+end
+
+
+def saveScore(user_id, game_id, new_score)
+	score = Score.find(:user_id => user_id, :game_id => game_id)
+		
+	if (score == nil)
+		puts "Neuer score angelegt (first time played)"
+		Score.create(:user_id => user_id, 
+					:game_id => game_id,
+					:timestamp => DateTime.now,
+					:score => new_score)
+	elsif (score.score <= new_score)
+		puts "Score (id: #{score.id} updated)"
+		score.set(:timestamp => DateTime.now)
+		score.set(:score => new_score)
+		score.save
+	else
+		puts "Goanix"
+	end
+end
 
 def addFriend(user_id, friend_id)
 	Friendship.find_or_create(:friends_with_id => user_id,:friend_of_id=> friend_id)

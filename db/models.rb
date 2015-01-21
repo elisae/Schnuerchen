@@ -631,23 +631,6 @@ Game.create(:name=>"Time Divi Big",
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 
-Score.create(:user_id=>2, 
-			:game_id=>3,
-			:timestamp => DateTime.now,
-			:score => 40)
-Score.create(:user_id=>2, 
-			:game_id=>1,
-			:timestamp => DateTime.now,
-			:score => 60)
-Score.create(:user_id=>1,
-             :game_id=>1,
-             :timestamp => DateTime.now,
-             :score => 60)
-Score.create(:user_id=>1,
-             :game_id=>3,
-             :timestamp => DateTime.now,
-             :score => 100)
-Score.create(:user_id=>1,
-             :game_id=>2,
-             :timestamp => DateTime.now,
-             :score => 100)
+saveScore(1, 3, 180)
+saveScore(1,2, 700)
+saveScore(2,2,10000)
