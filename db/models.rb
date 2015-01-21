@@ -434,7 +434,8 @@ Game.create(:name=>"Choice Subt 20",
 			:gametype_name=>"choice", 
 			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
-# Score Addi ------------------------------------------
+
+#Score Addi ------------------------------------------
 Game.create(:name=>"Addi 10", 
 			:filename=>"game_n_addi_10.js", 
 			:operator=>"addi", 

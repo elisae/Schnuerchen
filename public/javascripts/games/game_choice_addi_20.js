@@ -37,7 +37,7 @@
 
 
 //-------------------------------------SETTINGS----------------------------------\\
-var quantity = 10;                  //How many tasks are there
+var quantity = 20;                  //How many tasks are there
 var lower_bound = 1;                //lower number bound
 var upper_bound = 10;  //100       //upper number bound
 
@@ -58,6 +58,8 @@ var score = 0;
 var counter = 0;
 var counter_right = 0;
 var counter_wrong = 0;
+var progress = 0;
+var step = 100 / quantity;
 
 var pause_time = 0;
 var pause_start = 0;
@@ -344,6 +346,22 @@ function init_game(){
     button_res4.disabled = true;
     game_div.appendChild(button_res4);
 
+    var progress_bar = document.createElement('div');
+    progress_bar.id='progress_bar';
+    var bar = document.createElement('div');
+    bar.id='bar';
+    var percent = document.createElement('div');
+    percent.id='percent';
+
+
+    bar.appendChild(percent);
+    progress_bar.appendChild(bar);
+    game_div.appendChild(progress_bar);
+
+    step.toFixed(3);
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
+
     var stop_watch = document.createElement('h2');
     stop_watch.id='stop_watch';
     stop_watch.className = "game-elements";
@@ -517,6 +535,10 @@ function reset_game(){
     document.getElementById('result_line').innerHTML = "Los Gehts!";
     document.getElementById('button_pause').value="Pause";
 
+    progress = 0;
+    document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+    document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
+
     if(counter_wrong == 0){
         document.getElementById('end_game_stats').innerHTML = "<h1>Du hast alle <span id='results_right'></span> Aufgaben richtig</h1>" +
             "                   <p>Super Leistung! <span id='results_wrong'></span></p>" +
@@ -636,6 +658,13 @@ function resolute(user_tip){
         score = score - score_wrong;
         feedbackWrong();
     }
+
+    progress = progress + step;
+    if(progress <= quantity * step){
+        document.getElementById('bar').style.width = progress.toFixed(1) + "%";
+        document.getElementById('percent').innerHTML = progress.toFixed(1) + "%";
+    }
+
     score_control();
     document.getElementById('score').innerHTML = score;
     document.getElementById('score_a').innerHTML = score;
