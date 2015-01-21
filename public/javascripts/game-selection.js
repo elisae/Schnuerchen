@@ -54,7 +54,6 @@ $(document).ready(function(){
             secondParentId = event.target.id;
             $("#"+secondParentId+"games").fadeIn(slideTime);
             rangeShown = true;
-
         }
 
         $(this).append(indicatorRange);
