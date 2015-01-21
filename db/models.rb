@@ -187,7 +187,6 @@ unless DB.table_exists?(:games)
 		String		:gametype_name
 		String	 	:scoretype
 		String		:long_descr
-		String 		:img_filename
 		unique([:operator, :gamerange, :gametype_name])
 		foreign_key [:gametype_name], :gametypes, :key => :name
 	end

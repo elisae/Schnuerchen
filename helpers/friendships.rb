@@ -164,14 +164,6 @@ def addTrophy(user_id, game_id, score)
 	}
 end
 
-def getUserTrophies(user_id)
-	userTrophies = User.find(:id => user_id).trophies_dataset.to_hash_groups(:game_id, :pod)
-
-	puts "usertrophies: #{userTrophies}"
-
-	return userTrophies
-end
-
 # Holt die eigene Score für das jeweilige Spiel aus der Datenbank und speichert sie in einem Array.
 def getUserScore(user_id,game_id)
   scoreArr = Array.new

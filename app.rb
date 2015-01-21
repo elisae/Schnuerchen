@@ -154,6 +154,26 @@ class App < Sinatra::Base
 
 # - POST data -----------------------------------------------
 
+	get "/games/upload" do
+		@operators = Operator.all.map { |op|
+			op.to_hash
+		}
+		puts @operators
+		@ranges = Gamerange.all.map { |rng|
+			rng.to_hash
+		}
+		puts @ranges
+		@types = Gametype.all.map { |tp|
+			tp.to_hash
+		}
+		puts @types
+		@scoretypes = Scoretype.all.map { |st|
+			st.to_hash
+		}
+		puts @scoretypes
+		erb :gameupload
+	end
+
 	post "/score" do
 		content_type :json
 		puts ""

@@ -8,9 +8,10 @@ def getGameCategories
 				game = Game.first(:operator => op_name, :gamerange => gr_name, :gametype_name => gt_name)
 				unless (game == nil) 
 					game_id = game.id
+					gt.to_hash.merge(:game_id => game_id)
 				end
-				gt.to_hash.merge(:game_id => game_id)
 			}
+			types.compact!
 			unless types.any?
 				types = nil
 			end
