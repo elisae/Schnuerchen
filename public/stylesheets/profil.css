@@ -37,7 +37,7 @@ hr {
 }
 
 #page-info {
-    margin-top: 5%;
+    margin-top: 2%;
     text-align: center;
 }
 
@@ -63,10 +63,10 @@ hr {
     background-color: white;
     border: 1px dotted grey;
     display: inline-block;
-    width: 11vh;
-    height: 11vh;
-    margin-left: 2vh;
-    margin-right: 2vh;
+    width: 8vw;
+    height: 8vw;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
 }
 
 .trophy.won[data-pod="1"] {
@@ -264,11 +264,11 @@ a {
 }
 
 .gamename {
-    margin-top: 2.5%;
+    margin-top: 4%;
 }
 
 .gamename h3{
-    font-size: 200%;
+    font-size: 130%;
 }
 
 /*------------------------Begin friendlist------------------------*/
@@ -475,10 +475,11 @@ a {
 }
 .scoreWindow{
     position: absolute;
-    top:10px;
-    left:10px;
-    z-index:5;
+    opacity: 0.8;
+    font-size: 150%;
+    text-align: center;
+    z-index:10;
     background-color:white;
     border: solid black 2px;
-    padding:5px;
+    padding: 2%;
 }
