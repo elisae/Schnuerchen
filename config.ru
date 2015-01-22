@@ -9,7 +9,7 @@ require "find"
 
 %w{helpers db}.each do |load_path|
 	Find.find(load_path) { |f|
-		require f unless !f.match(/\.rb$/) || File.directory?(f) || f == "models_konsist.rb"
+		require f unless !f.match(/\.rb$/) || File.directory?(f) || f.match(/konsist/)
 	}
 end
 

@@ -16,14 +16,18 @@ class App < Sinatra::Base
 	
 	not_found do
 		if login?
+			status 404
 			erb :notfound
 		else
+			@redirect = "/"
+			status 404
 			erb :notfound, :layout => :layout_notLoggedIn
 		end
 	end
 
 	get "/" do
     	@landing = true
+    	@redirect = "/games"
 		erb :landing, :layout => :layout_notLoggedIn
 	end
 
@@ -35,14 +39,16 @@ class App < Sinatra::Base
 		@user = User.find(:username => params[:name])
 		if (@user && (@user[:password_hash] == BCrypt::Engine.hash_secret(params[:password], @user[:salt])))
 			session[:u_id] = @user[:id]
-			redirect "/games"
+			redirect params[:redirect]
 		else
+		  @redirect = params[:redirect]
 	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end
 	end
 
   	get "/login" do
-  		erb :loginFailed, :layout => :layout_notLoggedIn
+  		@redirect = "/games"
+  		erb :notloggedin, :layout => :layout_notLoggedIn
   	end
 
 	get "/games" do
@@ -50,8 +56,9 @@ class App < Sinatra::Base
 	    	@user = User.find(:id=>session[:u_id]).to_hash
 			@gamecategories = getGameCategories
 			erb :games
-    else
-			erb :loginFailed, :layout => :layout_notLoggedIn
+   		else
+   			@redirect = "/games"
+			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
 
@@ -76,17 +83,20 @@ class App < Sinatra::Base
 					erb :user
 				end
 			else
-				erb :notfound
+				status 404
+				erb :notfound, :layout => :layout
 			end
 		else
+			@redirect = "/users/#{params[:u_id]}/profil"
+			status 403
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
 
 	get "/logout" do
 		session[:u_id] = nil
-		erb :logout,
-        :layout => :layout_notLoggedIn
+		@redirect = "/games"
+		erb :logout, :layout => :layout_notLoggedIn
 	end
 
 	get "/insert" do
@@ -99,13 +109,21 @@ class App < Sinatra::Base
 			@user = User.find(:id=>session[:u_id]).to_hash
 			@game = Game.first(:operator=>"#{params[:operator]}", 
 								:gamerange=>"#{params[:range]}", 
-								:gametype_name=>"#{params[:type]}").to_hash
-			@operator = Operator.find(:name=>"#{params[:operator]}").to_hash
-			@range = Gamerange.find(:name=>"#{params[:range]}").to_hash
-			@type = Gametype.find(:name=>"#{params[:type]}").to_hash
-			erb :game
-    else
+								:gametype_name=>"#{params[:type]}")
+			if @game
+				@game = @game.to_hash
+				@operator = Operator.find(:name=>"#{params[:operator]}").to_hash
+				@range = Gamerange.find(:name=>"#{params[:range]}").to_hash
+				@type = Gametype.find(:name=>"#{params[:type]}").to_hash
+				erb :game
+			else
+				status 404
+				erb :notfound, :layout => :layout
+			end
+    	else
       		@gameheader = false
+      		@redirect = "/games/#{params[:operator]}/#{params[:range]}/#{params[:type]}"
+      		status 403
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
@@ -191,6 +209,7 @@ class App < Sinatra::Base
 				erb :notfound
 			end
 		else
+			@redirect = "/games/upload"
 			erb :notfound, :layout=>:layout_notLoggedIn
 		end
 	end
@@ -245,7 +264,8 @@ class App < Sinatra::Base
 			status 200
 			redirect "/games/upload"
 		else
-			status 401
+			status 403
+			erb :notfound
 		end
 	end
 

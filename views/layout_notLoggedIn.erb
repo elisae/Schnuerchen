@@ -70,7 +70,7 @@
           </a>
           <ul class="dropdown-menu" role="menu">
             <!-- login -->
-            <form role="form" action="/login" method="post">
+            <form role="form" action="/login?redirect=<%= @redirect %>" method="post">
               <div class="form-group">
                 <input type="text" class="form-control input-lg" id="username"  name="name" placeholder="Benutzername">
               </div>
