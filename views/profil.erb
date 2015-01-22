@@ -37,7 +37,7 @@
                     <% cat[:ranges].each do |range| %>
 
                         <div class="ranges ">
-                          <h3>Zahlen bis <%= range[:name] %></h3>
+                          <h3><%= range[:descr] %></h3>
                           <hr>
                         </div>
 
@@ -45,10 +45,11 @@
 
                           <% unless range[:types] == nil %>
                               <% range[:types].each do |type| %>
-                                  <div class=" col-md-offset-2 col-md-2 gamename">
-                                    <p><%= type[:descr] %></p>
+                                  <div class=" col-md-offset-2 col-md-3 gamename">
+                                    <img src="/images/games/<%= type[:img_filename]%>"/>
+                                    <h4><%= type[:descr] %></h4>
                                   </div>
-                                  <div class="col-md-6 col-md-offset-1 gametrophiesuser" id="<%= type[:game_id] %>">
+                                  <div class="col-md-6  gametrophiesuser" id="<%= type[:game_id] %>">
                                     <% game_trophies = @trophies[type[:game_id]] %>
                                     <% count = 20 %> <!-- wurde nur für Testzwecke angelegt -->
                                     <% if (game_trophies == nil) %>
