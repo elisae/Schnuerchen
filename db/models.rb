@@ -563,6 +563,12 @@ Game.create(:name=>"Marathon Mix 100",
 			:gamerange=>"100", 
 			:gametype_name=>"marathon", 
 			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Marathon Mix 20", 
+			:filename=>"game_marathon_mix_20.js", 
+			:operator=>"mix", 
+			:gamerange=>"20", 
+			:gametype_name=>"marathon", 
+			:css_filename=>"dummygamestyle.css")
 # Time Addi -----------------------------------------------
 
 Game.create(:name=>"Time Addi 20", 
