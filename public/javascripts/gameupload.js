@@ -22,31 +22,30 @@ function postGame() {
 	var gamerange = $('input[name=gamerange]:checked').val();
 	var gametype = $('input[name=gametype]:checked').val();
 
-	
+
 	alert("hi");
 }
 
 
 function gameExist() {
+	console.log("gameExist()");
 	var query = '/games/find?';
-	if ($('input[name=operator]').prop('checked')) {
-		console.log(jQuery.type($('input[name=operator]:checked').val()));
+	if ($('input[name=operator]:checked').val()) {
+		console.log("operator checked");
 		console.log($('input[name=operator]:checked').val());
 		query = query + 'operator=' + $('input[name=operator]:checked').val() + "&";
 	}
-	if ($('input[name=gamerange]').prop('checked')) {
-		console.log(jQuery.type($('input[name=gamerange]:checked').val()));
+	if ($('input[name=gamerange]:checked').val()) {
+		console.log("gamerange checked");
 		console.log($('input[name=gamerange]:checked').val());
 		query = query + 'gamerange=' + $('input[name=gamerange]:checked').val() + "&";
 	}
-	if ($('input[name=gametype]').prop('checked')) {
-		console.log(jQuery.type($('input[name=gametype]:checked').val()));
+	if ($('input[name=gametype]:checked').val()) {
+		console.log("gametype checked");
 		console.log($('input[name=gametype]:checked').val());
 		query = query + 'gametype_name=' + $('input[name=gametype]:checked').val() + "&";
 	}
 
-
-	console.log(jQuery.type(query));
 	console.log(query);
 
 	$.ajax({

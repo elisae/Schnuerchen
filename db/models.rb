@@ -187,8 +187,6 @@ unless DB.table_exists?(:games)
 		String		:operator
 		String		:gamerange
 		String		:gametype_name
-		String	 	:scoretype
-		String		:long_descr
 		unique([:operator, :gamerange, :gametype_name])
 		foreign_key [:gametype_name], :gametypes, :key => :name
 	end
@@ -288,6 +286,7 @@ User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", 
 User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 
+
 Friendship.create(:friends_with_id => 1, :friend_of_id => 2)
 Friendship.create(:friends_with_id => 2, :friend_of_id => 1)
 Friendship.create(:friends_with_id => 1, :friend_of_id => 3)
@@ -350,7 +349,7 @@ Gametype.create(:name=>"choice",
 				:pod_2=>250,
 				:pod_3=>120)
 Gametype.create(:name=>"score", 
-				:descr=>"Punkte sammeln", 
+				:descr=>"Highscore",
 				:long_descr=>"Finde so schnell wie möglich die richtigen Lösungen",
 				:img_filename=>"score.png",
 				:pod_1=>170,
@@ -399,7 +398,6 @@ Game.create(:name=>"Choice Subt 100",
 			:operator=>"subt", 
 			:gamerange=>"100", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 # Choice Mult--------------------------------
 Game.create(:name=>"Choice Mult Small", 
@@ -407,14 +405,12 @@ Game.create(:name=>"Choice Mult Small",
 			:operator=>"mult", 
 			:gamerange=>"small", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 Game.create(:name=>"Choice Mult Big", 
 			:filename=>"game_choice_mult_big.js", 
 			:operator=>"mult", 
 			:gamerange=>"big", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 # Choice Divi--------------------------------
 Game.create(:name=>"Choice Divi Small", 
@@ -422,14 +418,12 @@ Game.create(:name=>"Choice Divi Small",
 			:operator=>"divi", 
 			:gamerange=>"small", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 Game.create(:name=>"Choice Divi Big", 
 			:filename=>"game_choice_divi_big.js", 
 			:operator=>"divi", 
 			:gamerange=>"big", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 
 
@@ -630,7 +624,6 @@ Game.create(:name=>"Time Mix 100",
 			:gamerange=>"100", 
 			:gametype_name=>"time", 
 			:css_filename=>"dummygamestyle.css")
-#Time Mix ------------------------------------------
 Game.create(:name=>"Time Mix 20", 
 			:filename=>"game_time_mix_20.js", 
 			:operator=>"mix", 

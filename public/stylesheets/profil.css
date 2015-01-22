@@ -30,6 +30,7 @@ hr {
 #trophies .gametypes {
     line-height: 5vh;
     margin-bottom: 5%;
+
 }
 
 #description {
@@ -262,6 +263,7 @@ a {
 }
 
 .fill {
+
     height: 100%;
     background-position: center;
     -webkit-background-size: cover;
@@ -276,12 +278,24 @@ a {
 }
 
 .gamename {
-    margin-top: 4%;
+    width: 11vw;
 }
 
-.gamename h3{
-    font-size: 130%;
-    width: 50%;
+.gamename img{
+    margin-left: auto;
+    margin-right: auto;
+    right: 0;
+    left: 0;
+    height: 4.8vw;
+    width: auto;
+}
+
+.gamename h4{
+    margin-top: 0.5vh;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.5vw;
 }
 
 /*------------------------Begin friendlist------------------------*/
@@ -485,7 +499,7 @@ a {
     opacity: 0.9;
     font-size: 120%;
     text-align: center;
-    z-index: 50000;
+    z-index: 5000;
     font-weight: 900;
     border-radius: 0.5em;
     margin-left: auto;
@@ -501,5 +515,10 @@ a {
 
 #userHover{
     background-color: #FFE0B2;
+    margin-top: -25%;
+    margin-left: -22%;
+}
 
+#usernameHover{
+    text-transform: capitalize;
 }
