@@ -50,16 +50,13 @@
                                   </div>
                                   <div class="col-md-6 col-md-offset-1 gametrophiesuser" id="<%= type[:game_id] %>">
                                     <% game_trophies = @trophies[type[:game_id]] %>
-                                    <% count = 20 %> <!-- wurde nur für Testzwecke angelegt -->
                                     <% if (game_trophies == nil) %>
                                       <% 3.downto(1) do |i| %>
-                                          <div class="trophy notwon" data-pod="<%= i %>" min_score="<%= count %>"  ></div>
-                                          <% count = count*2 %>
+                                          <div class="trophy notwon" data-pod="<%= i %>"></div>
                                       <% end %>
                                     <% else %>
                                       <% 3.downto(1) do |i| %>
-                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" min_score="<%= count %>"></div>
-                                          <% count = count*2 %>
+                                          <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" ></div>
                                       <% end %>
                                     <% end %>
                                   </div>
