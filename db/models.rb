@@ -187,8 +187,6 @@ unless DB.table_exists?(:games)
 		String		:operator
 		String		:gamerange
 		String		:gametype_name
-		String	 	:scoretype
-		String		:long_descr
 		unique([:operator, :gamerange, :gametype_name])
 		foreign_key [:gametype_name], :gametypes, :key => :name
 	end
@@ -400,7 +398,6 @@ Game.create(:name=>"Choice Subt 100",
 			:operator=>"subt", 
 			:gamerange=>"100", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 # Choice Mult--------------------------------
 Game.create(:name=>"Choice Mult Small", 
@@ -408,14 +405,12 @@ Game.create(:name=>"Choice Mult Small",
 			:operator=>"mult", 
 			:gamerange=>"small", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 Game.create(:name=>"Choice Mult Big", 
 			:filename=>"game_choice_mult_big.js", 
 			:operator=>"mult", 
 			:gamerange=>"big", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 # Choice Divi--------------------------------
 Game.create(:name=>"Choice Divi Small", 
@@ -423,14 +418,12 @@ Game.create(:name=>"Choice Divi Small",
 			:operator=>"divi", 
 			:gamerange=>"small", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 Game.create(:name=>"Choice Divi Big", 
 			:filename=>"game_choice_divi_big.js", 
 			:operator=>"divi", 
 			:gamerange=>"big", 
 			:gametype_name=>"choice", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 
 
@@ -503,8 +496,13 @@ Game.create(:name=>"Score Mix 100",
 			:filename=>"game_n_mix_100.js", 
 			:operator=>"mix", 
 			:gamerange=>"100", 
+			:gametype_name=>"score",  
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Score Mix 20", 
+			:filename=>"game_n_mix_20.js", 
+			:operator=>"mix", 
+			:gamerange=>"20", 
 			:gametype_name=>"score", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 # Marathon Addi ----------------------------------------
 Game.create(:name=>"Marathon Addi 20", 
@@ -564,7 +562,12 @@ Game.create(:name=>"Marathon Mix 100",
 			:operator=>"mix", 
 			:gamerange=>"100", 
 			:gametype_name=>"marathon", 
-			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Marathon Mix 20", 
+			:filename=>"game_marathon_mix_20.js", 
+			:operator=>"mix", 
+			:gamerange=>"20", 
+			:gametype_name=>"marathon", 
 			:css_filename=>"dummygamestyle.css")
 # Time Addi -----------------------------------------------
 
@@ -626,7 +629,12 @@ Game.create(:name=>"Time Mix 100",
 			:operator=>"mix", 
 			:gamerange=>"100", 
 			:gametype_name=>"time", 
-			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Time Mix 20", 
+			:filename=>"game_time_mix_20.js", 
+			:operator=>"mix", 
+			:gamerange=>"20", 
+			:gametype_name=>"time", 
 			:css_filename=>"dummygamestyle.css")
 
 saveScore(1, 3, 180)
