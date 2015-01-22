@@ -502,8 +502,13 @@ Game.create(:name=>"Score Mix 100",
 			:filename=>"game_n_mix_100.js", 
 			:operator=>"mix", 
 			:gamerange=>"100", 
+			:gametype_name=>"score",  
+			:css_filename=>"dummygamestyle.css")
+Game.create(:name=>"Score Mix 20", 
+			:filename=>"game_n_mix_20.js", 
+			:operator=>"mix", 
+			:gamerange=>"20", 
 			:gametype_name=>"score", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 # Marathon Addi ----------------------------------------
 Game.create(:name=>"Marathon Addi 20", 
@@ -563,7 +568,6 @@ Game.create(:name=>"Marathon Mix 100",
 			:operator=>"mix", 
 			:gamerange=>"100", 
 			:gametype_name=>"marathon", 
-			:scoretype=>"points", 
 			:css_filename=>"dummygamestyle.css")
 # Time Addi -----------------------------------------------
 
@@ -625,7 +629,13 @@ Game.create(:name=>"Time Mix 100",
 			:operator=>"mix", 
 			:gamerange=>"100", 
 			:gametype_name=>"time", 
-			:scoretype=>"points", 
+			:css_filename=>"dummygamestyle.css")
+#Time Mix ------------------------------------------
+Game.create(:name=>"Time Mix 20", 
+			:filename=>"game_time_mix_20.js", 
+			:operator=>"mix", 
+			:gamerange=>"20", 
+			:gametype_name=>"time", 
 			:css_filename=>"dummygamestyle.css")
 
 saveScore(1, 3, 180)
