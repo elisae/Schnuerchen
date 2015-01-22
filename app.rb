@@ -33,11 +33,9 @@ class App < Sinatra::Base
 
 	post "/login" do
 		@user = User.find(:username => params[:name])
-		if @user
-			if (@user[:password_hash] == BCrypt::Engine.hash_secret(params[:password], @user[:salt]))
-				session[:u_id] = @user[:id]
-				redirect "/games"
-			end
+		if (@user && (@user[:password_hash] == BCrypt::Engine.hash_secret(params[:password], @user[:salt])))
+			session[:u_id] = @user[:id]
+			redirect "/games"
 		else
 	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end

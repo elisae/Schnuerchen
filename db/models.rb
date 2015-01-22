@@ -2,8 +2,6 @@
 #    DB Model Definitions
 # ===============================================
 
-Sequel::Model.plugin :json_serializer
-
 
 # *************************************************** #
 # 												      #
@@ -29,9 +27,9 @@ unless DB.table_exists?(:users)
 		TrueClass	:admin, :default=>false
 	end
 end
+
 class User < Sequel::Model(:users)
 	many_to_many :trophies
-
 	many_to_many :friends_with, :left_key=>:friends_with_id, :right_key=>:friend_of_id, :join_table=>:friendships, :class=>self
  	many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
 
@@ -50,19 +48,6 @@ class User < Sequel::Model(:users)
 	end
 end
 
-# unless DB.table_exists?(:friends)
-#   DB.create_table(:friends) do
-#     primary_key :id
-#     foreign_key :user_id
-#     foreign_key :friend_id
-#   end
-# end
-
-# class Friend < Sequel::Model(:friends)
-#   one_to_many :user_id
-#   one_to_many :friend_id
-# end
-
 unless DB.table_exists?(:friendships)
 	DB.create_table(:friendships) do
 		primary_key :id
@@ -73,7 +58,6 @@ unless DB.table_exists?(:friendships)
 end
 
 class Friendship < Sequel::Model(:friendships)
-
 	def self.create(values = {}, &block)
 		puts "New Friendship: #{values[:friends_with_id]} -> #{values[:friend_of_id]}"
 		super
@@ -164,18 +148,6 @@ unless DB.table_exists?(:gameranges_gametypes)
 end
 
 
-
-# unless DB.table_exists?(:scoretypes)
-# 	DB.create_table(:scoretypes) do
-# 		primary_key	:id
-# 		String 		:name, :unique=>true
-# 	end
-# end
-# class Scoretype < Sequel::Model(:scoretypes)
-# end
-
-
-
 # - GAMES ---------------------------------------
 
 unless DB.table_exists?(:games)
@@ -238,12 +210,10 @@ unless DB.table_exists?(:scores)
 end
 
 class Score < Sequel::Model(:scores)
-
 	def save
 		puts "New Score: #{self.score}"
 		super
 	end
-
 end
 
 
@@ -278,8 +248,7 @@ end
 # ===============================================
 
 
-# - USERS ----------------------------------------
-
+# - DEFAULTUSERS ----------------------------------------
 User.create(:username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo", :admin=>true)
 User.create(:username=>"kenny", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
@@ -293,31 +262,7 @@ Friendship.create(:friends_with_id => 1, :friend_of_id => 3)
 Friendship.create(:friends_with_id => 1, :friend_of_id => 4)
 
 
-# - Gamecategories --------------------------
-
-Gamerange.create(:name=>"10",
-				 :descr=>"Zahlen bis 10",
-				 :long_descr=> "Rechne mit den Zahlen von 1-10!",
-				 :img_filename=>"range-10-icon.png")
-Gamerange.create(:name=>"20", 
-				 :descr=>"Zahlen bis 20",
-				 :long_descr=> "Rechne mit den Zahlen von 1-20!",
-				 :img_filename=>"range-20-icon.png")
-Gamerange.create(:name=>"100", 
-				 :descr=>"Zahlen bis 100",
-				 :long_descr=> "Rechne mit den Zahlen von 1-100!",
-				 :img_filename=>"range-100-icon.png")
-Gamerange.create(:name=>"small", 
-				 :descr=>"Kleines Einmaleins",
-				 :long_descr=> "Kannst du das kleine Einmaleins?",
-				 :img_filename=>"small.png")
-Gamerange.create(:name=>"big", 
-				 :descr=>"Großes Einmaleins",
-				 :long_descr=> "Kannst du das große Einmaleins?",
-				 :img_filename=>"big.png")
-
-
-
+# - OPERATORS -------------------------------
 Operator.create(:name=>"addi", 
 				:descr=>"Addition (Plus)", 
 				:long_descr=>"Zähle die Zahlen zusammen!",
@@ -339,8 +284,29 @@ Operator.create(:name=>"mix",
 				:long_descr =>"Rechne mit allen Rechenarten!",
 				:img_filename=>"mixed-icon.png")
 
+# - GAMERANGES --------------------------
+Gamerange.create(:name=>"10",
+				 :descr=>"Zahlen bis 10",
+				 :long_descr=> "Rechne mit den Zahlen von 1-10!",
+				 :img_filename=>"range-10-icon.png")
+Gamerange.create(:name=>"20", 
+				 :descr=>"Zahlen bis 20",
+				 :long_descr=> "Rechne mit den Zahlen von 1-20!",
+				 :img_filename=>"range-20-icon.png")
+Gamerange.create(:name=>"100", 
+				 :descr=>"Zahlen bis 100",
+				 :long_descr=> "Rechne mit den Zahlen von 1-100!",
+				 :img_filename=>"range-100-icon.png")
+Gamerange.create(:name=>"small", 
+				 :descr=>"Kleines Einmaleins",
+				 :long_descr=> "Kannst du das kleine Einmaleins?",
+				 :img_filename=>"small.png")
+Gamerange.create(:name=>"big", 
+				 :descr=>"Großes Einmaleins",
+				 :long_descr=> "Kannst du das große Einmaleins?",
+				 :img_filename=>"big.png")
 
-
+# - GAMETYPES ---------------------------------
 Gametype.create(:name=>"choice", 
 				:descr=>"Auswahl", 
 				:long_descr=>"Wähl die richtige Antwort aus",
@@ -425,8 +391,6 @@ Game.create(:name=>"Choice Divi Big",
 			:gamerange=>"big", 
 			:gametype_name=>"choice", 
 			:css_filename=>"dummygamestyle.css")
-
-
 #Score Addi ------------------------------------------
 Game.create(:name=>"Addi 10", 
 			:filename=>"game_n_addi_10.js", 
