@@ -6,7 +6,7 @@ class App < Sinatra::Base
 	
 	set :public_folder => "public", :static => true
 	set :game_dir, "/javascripts/games/"
-	set :game_css_dir, "/stylesheets/game-style"
+	set :game_css_dir, "/stylesheets/game-style/"
 	set :default_game_css, "dummygamestyle.css"
 
 	enable :sessions
@@ -200,43 +200,49 @@ class App < Sinatra::Base
 				puts params[:js_file]
 				js_file = params[:js_file][:tempfile]
 				js_filename = params[:js_file][:filename]
-				if (js_file && !File.exists?("#{settings.game_dir}#{js_filename}"))
+				if (js_file && !File.exists?("./public/#{settings.game_dir}#{js_filename}"))
 					File.open("./public/#{settings.game_dir}#{js_filename}", 'wb') do |f|
 						f.write(js_file.read)
 					end
+				else
+					puts "JS Datei #{settings.game_dir}#{js_filename} existiert schon"
 				end
 			else
 				status 409
 			end
 
-			if (params[:defaultCSS] == "on")
+			puts "default_css:"
+			puts params[:default_css]
+
+			if (params[:default_css] == "on")
 				css_filename = settings.default_game_css
-			else
-				if params[:css_file]
+			elsif (params[:css_file])
 					css_file = params[:css_file][:tempfile]
 					css_filename = params[:css_file][:filename]
-					if (js_file && !File.exists?("#{settings.game_css_dir}#{css_filename}"))
-						File.open("#{settings.game_css_dir}#{css_filename}", 'wb') do |f|
+					puts css_filename
+					if (css_file && !File.exists?("./public/#{settings.game_css_dir}#{css_filename}"))
+						File.open("./public/#{settings.game_css_dir}#{css_filename}", 'wb') do |f|
 							f.write(css_file.read)
 						end
+					else
+						puts "CSS Datei #{settings.game_css_dir}#{css_filename} existiert schon"
 					end
-				else
-					status 409
-				end
+			else
+				status 409
 			end
 			newGame = Game.find_or_create(:operator => params[:operator], :gamerange=>params[:gamerange], :gametype_name=>params[:gametype])
 			puts "HAAALLOOO"
 			puts newGame
 			puts "TSCHUUUESS"
-			puts params[:scoretype]
+
 			newGame.set(:name => params[:name])
 			newGame.set(:filename => js_filename)
 			newGame.set(:css_filename => css_filename)
-			newGame.set(:scoretype => params[:scoretype])
 			newGame.save
 
 			puts params
 			status 200
+			redirect "/games/upload"
 		else
 			status 401
 		end
