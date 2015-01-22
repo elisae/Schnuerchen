@@ -8,7 +8,7 @@
 
     <h1 id="page-info">Hallo <span id="userName"><%= @user[:firstname] %></span></h1>
 
-    <div id="myCarousel" class="col-md-8 carousel slide">
+    <div id="myCarousel" class="col-lg-offset-1 col-lg-7  col-md-8 carousel slide">
 
       <!--
         <div id="button2">
@@ -37,7 +37,7 @@
                     <% cat[:ranges].each do |range| %>
 
                         <div class="ranges ">
-                          <h2><%= range[:name] %></h2>
+                          <h3><%= range[:descr] %></h3>
                           <hr>
                         </div>
 
@@ -45,10 +45,11 @@
 
                           <% unless range[:types] == nil %>
                               <% range[:types].each do |type| %>
-                                  <div class=" col-md-offset-2 col-md-2 gamename">
-                                    <h3><%= type[:descr] %></h3>
+                                  <div class=" col-md-offset-2 col-md-3 gamename">
+                                    <img src="/images/games/<%= type[:img_filename]%>"/>
+                                    <h4><%= type[:descr] %></h4>
                                   </div>
-                                  <div class="col-md-6 col-md-offset-1 gametrophiesuser" id="<%= type[:game_id] %>">
+                                  <div class="col-md-6  gametrophiesuser" id="<%= type[:game_id] %>">
                                     <% game_trophies = @trophies[type[:game_id]] %>
                                     <% if (game_trophies == nil) %>
                                       <% 3.downto(1) do |i| %>
@@ -104,7 +105,7 @@
       </div>
       <!-- --------------Freundesliste-------------- -->
 
-      <div class="col-md-4">
+      <div class="col-md-4 col-lg-3">
         <div id="friendcontainer">
 
           <div id="friendlist">
@@ -122,8 +123,8 @@
 
             <ul>
               <% if @friends.nil? %>
-                  <h3 id="noFriendInfo">Du hast noch keine Freunde hinzugefügt. <br/><br/>Gib oben den Namen ein, um
-                    nach Freunden zu suchen</h3>
+                  <h4 id="noFriendInfo">Du hast noch keine Freunde hinzugefügt. <br/><br/>Gib oben den Namen ein, um
+                    nach Freunden zu suchen</h4>
               <% else %>
                   <% @friends.each do |friend| %>
                       <% unless friend.nil? %>

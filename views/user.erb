@@ -11,7 +11,7 @@
 
           
 
-          <div id="myCarousel" class="col-md-8 carousel slide">
+          <div id="myCarousel" class="col-lg-offset-1 col-lg-7 col-md-8 carousel slide">
 			<% if (@friendStatus != 3) %>
             <!--
               <div id="button2">
@@ -49,7 +49,7 @@
                           <% cat[:ranges].each do |range| %>
 
                               <div class="ranges ">
-                                <h2><%= range[:name] %></h2>
+                                <h2><%= range[:descr] %></h2>
                                 <hr>
                               </div>
 
@@ -58,10 +58,11 @@
                                 <% unless range[:types] == nil %>
                                     <% range[:types].each do |type| %>
                                         <div class=" col-md-offset-2 col-md-2 gamename">
-                                          <h3><%= type[:name] %></h3>
+                                          <img src="/images/games/<%= type[:img_filename]%>"/>
+                                          <h4><%= type[:descr] %></h4>
                                         </div>
                                         <% game_trophies = @trophies[type[:game_id]] %>
-                                        <div class="col-md-6 col-md-offset-1 gametrophiesfriend"  id="<%= type[:game_id]%>" with_score="<%= game_trophies.nil?? '0' : game_trophies[(game_trophies.length-1)][:score] %>">
+                                        <div class="col-md-6 gametrophiesfriend"  id="<%= type[:game_id]%>" with_score="<%= game_trophies.nil?? '0' : game_trophies[(game_trophies.length-1)][:score] %>">
                                           <% if (game_trophies == nil) %>
                                               <% 3.downto(1) do |i| %>
                                                   <div class="trophy notwon" data-pod="<%= i %>"></div>
@@ -114,7 +115,7 @@
 
           <! --------------------User Optionen -------------------- >
 
-          <div class="col-md-4" >
+          <div class="col-md-4 col-lg-3">
           <div id="userOption">
             <div id="friendOption">
 				<% case @friendStatus
@@ -129,7 +130,7 @@
                     <input class="addBtn btn btn-lg btn-xl btn-outline" type="button" value="Freund werden" id="<%= @friend[:id] %>">
             	<% when 3 %>
               		<h3 class="friendInfo">Möchtest du nicht mehr mit  <%= @friend[:firstname] %> befreundet sein?</h3>
-                    <input class="unfriendBtn btn btn-lg btn-xl btn-outline" type="button" value="Aus deiner Liste nehmen" id="<%= @friend[:id] %>">
+                    <div class="unfriendBtn btn btn-lg btn-xl btn-outline" id="<%= @friend[:id] %>">Aus deiner <br>Liste nehmen</div>
             	<% else %>
                   <h3 class="friendInfo">Leider ist was schief gelaufen. Tut uns leid <%= @user[:firstname] %></h3>
             	<% end %>

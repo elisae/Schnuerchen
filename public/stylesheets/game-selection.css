@@ -4,16 +4,21 @@ div.selection a:hover {
 
 .selection{
     text-align: center;
-    height: 12vw;
+    height: 22.5vh;
 }
 
 .selection-button{
     height: 7%;
     width: 7%;
     margin: 1.5vw;
-    padding: 3.5vw;
+    padding: 4.2vw;
     border: 1px solid black;
-    background-size:cover;
+    background-size: cover;
+}
+
+#info-box{
+    height: 16vh;
+    overflow: hidden;
 }
 
 #selection-info{
@@ -67,8 +72,8 @@ div.selection a:hover {
 
 .indicator{
     border-radius: 100%;
-    height: 1em;
-    width: 1em;
+    height: 1.4vw;
+    width: 1.4vw;
     background-color: #FFA726;
     position: absolute;
     z-index: 4;

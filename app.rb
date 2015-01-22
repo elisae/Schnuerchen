@@ -41,7 +41,7 @@ class App < Sinatra::Base
 		else
 	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end
-  end
+	end
 
   	get "/login" do
   		erb :loginFailed, :layout => :layout_notLoggedIn
@@ -97,14 +97,14 @@ class App < Sinatra::Base
 
 	get "/games/:operator/:range/:type" do
 		if login?
-      @gameheader = true
+     		@gameheader = true
 			@user = User.find(:id=>session[:u_id]).to_hash
 			@game = Game.first(:operator=>"#{params[:operator]}", 
 								:gamerange=>"#{params[:range]}", 
 								:gametype_name=>"#{params[:type]}").to_hash
 			erb :game
     else
-      @gameheader = false
+      		@gameheader = false
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
@@ -174,60 +174,72 @@ class App < Sinatra::Base
 # - POST data -----------------------------------------------
 
 	get "/games/upload" do
-		@operators = Operator.all.map { |op|
-			op.to_hash
-		}
-		@ranges = Gamerange.all.map { |rng|
-			rng.to_hash
-		}
-		@types = Gametype.all.map { |tp|
-			tp.to_hash
-		}
-		erb :gameupload
+		if (login?)
+			if (User.find(:id=>login?).admin)
+				@operators = Operator.all.map { |op|
+					op.to_hash
+				}
+				@ranges = Gamerange.all.map { |rng|
+					rng.to_hash
+				}
+				@types = Gametype.all.map { |tp|
+					tp.to_hash
+				}
+				erb :gameupload
+			else
+				erb :notfound
+			end
+		else
+			erb :notfound, :layout=>:layout_notLoggedIn
+		end
 	end
 
 	post "/games/upload" do
-		if params[:js_file]
-			puts params[:js_file]
-			js_file = params[:js_file][:tempfile]
-			js_filename = params[:js_file][:filename]
-			if (js_file && !File.exists?("#{settings.game_dir}#{js_filename}"))
-				File.open("./public/#{settings.game_dir}#{js_filename}", 'wb') do |f|
-					f.write(js_file.read)
-				end
-			end
-		else
-			status 409
-		end
-
-		if (params[:defaultCSS] == "on")
-			css_filename = settings.default_game_css
-		else
-			if params[:css_file]
-				css_file = params[:css_file][:tempfile]
-				css_filename = params[:css_file][:filename]
-				if (js_file && !File.exists?("#{settings.game_css_dir}#{css_filename}"))
-					File.open("#{settings.game_css_dir}#{css_filename}", 'wb') do |f|
-						f.write(css_file.read)
+		if (login? && User.find(:id=>login?).admin)
+			if params[:js_file]
+				puts params[:js_file]
+				js_file = params[:js_file][:tempfile]
+				js_filename = params[:js_file][:filename]
+				if (js_file && !File.exists?("#{settings.game_dir}#{js_filename}"))
+					File.open("./public/#{settings.game_dir}#{js_filename}", 'wb') do |f|
+						f.write(js_file.read)
 					end
 				end
 			else
 				status 409
 			end
-		end
-		newGame = Game.find_or_create(:operator => params[:operator], :gamerange=>params[:gamerange], :gametype_name=>params[:gametype])
-		puts "HAAALLOOO"
-		puts newGame
-		puts "TSCHUUUESS"
-		puts params[:scoretype]
-		newGame.set(:name => params[:name])
-		newGame.set(:filename => js_filename)
-		newGame.set(:css_filename => css_filename)
-		newGame.set(:scoretype => params[:scoretype])
-		newGame.save
 
-		puts params
-		status 200
+			if (params[:defaultCSS] == "on")
+				css_filename = settings.default_game_css
+			else
+				if params[:css_file]
+					css_file = params[:css_file][:tempfile]
+					css_filename = params[:css_file][:filename]
+					if (js_file && !File.exists?("#{settings.game_css_dir}#{css_filename}"))
+						File.open("#{settings.game_css_dir}#{css_filename}", 'wb') do |f|
+							f.write(css_file.read)
+						end
+					end
+				else
+					status 409
+				end
+			end
+			newGame = Game.find_or_create(:operator => params[:operator], :gamerange=>params[:gamerange], :gametype_name=>params[:gametype])
+			puts "HAAALLOOO"
+			puts newGame
+			puts "TSCHUUUESS"
+			puts params[:scoretype]
+			newGame.set(:name => params[:name])
+			newGame.set(:filename => js_filename)
+			newGame.set(:css_filename => css_filename)
+			newGame.set(:scoretype => params[:scoretype])
+			newGame.save
+
+			puts params
+			status 200
+		else
+			status 401
+		end
 	end
 
 	post "/score" do

@@ -245,7 +245,6 @@ a:focus {
     background: #fed136;
 }
 
-
 #intro-bulb{
     z-index: 1;
     background-image: url(../../images/landingpage/intro-bulb.png);
@@ -270,7 +269,6 @@ a:focus {
     margin-top: -2%;
     padding: 1.5%;
     font-size: 170%;
-
 }
 
 .intro-text{
@@ -400,8 +398,7 @@ form .row:first-child .floating-label-form-group {
     border: 1px solid #B2EBF2;
     outline: 0;
     color: #000;
-    background-color: #B2EBF2
-;
+    background-color: #B2EBF2;
 }
 
 ul.banner-social-buttons {
@@ -476,8 +473,11 @@ body {
 
 #howTo{
     width: 90%;
-    margin: auto;
     position: relative;
+}
+
+.content p{
+    font-size: 3vh;
 }
 
 .caption{
@@ -525,7 +525,7 @@ body {
 
 .step{
     margin-bottom: 0;
-    font-size: 500%;
+    font-size: 9vh;
     text-transform: uppercase;
     color: black;
 }
@@ -587,6 +587,17 @@ body {
 
 #caption3{
     color: #66BB6A;
+}
+
+.stepControl{
+
+}
+
+.stepDescription{
+    height: 60%;
+
+    overflow: scroll;
+    border: 1px solid black;
 }
 
 /*------------------------some stuff i might need------------------------
