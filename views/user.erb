@@ -58,20 +58,18 @@
                                 <% unless range[:types] == nil %>
                                     <% range[:types].each do |type| %>
                                         <div class=" col-md-offset-2 col-md-2 gamename">
-                                          <h3><%= type[:decr] %></h3>
+                                          <img src="/images/games/<%= type[:img_filename]%>"/>
+                                          <h4><%= type[:descr] %></h4>
                                         </div>
                                         <% game_trophies = @trophies[type[:game_id]] %>
-                                        <div class="col-md-6 col-md-offset-1 gametrophiesfriend"  id="<%= type[:game_id]%>" with_score="<%= game_trophies.nil?? '0' : game_trophies[(game_trophies.length-1)][:score] %>">
-                                          <% count = 20 %> <!-- wurde nur für Testzwecke angelegt -->
+                                        <div class="col-md-6 gametrophiesfriend"  id="<%= type[:game_id]%>" with_score="<%= game_trophies.nil?? '0' : game_trophies[(game_trophies.length-1)][:score] %>">
                                           <% if (game_trophies == nil) %>
                                               <% 3.downto(1) do |i| %>
-                                                  <div class="trophy notwon" data-pod="<%= i %>" min_score="<%= count %>" ></div>
-                                                  <% count = count*2 %>
+                                                  <div class="trophy notwon" data-pod="<%= i %>"></div>
                                               <% end %>
                                           <% else %>
                                               <% 3.downto(1) do |i| %>
-                                                  <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>" min_score="<%= count %>"></div>
-                                                  <% count = count*2 %>
+                                                  <div class="trophy <%= game_trophies.include?(i)? 'won' : 'notwon' %>" data-pod="<%= i %>"></div>
                                               <% end %>
                                           <% end %>
                                         </div>

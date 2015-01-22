@@ -164,7 +164,9 @@ $(document).ready(function() {
                     function (res,statusText,xhr) {
                         console.log(res.length);
                         if (xhr.status == 200) {
-                            var str = (targetScore == 0) ? $("#userName").html() + " hat die Medaille nicht." : "Punkte in dem Spiel: " + targetScore;
+                            var friendName = "<span id='usernameHover'>" + $("#userName").html() + "</span>";
+                            var str = (targetScore == 0) ? friendName + "  hat die Medaille noch nicht." : friendName + "hat " + targetScore + "Punkte in dem Spiel.";
+                            var str2 = (res[0]["score"] == 0) ? "Du hast die Medaille noch nicht." : "Deine Punkte in dem Spiel: " + res[0]["score"];
                             switch (targetPod) {
                                 case 1:
                                     target.append("<div class='scoreWindow' id='userHover'> Goldmedaille!<br> Gibts ab " + res[1]["min_score"] + " Punkten.<br> "+ str + "  <br> Deine Punkte: " + res[0]["score"] + "</div>");
@@ -174,8 +176,7 @@ $(document).ready(function() {
                                     break;
                                 case 3:
                                     target.append("<div class='scoreWindow' id='userHover'> Bronzemedaille!<br> Gibts ab " + res[1]["min_score"] + " Punkten.<br> "+ str +" <br> Deine Punkte " + res[0]["score"] + "</div>")
-
-                                    break;
+                                break;
                             }
                         }
                     }
