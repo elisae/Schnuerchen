@@ -160,7 +160,7 @@ class App < Sinatra::Base
     query = params[:query]
     responseArr = Array.new
     content_type :json
-    response = User.where(Sequel.like(:username, query + '%')).select(:id,:username).map{ |user|
+    response = User.limit(7).where(Sequel.like(:username, query + '%')).select(:id,:username).map{ |user|
       user.to_hash
       responseArr.push(user)
     }
