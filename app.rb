@@ -6,6 +6,8 @@ class App < Sinatra::Base
 	
 	set :public_folder => "public", :static => true
 	set :game_dir, "/javascripts/games/"
+	set :game_css_dir, "/stylesheets/game-style"
+	set :default_game_css, "dummygamestyle.css"
 
 	enable :sessions
 
@@ -120,6 +122,18 @@ class App < Sinatra::Base
 		JSON.pretty_generate(getGameCategories())
 	end
 
+	get "/games/find" do
+		content_type :json
+		search_hash = Hash.new()
+		params.each do |k, v|
+			search_hash[k.to_sym] = v
+		end
+		game = Game.where(search_hash).map do |g|
+			g.to_hash
+		end
+		JSON.pretty_generate(game)
+	end
+
 	get "/users/:u_id/trophies" do
 		content_type :json
 		JSON.pretty_generate(getUserTrophies(params[:u_id]))
@@ -163,20 +177,57 @@ class App < Sinatra::Base
 		@operators = Operator.all.map { |op|
 			op.to_hash
 		}
-		puts @operators
 		@ranges = Gamerange.all.map { |rng|
 			rng.to_hash
 		}
-		puts @ranges
 		@types = Gametype.all.map { |tp|
 			tp.to_hash
 		}
-		puts @types
-		@scoretypes = Scoretype.all.map { |st|
-			st.to_hash
-		}
-		puts @scoretypes
 		erb :gameupload
+	end
+
+	post "/games/upload" do
+		if params[:js_file]
+			puts params[:js_file]
+			js_file = params[:js_file][:tempfile]
+			js_filename = params[:js_file][:filename]
+			if (js_file && !File.exists?("#{settings.game_dir}#{js_filename}"))
+				File.open("./public/#{settings.game_dir}#{js_filename}", 'wb') do |f|
+					f.write(js_file.read)
+				end
+			end
+		else
+			status 409
+		end
+
+		if (params[:defaultCSS] == "on")
+			css_filename = settings.default_game_css
+		else
+			if params[:css_file]
+				css_file = params[:css_file][:tempfile]
+				css_filename = params[:css_file][:filename]
+				if (js_file && !File.exists?("#{settings.game_css_dir}#{css_filename}"))
+					File.open("#{settings.game_css_dir}#{css_filename}", 'wb') do |f|
+						f.write(css_file.read)
+					end
+				end
+			else
+				status 409
+			end
+		end
+		newGame = Game.find_or_create(:operator => params[:operator], :gamerange=>params[:gamerange], :gametype_name=>params[:gametype])
+		puts "HAAALLOOO"
+		puts newGame
+		puts "TSCHUUUESS"
+		puts params[:scoretype]
+		newGame.set(:name => params[:name])
+		newGame.set(:filename => js_filename)
+		newGame.set(:css_filename => css_filename)
+		newGame.set(:scoretype => params[:scoretype])
+		newGame.save
+
+		puts params
+		status 200
 	end
 
 	post "/score" do

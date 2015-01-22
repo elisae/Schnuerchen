@@ -28,42 +28,105 @@
 
 </head>
 <body>
-
-	String 		:name
-		String		:filename 
-		String	 	:css_filename
-		String		:operator
-		String		:gamerange
-		String		:gametype_name
-		String	 	:scoretype
-		String		:long_descr
-		String 		:img_filename
 	
-	<form class="form-horizontal">
+	<form class="form-horizontal" method="POST" action="/games/upload" enctype="multipart/form-data">
 		<div class="form-group">
-			<label for="inputEmail3" class="col-sm-2 control-label">Name</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="inputName" placeholder="Game name">
+		<div class="row col-sm-10 col-sm-offset-2">
+		<div class="col-sm-4 row">
+			<label class="col-sm-3 control-label">Operator</label>
+			<% i = 1 %>
+			<% @operators.each do |op| %>
+				<div class="<% if (i!=1) then %> col-sm-offset-3 <% end %> col-sm-8">
+					<div class="radio">
+						<label>
+							<input type="radio" name="operator" id="operator_<%= op[:id]%>" value="<%= op[:name] %>" required><%= op[:name] %></label>
+					</div>
+				</div>
+				<% i = i+1 %>
+			<% end %>
+		</div>
+
+		<div class="col-sm-4 row">
+			<label class="col-sm-2 control-label">Range</label>
+			<% i = 1 %>
+			<% @ranges.each do |range| %>
+				<div class="<% if (i!=1) then %> col-sm-offset-2 <% end %> col-sm-8">
+					<div class="radio">
+						<label>
+							<input type="radio" name="gamerange" id="range_<%= range[:id]%>" value="<%= range[:name] %>" required><%= range[:name] %></label>
+					</div>
+				</div>
+				<% i = i+1 %>
+			<% end %>
+		</div>
+
+		<div class="col-sm-4 row">
+			<label class="col-sm-3 control-label">Gametype</label>
+			<% i = 1 %>
+			<% @types.each do |type| %>
+				<div class="<% if (i!=1) then %> col-sm-offset-3 <% end %> col-sm-8">
+					<div class="radio">
+						<label>
+							<input type="radio" name="gametype" id="gametype_<%= type[:id]%>" value="<%= type[:name] %>" required><%= type[:name] %></label>
+					</div>
+				</div>
+				<% i = i+1 %>
+			<% end %>
+		</div>
+		</div>
+		</div>
+
+		<div class="row" id="existWarning" style="display: none">
+			<div class="col-sm-offset-2 col-sm-8">
+				<p>Vorsicht, dieses Spiel existiert schon!</p>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="inputPassword3" class="col-sm-2 control-label">Operator</label>
-			<div class="col-sm-10">
-				<input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-			</div>
-		</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-sm-10">
+
+		<div class="form-group" id="overwriteBox" style="display: none">
+			<div class="col-sm-offset-2 col-sm-8">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox"> Remember me
+						<input id="overwrite" type="checkbox">Vorhandenes Spiel überschreiben
 					</label>
 				</div>
 			</div>
 		</div>
+
+
 		<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<button type="submit" class="btn btn-default">Sign in</button>
+			<label class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-8">
+				<input type="text" id="name" class="form-control" placeholder=":name" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">JS Datei</label>
+			<div class="col-sm-8">
+				<input type="file" id="js_file" class="form-control">
+			</div>
+		</div>
+		<div class="form-group" id="cssFileForm">
+			<label class="col-sm-2 control-label">CSS Datei</label>
+			<div class="col-sm-8">
+				<input type="file" id="css_file" class="form-control" required>
+				<span id="helpBlock" class="help-block">Nicht notwendig, wenn dummygamestyle.css verwendet werden soll</span>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-8">
+				<div class="checkbox">
+					<label>
+						<input id="default_css" type="checkbox">dummygamestyle.css verwenden
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-8">
+<!-- 			<input type="button" class="btn btn-default" onclick="postGame();" value="Hochladen"></button> -->	
+				<button type="submit" class="btn btn-default"" value=""">Hochladen</button>
+			<span id="helpBlock" class="help-block">Obacht! Alles sorgfältig ausfüllen!</span>
 		</div>
 		</div>
 	</form>
@@ -76,10 +139,9 @@
 
 
     <script src="/javascripts/signup-js/jqBootstrapValidation.js"></script>
-    <script src="/javascripts/signup-js/userInsert.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="/javascripts/signup-js/signup.js"></script>
+    <script src="/javascripts/gameupload.js"></script>
 
 </body>
 
