@@ -26,6 +26,7 @@ unless DB.table_exists?(:users)
 		String		:email
 		String		:salt
 		String 		:password_hash
+		TrueClass	:admin, :default=>false
 	end
 end
 class User < Sequel::Model(:users)
@@ -110,6 +111,7 @@ unless DB.table_exists?(:gameranges)
 	DB.create_table(:gameranges) do
 		primary_key	:id
 		String 		:name, :unique=>true
+		String		:descr
     	String    	:long_descr
 		String		:img_filename
 	end
@@ -280,7 +282,7 @@ end
 
 # - USERS ----------------------------------------
 
-User.create(:username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo")
+User.create(:username=>"hans231", :firstname=>"Hans", :email=>"h.hans@hans.de", :password=>"hallo", :admin=>true)
 User.create(:username=>"kenny", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
@@ -294,23 +296,26 @@ Friendship.create(:friends_with_id => 1, :friend_of_id => 4)
 
 # - Gamecategories --------------------------
 
-Gamerange.create(:name=>"10", 
+Gamerange.create(:name=>"10",
+				 :descr=>"Zahlen bis 10",
 				 :long_descr=> "Rechne mit den Zahlen von 1-10!",
 				 :img_filename=>"range-10-icon.png")
 Gamerange.create(:name=>"20", 
+				 :descr=>"Zahlen bis 20",
 				 :long_descr=> "Rechne mit den Zahlen von 1-20!",
 				 :img_filename=>"range-20-icon.png")
 Gamerange.create(:name=>"100", 
+				 :descr=>"Zahlen bis 100",
 				 :long_descr=> "Rechne mit den Zahlen von 1-100!",
 				 :img_filename=>"range-100-icon.png")
 Gamerange.create(:name=>"small", 
+				 :descr=>"Kleines Einmaleins",
 				 :long_descr=> "Kannst du das kleine Einmaleins?",
 				 :img_filename=>"small.png")
 Gamerange.create(:name=>"big", 
+				 :descr=>"Großes Einmaleins",
 				 :long_descr=> "Kannst du das große Einmaleins?",
 				 :img_filename=>"big.png")
-Gamerange.create(:name=>"all", 
-				 :long_descr => "-- Platzhalter -- ")
 
 
 
