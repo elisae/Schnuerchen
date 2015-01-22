@@ -102,6 +102,9 @@ class App < Sinatra::Base
 			@game = Game.first(:operator=>"#{params[:operator]}", 
 								:gamerange=>"#{params[:range]}", 
 								:gametype_name=>"#{params[:type]}").to_hash
+			@operator = Operator.find(:name=>"#{params[:operator]}").to_hash
+			@range = Gamerange.find(:name=>"#{params[:range]}").to_hash
+			@type = Gametype.find(:name=>"#{params[:type]}").to_hash
 			erb :game
     else
       		@gameheader = false
