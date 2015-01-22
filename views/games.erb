@@ -1,5 +1,3 @@
-
-
 <script src="javascripts/game-selection.js"></script>
 
 <link href="/stylesheets/game-selection.css" rel="stylesheet">
@@ -7,16 +5,16 @@
 
 
 <section>
-
-  <h1 id="selection-info"> Herzlich Willkommen</h1>
-
+  <div id="info-box">
+    <h1 id="selection-info"> Herzlich Willkommen</h1>
+  </div>
 
   <!-- Auswahl Operator -->
 
   <div class="selection" id="operation">
-    <% @gamecategories.each do |k1|  %>
+    <% @gamecategories.each do |k1| %>
 
-        <div class = "btn btn-lg selection-button operators" long_descr="<%= k1[:long_descr] %>" id="<%= k1[:name] %>" style="background-image: url(/images/games/<%= k1[:img_filename]%>);"></div>
+        <div class="btn btn-lg selection-button operators" long_descr="<%= k1[:long_descr] %>" id="<%= k1[:name] %>" style="background-image: url(/images/games/<%= k1[:img_filename]%>);"></div>
     <% end %>
   </div>
 
@@ -25,12 +23,12 @@
   <!-- Auswahl Zahlenbereich -->
 
 
-  <% @gamecategories.each do |k1|  %>
+  <% @gamecategories.each do |k1| %>
       <div class="selection" id="<%= k1[:name] %>range" style="display:none">
-        <%if !k1[:ranges].nil? %>
+        <% if !k1[:ranges].nil? %>
             <% k1[:ranges].each do |k2| %>
 
-                <div class ="btn btn-lg selection-button range r<%= k2[:name] %>" long_descr="<%= k2[:long_descr] %>" id="<%= k1[:name] + k2[:name] %>" style="background-image: url(/images/games/<%= k2[:img_filename]%>);"></div>
+                <div class="btn btn-lg selection-button range r<%= k2[:name] %>" long_descr="<%= k2[:long_descr] %>" id="<%= k1[:name] + k2[:name] %>" style="background-image: url(/images/games/<%= k2[:img_filename]%>);"></div>
 
             <% end %>
         <% end %>
@@ -44,15 +42,15 @@
   <% @gamecategories.each do |k1| %>
       <% if !k1[:ranges].nil? %>
           <% k1[:ranges].each do |k2| %>
-            <div class="selection" id="<%= k1[:name] + k2[:name]%>games" style="display:none">
-              <% unless k2[:types].nil? %>
-              <% k2[:types].each do |k3| %>
-                <a href="/games/<%= k1[:name] %>/<%= k2[:name] %>/<%= k3[:name] %>">
-                    <div class = "btn btn-lg selection-button games <%= k3[:name] %>" long_descr="<%= k3[:long_descr]%>"id="<%= k1[:name] + k2[:name] + k3[:name] %>" style="background-image: url(/images/games/<%= k3[:img_filename]%>);"></div>
-                </a>
-              <% end %>
-              <% end %>
-            </div>
+              <div class="selection" id="<%= k1[:name] + k2[:name] %>games" style="display:none">
+                <% unless k2[:types].nil? %>
+                    <% k2[:types].each do |k3| %>
+                        <a href="/games/<%= k1[:name] %>/<%= k2[:name] %>/<%= k3[:name] %>">
+                          <div class="btn btn-lg selection-button games <%= k3[:name] %>" long_descr="<%= k3[:long_descr] %>" id="<%= k1[:name] + k2[:name] + k3[:name] %>" style="background-image: url(/images/games/<%= k3[:img_filename]%>);"></div>
+                        </a>
+                    <% end %>
+                <% end %>
+              </div>
           <% end %>
       <% end %>
   <% end %>

@@ -8,12 +8,18 @@ div.selection a:hover {
 }
 
 .selection-button{
+
     height: 7%;
     width: 7%;
     margin: 1.5vw;
     padding: 4.2vw;
     border: 1px solid black;
-    background-size:cover;
+    background-size: cover;
+}
+
+#info-box{
+    height: 16vh;
+    overflow: hidden;
 }
 
 #selection-info{
