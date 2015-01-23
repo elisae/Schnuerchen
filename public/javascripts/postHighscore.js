@@ -6,8 +6,9 @@ function postScore(score, g_id){
 
     var trophy_id = "noTrophy";
     var trophy_pod = "0";
-    
-    $.ajax({
+    var newScore;
+
+        $.ajax({
         url: "/score",
         type: "POST",
         data: {
@@ -21,11 +22,16 @@ function postScore(score, g_id){
                 trophy_id = "trophyWon";
             }
             trophy_pod = data.pod;
+
+            if(data.new_high == true){
+                newScore = document.createElement("h3");
+                newScore.innerText = "Neuer Highscore!";
+            }
         },
         error: function () {
             console.log("Highscore not posted");
         }
     }).done( function() {
-        $('#end_game_stats h1').after('<div id="'+trophy_id+'" data-pod="'+trophy_pod+'"></div>');
+        $('#end_game_stats h1').after('<div id="'+trophy_id+'" data-pod="'+trophy_pod+'"></div>').after(newScore);
     });
 }

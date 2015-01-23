@@ -1,4 +1,5 @@
 <link href="/stylesheets/game-style/<%= @game[:css_filename]%>" rel="stylesheet">
+<link href="/stylesheets/games.css" rel="stylesheet">
 
 <section id="game" data-g_id="<%= @game[:id] %>">
 
@@ -11,6 +12,12 @@
   </div>
 
   <div id="game_div" >
+
+    <div id="gameChosen">
+      <img src="/images/games/<%= @operator[:img_filename]%>" id="first"/>
+      <img src="/images/games/<%= @range[:img_filename]%>" id="second"/>
+      <img src="/images/games/<%= @type[:img_filename]%>" id="third"/>
+    </div>
 
   </div>
 

@@ -260,7 +260,7 @@ function init_game(){
     user_tip.id = 'tip';
     user_tip.className = "game-elements";
     user_tip.className = "input-lg";
-    user_tip.placeholder = "Hier kommt das Ergebnis rein";
+    user_tip.placeholder = "Ergebnis";
     user_tip.onkeydown = clean;
     user_tip.onkeyup = clean;
     game_line.appendChild(user_tip);
