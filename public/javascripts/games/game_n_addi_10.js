@@ -210,6 +210,8 @@ function init_game(){
     game_line.appendChild(user_tip);
     user_tip.focus();
 
+   /* game_div.appendChild("<img src='/images/games/return-symbol.png' id='return'/>");*/
+
     var progress_bar = document.createElement('div');
     progress_bar.id='progress_bar';
     var bar = document.createElement('div');

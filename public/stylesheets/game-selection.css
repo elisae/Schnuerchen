@@ -17,6 +17,8 @@ div.selection a:hover {
 }
 
 #info-box{
+    margin: auto;
+    width: 80%;
     height: 16vh;
     overflow: hidden;
 }

@@ -1,69 +1,27 @@
+#gameChosen img{
+    border-radius: 0.5em;
+    position: absolute;
 
-                    /* Content */
-
-.selection{
-    text-align: center;
-    border-bottom: 2px solid black;
-}
-
-#selection-info{
-    margin-top: 2%;
-    text-align: center;
+    margin-left: 4vw;
+    height: 7vw;
+    top: 0;
+    left: 0;
+    width: auto;
 }
 
-.selection-button{
-    margin: 2%;
-    vertical-align: middle;
-    text-align: center;
-    padding: 4%;
-    border-radius: 0;
+#first{
+    border: 1px solid #E57373;
+    display: block;
+    margin-top: 8vh;
 }
 
-.operators{
-    background-color:black;
+#second{
+    border: 1px solid #B39DDB;
+    margin-top: 25vh;
+    display: block;
 }
 
-.range{
-    background-color: #26C6DA;
-}
-
-.games{
-    background-color: #66BB6A;
-}
-
-#numberrange, #game{
-    display: none;
-}
-
-#addi{
-    background-image:url(../images/games/plus.svg);
-    background-size:cover;
-}
-#minus{
-    background-image:url(../img/minus.svg);
-    background-size:cover;
-}
-#multi{
-    background-image:url(../img/multi.svg);
-    background-size:cover;
-}
-#divison{
-    background-image:url(../img/divison.svg);
-    background-size:cover;
-}
-#all-operators{
-    background-image:url(../img/all.svg);
-    background-size:cover;
-}
-#onTime{
-    background-image:url(../img/uhr.svg);
-    background-size:cover;
-}
-#onScale{
-    background-image:url(../img/waage.svg);
-    background-size:cover;
-}
-#onScore{
-    background-image:url(../img/abzeichen.svg);
-    background-size:cover;
+#third{
+    border: 1px solid #66BB6A;
+    margin-top: 42vh;
 }
