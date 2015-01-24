@@ -19,7 +19,7 @@ class App < Sinatra::Base
 			status 404
 			erb :notfound
 		else
-			@redirect = "/"
+			@redirect = "/games"
 			status 404
 			erb :notfound, :layout => :layout_notLoggedIn
 		end
