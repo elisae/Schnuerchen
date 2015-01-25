@@ -120,11 +120,7 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
                 timeout = setTimeout(function(){
                     $.get(
-<<<<<<< HEAD
                         "/users/" + $("#myProfil").attr("user") + "/scores",
-=======
-                        "/userscore",
->>>>>>> b398da8960c0ac4ee452dc8bef3124ff15b09932
                         {g_id: target.parent().attr("id"),
                          //u_id: $("#myProfil").attr("user"),
                          pod: targetPod},
@@ -171,11 +167,7 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
             timeout = setTimeout(function(){
                 $.get(
-<<<<<<< HEAD
                     "/users/" + $("#myProfil").attr("user") + "/scores",
-=======
-                    "/userscore",
->>>>>>> b398da8960c0ac4ee452dc8bef3124ff15b09932
                     {g_id: target.parent().attr("id"),
                      //u_id: $("#myProfil").attr("user"),
                      pod: targetPod},
