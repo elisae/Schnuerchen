@@ -1,45 +1,3 @@
-def getReqsOut(userId)
-  user = User.find(:id => userId)
-  if user.friends_with.empty?
-    nil
-  else
-    user.friends_with.map{ |user|
-      if friends?(userId,user[:id]) == 1
-        user.to_hash
-      end
-    }
-  end
-end
-
-
-def getReqsIn(userId)
-  user = User.find(:id => userId)
-  if user.friend_of.empty?
-    nil
-  else
-    user.friend_of.map{ |user|
-      if friends?(userId,user[:id]) == 2
-        user.to_hash
-      end
-    }
-  end
-end
-
-
-def getFriendsInfo(userId)
-  user = User.find(:id => userId)
-  if user.friends_with.empty?
-    nil
-  else
-    user.friends_with.map{|user|
-      if friends?(userId,user[:id]) == 3
-        user.to_hash
-      end
-    }
-  end
-end
-
-
 =begin
 	returns 
 	0 -> not friends
@@ -108,40 +66,40 @@ def getGameCategories
 	return operators
 end
 
-def getFriendsInfo(userId)
-  user = User.find(:id => userId)
+def getFriendsInfo(user_id)
+  user = User.find(:id => user_id)
   if user.friends_with.empty?
     nil
   else
-    user.friends_with.map{|user|
-      if friends?(userId,user[:id]) == 3
-        user.to_hash
+    user.friends_with.map{|friend|
+      if friends?(user_id,friend[:id]) == 3
+        friend.to_hash
       end
     }
   end
 end
 
-def getReqsOut(userId)
-  user = User.find(:id => userId)
+def getReqsOut(user_id)
+  user = User.find(:id => user_id)
   if user.friends_with.empty?
     nil
   else
-    user.friends_with.map{ |user|
-      if friends?(userId,user[:id]) == 1
-        user.to_hash
+    user.friends_with.map{ |friend|
+      if friends?(user_id,friend[:id]) == 1
+        friend.to_hash
       end
     }
   end
 end
 
-def getReqsIn(userId)
-  user = User.find(:id => userId)
+def getReqsIn(user_id)
+  user = User.find(:id => user_id)
   if user.friend_of.empty?
     nil
   else
-    user.friend_of.map{ |user|
-      if friends?(userId,user[:id]) == 2
-        user.to_hash
+    user.friend_of.map{ |friend|
+      if friends?(user_id,friend[:id]) == 2
+        friend.to_hash
       end
     }
   end

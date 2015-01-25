@@ -3,16 +3,6 @@
  */
 
 
-
-/* ----------------------------TROPHIES---------------------------- */
-
-
-
-
-/* ----------------------------Ende Trophies---------------------------- */
-
-
-
 var colours = ['hovered'];
 var friends = $('#friendlist ul li');
 var friendProfil = $("#friendProfil");
@@ -130,7 +120,7 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
                 timeout = setTimeout(function(){
                     $.get(
-                        "/userscores",
+                        "/userscore",
                         {g_id: target.parent().attr("id"),
                          u_id: $("#myProfil").attr("user"),
                          pod: targetPod},
@@ -161,8 +151,10 @@ $(document).ready(function() {
         $(".trophy > div").hide();
     });
 
+    /* Diese Funktion wird gerufen, beim hovern über eine Trophae auf einer Freundesseite. */
 
     var gametrophiesfriend = $(".gametrophiesfriend > .trophy");
+
     gametrophiesfriend.hover(function(event){
 
         var target = $(event.target);
@@ -175,7 +167,7 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
             timeout = setTimeout(function(){
                 $.get(
-                    "/userscores",
+                    "/userscore",
                     {g_id: target.parent().attr("id"),
                      u_id: $("#myProfil").attr("user"),
                      pod: targetPod},

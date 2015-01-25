@@ -184,7 +184,7 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
-  get "/userscores" do
+  get "/userscore" do
     content_type :json
     user_id = session[:u_id].to_i
     game_id = params[:g_id].to_i
