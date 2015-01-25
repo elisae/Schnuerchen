@@ -30,8 +30,10 @@ end
 
 class User < Sequel::Model(:users)
 	many_to_many :trophies
+	one_to_many :scores
 	many_to_many :friends_with, :left_key=>:friends_with_id, :right_key=>:friend_of_id, :join_table=>:friendships, :class=>self
  	many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
+
 
 	def self.create(values = {}, &block)
 		password = values.delete(:password)
@@ -46,6 +48,17 @@ class User < Sequel::Model(:users)
 			super
 		end
 	end
+	
+	def before_destroy
+		self.remove_all_trophies
+		self.scores.each { |score|
+			score.destroy
+		}
+		self.remove_all_friend_of
+		self.remove_all_friends_with
+		super
+	end
+
 end
 
 unless DB.table_exists?(:friendships)
@@ -80,7 +93,7 @@ end
 
 class Operator < Sequel::Model(:operators)
 	plugin :dataset_associations
-	one_to_many	:games
+	one_to_many	:games, :key => :operator
 	many_to_many :gameranges
 
 	def add_gameranges(*gameranges)
@@ -88,6 +101,7 @@ class Operator < Sequel::Model(:operators)
 			self.add_gamerange(gr)
 		}
 	end
+
 end
 
 
@@ -166,6 +180,7 @@ end
 
 class Game < Sequel::Model(:games)
 	many_to_one :gametype, :key => :gametype_name, :primary_key => :name
+	# many_to_one :operator, :key => :operator, :primary_key => :name
 
 	# Bei Spielerstellung ensprechende Operator, Range, Typ, Scoretype verknüpfen
 	def self.create(values = {}, &block)
@@ -210,6 +225,8 @@ unless DB.table_exists?(:scores)
 end
 
 class Score < Sequel::Model(:scores)
+	many_to_one :user
+
 	def save
 		puts "New Score: #{self.score}"
 		super
@@ -254,7 +271,6 @@ User.create(:username=>"kenny", :firstname=>"kenny", :email=>"kenny@kenny.de", :
 User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
-
 
 Friendship.create(:friends_with_id => 1, :friend_of_id => 2)
 Friendship.create(:friends_with_id => 2, :friend_of_id => 1)
