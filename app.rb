@@ -185,7 +185,6 @@ class App < Sinatra::Base
   end
 
   get "/userscores" do
-    require 'json'
     content_type :json
     user_id = session[:u_id].to_i
     game_id = params[:g_id].to_i
@@ -197,7 +196,6 @@ class App < Sinatra::Base
   end
 
   get "/search" do
-    require 'json'
     query = params[:query]
     responseArr = Array.new
     content_type :json
@@ -276,14 +274,14 @@ class App < Sinatra::Base
 		end
 	end
 
-	post "/score" do
+	post "/scores" do
 		content_type :json
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
 		saveScore(session[:u_id], params[:g_id], Integer(params[:score])).to_json
 	end
 
-	post "/api/user" do
+	post "/users" do
 		password_salt = BCrypt::Engine.generate_salt
   		password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
 
@@ -308,16 +306,23 @@ class App < Sinatra::Base
 		end
 	  end
 
-	  post "/add/:f_id" do
-	  		addFriend(session[:u_id], Integer(params[:f_id]))
-	  		status 200
-	end
+	#   post "/add/:f_id" do
+	#   		addFriend(session[:u_id], Integer(params[:f_id]))
+	#   		status 200
+	# end
 
-  post "/add" do
+  post "/friendships" do
     user_id = session[:u_id]
     friend_id = Integer(params[:f_id])
 	  addFriend(user_id, friend_id)
 	  status 200
+  end
+
+  delete "/friendships/:f_id" do
+    user_id = session[:u_id]
+    friend_id = params[:f_id].to_i
+    delFriend(user_id,friend_id)
+    status 200
   end
 
   post "/unfriend" do

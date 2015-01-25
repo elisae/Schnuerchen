@@ -1,4 +1,4 @@
-/**
+/*
  * Created by manuelneufeld on 10/12/14 and kenny.
  */
 
@@ -73,13 +73,22 @@ $(document).ready(function() {
     var addBtn = $(".addBtn");
 
     addBtn.click(function(event){
-        $.post(
-            "/add",
-            {f_id:event.target.id},
-            function(){
+        // $.post(
+        //     "/friendships",
+        //     {f_id:event.target.id},
+        //     function(){
+        //         location.reload();
+        //     }
+        // )
+        $.ajax({
+            url: "/friendships",
+            type: "POST",
+            data: {
+                f_id: event.target.id
+            },
+            success: function(){
                 location.reload();
-            }
-        )
+            }});
     });
 
     /* This function gets called when you remove a Friend */
@@ -87,13 +96,22 @@ $(document).ready(function() {
     var unfriendBtn = $(".unfriendBtn");
 
     unfriendBtn.click(function(event){
-        $.post(
-            "/unfriend",
-            {f_id:event.target.id},
-            function(){
+        // $.post(
+        //     "/unfriend",
+        //     {f_id:event.target.id},
+        //     function(){
+        //         location.reload();
+        //     }
+        // )
+        $.ajax({
+            url: "/friendships/" + event.target.id,
+            type: "DELETE",
+            data: {
+                f_id: event.target.id
+            },
+            success: function(){
                 location.reload();
-            }
-        )
+            }});
     });
 
     /* Diese Funktion wird gerufen, wenn über eine Trophae auf der eigenen Profilseite gehovert wird. */
@@ -191,4 +209,4 @@ $(document).ready(function() {
     });
 });
 
-/* ---------------------------- ENDE Freundessuche---------------------------- */
+// ---------------------------- ENDE Freundessuche---------------------------- 

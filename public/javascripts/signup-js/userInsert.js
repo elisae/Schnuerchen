@@ -20,7 +20,7 @@ $(function() {
 
 /* ---------------------------------kann man das so machen?------------------*/
             $.ajax({
-                url: "/api/user",
+                url: "/users",
                 type: "POST",
                 data: {
                     username: username,
