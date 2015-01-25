@@ -77,7 +77,7 @@ class App < Sinatra::Base
 			end
 		else
 			@redirect = "/users/#{params[:u_id]}/profil"
-			status 403
+			status 401
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
@@ -108,7 +108,7 @@ class App < Sinatra::Base
     	else
       		@gameheader = false
       		@redirect = "/games/#{params[:operator]}/#{params[:range]}/#{params[:type]}"
-      		status 403
+      		status 401
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
@@ -184,9 +184,9 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
-  get "/userscores" do
+  get "/users/:u_id/scores" do
     content_type :json
-    user_id = session[:u_id].to_i
+    user_id = params[:u_id].to_i
     game_id = params[:g_id].to_i
     pod = params[:pod].to_i
     scoreArr = Array.new
@@ -195,7 +195,7 @@ class App < Sinatra::Base
     scoreArr.to_json
   end
 
-  get "/search" do
+  get "/users/search" do
     query = params[:query]
     responseArr = Array.new
     content_type :json
@@ -269,7 +269,7 @@ class App < Sinatra::Base
 			status 200
 			redirect "/games/upload"
 		else
-			status 403
+			status 401
 			erb :notfound
 		end
 	end
@@ -318,13 +318,6 @@ class App < Sinatra::Base
 	  status 200
   end
 
-  delete "/friendships/:f_id" do
-    user_id = session[:u_id]
-    friend_id = params[:f_id].to_i
-    delFriend(user_id,friend_id)
-    status 200
-  end
-
   post "/unfriend" do
     user_id = session[:u_id]
     friend_id = params[:f_id].to_i
@@ -332,3 +325,31 @@ class App < Sinatra::Base
     status 200
   end
 end
+
+
+
+# --- DELETE --------------------
+
+  delete "/friendships/:f_id" do
+    user_id = session[:u_id]
+    friend_id = params[:f_id].to_i
+    delFriend(user_id,friend_id)
+    status 200
+  end
+
+  delete "/users/:u_id" do
+  	if login? && (User.find(:id=>login?).admin || params[:u_id] == login?)
+	  	User.first(:u_id => params[:u_id]).delete
+	  	status 200
+	else
+		status 401
+	end
+  end
+
+
+
+
+
+
+
+

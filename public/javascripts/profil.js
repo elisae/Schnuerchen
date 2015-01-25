@@ -32,7 +32,7 @@ function searchFriend(){
         friendResponse.hide();
     }else{
         $.get(
-            "/search",
+            "/users/search",
             {query:query},
             function(res){
                 var resultString = "";
@@ -130,9 +130,9 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
                 timeout = setTimeout(function(){
                     $.get(
-                        "/userscores",
+                        "/users/" + $("#myProfil").attr("user") + "/scores",
                         {g_id: target.parent().attr("id"),
-                         u_id: $("#myProfil").attr("user"),
+                         //u_id: $("#myProfil").attr("user"),
                          pod: targetPod},
                         function (res,statusText,xhr) {
                             console.log(res.length);
@@ -175,9 +175,9 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
             timeout = setTimeout(function(){
                 $.get(
-                    "/userscores",
+                    "/users/" + $("#myProfil").attr("user") + "/scores",
                     {g_id: target.parent().attr("id"),
-                     u_id: $("#myProfil").attr("user"),
+                     //u_id: $("#myProfil").attr("user"),
                      pod: targetPod},
                     function (res,statusText,xhr) {
                         console.log(res.length);
@@ -210,3 +210,19 @@ $(document).ready(function() {
 });
 
 // ---------------------------- ENDE Freundessuche---------------------------- 
+
+
+// --------- User löschen --------------------------------
+
+function deleteAccount(u_id) {
+    
+
+}
+
+
+
+
+
+
+
+

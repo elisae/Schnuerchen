@@ -50,6 +50,7 @@ class User < Sequel::Model(:users)
 	end
 	
 	def before_destroy
+		puts "Destroying User #{self.id} (#{self.username})"
 		self.remove_all_trophies
 		self.scores.each { |score|
 			score.destroy
@@ -102,6 +103,15 @@ class Operator < Sequel::Model(:operators)
 		}
 	end
 
+	def before_destroy
+		puts "Destroying Operator #{self.name}"
+		if Game.where(:operator=>self.name).empty?
+			self.remove_all_gameranges
+			super
+		else
+			return false
+		end
+	end
 end
 
 
@@ -119,6 +129,17 @@ class Gamerange < Sequel::Model(:gameranges)
 	one_to_many	:games
 	many_to_many :operators
 	many_to_many :gametypes
+
+	def before_destroy
+		puts "Destroying Gamerange #{self.name}"
+		if Game.where(:gamerange=>self.name).empty?
+			self.remove_all_gametypes
+			self.remove_all_operators
+			super
+		else
+			return false
+		end
+	end
 end
 
 
@@ -149,6 +170,17 @@ end
 class Gametype < Sequel::Model(:gametypes)
 	many_to_many :gameranges
 	one_to_many :games, :key => :gametype_name
+
+	def before_destroy
+		puts "Destroying Gametype #{self.name}"
+		if Game.where(:gametype_name=>self.name).empty?
+			self.remove_all_gameranges
+			super
+		else
+			return false
+		end
+	end
+
 end
 
 
@@ -180,9 +212,10 @@ end
 
 class Game < Sequel::Model(:games)
 	many_to_one :gametype, :key => :gametype_name, :primary_key => :name
-	# many_to_one :operator, :key => :operator, :primary_key => :name
+	one_to_many :trophies
+	one_to_many :scores
 
-	# Bei Spielerstellung ensprechende Operator, Range, Typ, Scoretype verknüpfen
+	# Bei Spielerstellung ensprechende Operator, Range, Typ verknüpfen
 	def self.create(values = {}, &block)
 		puts "New Game: #{values[:name]}"
 		newGame = super
@@ -209,6 +242,34 @@ class Game < Sequel::Model(:games)
 
 		return newGame
 	end
+
+
+	def around_destroy
+		puts "Destroying Game #{self.name}"
+		gamerange = Gamerange.first(:name => self.gamerange)
+		gamerange.remove_gametype(self.gametype)
+		operator = Operator.first(:name => self.operator)
+		unless gamerange.gametypes.any?
+			operator.remove_gamerange(gamerange)
+			puts "Gamerange removed"
+		end
+
+		self.scores.each{ |score|
+			score.destroy
+		}
+		self.trophies.each{ |trophy|
+			trophy.destroy
+		}
+
+		super
+
+		begin
+			operator.destroy
+			puts "Operator deleted"
+		rescue Sequel::HookFailed
+			puts "Operator still has games"
+		end
+	end
 end
 
 
@@ -226,6 +287,7 @@ end
 
 class Score < Sequel::Model(:scores)
 	many_to_one :user
+	many_to_one :game
 
 	def save
 		puts "New Score: #{self.score}"
@@ -247,6 +309,14 @@ end
 
 class Trophy < Sequel::Model(:trophies)
 	many_to_many :users
+	many_to_one :game
+
+	def before_destroy
+		puts "Destroying Trophy #{self.id} for Game #{self.game_id}"
+		self.users.each { |user|
+			user.remove_trophy(self)
+		}
+	end
 end
 
 
@@ -300,6 +370,7 @@ Operator.create(:name=>"mix",
 				:long_descr =>"Rechne mit allen Rechenarten!",
 				:img_filename=>"mixed-icon.png")
 
+
 # - GAMERANGES --------------------------
 Gamerange.create(:name=>"10",
 				 :descr=>"Zahlen bis 10",
@@ -351,7 +422,6 @@ Gametype.create(:name=>"marathon",
 				:pod_1=>1000,
 				:pod_2=>700,
 				:pod_3=>200)
-
 
 # - GAMES ----------------------------------------
 
@@ -616,4 +686,3 @@ Game.create(:name=>"Time Mix 20",
 			:gamerange=>"20", 
 			:gametype_name=>"time", 
 			:css_filename=>"dummygamestyle.css")
-
