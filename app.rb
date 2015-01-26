@@ -19,7 +19,7 @@ class App < Sinatra::Base
 			status 404
 			erb :notfound
 		else
-			@redirect = "/"
+			@redirect = "/games"
 			status 404
 			erb :notfound, :layout => :layout_notLoggedIn
 		end
@@ -33,17 +33,6 @@ class App < Sinatra::Base
 
 	get "/signup" do
 		redirect "/signup.html"
-	end
-
-	post "/login" do
-		@user = User.find(:username => params[:name])
-		if (@user && (@user[:password_hash] == BCrypt::Engine.hash_secret(params[:password], @user[:salt])))
-			session[:u_id] = @user[:id]
-			redirect params[:redirect]
-		else
-		  @redirect = params[:redirect]
-	      erb :loginFailed, :layout => :layout_notLoggedIn
-		end
 	end
 
   	get "/login" do
@@ -88,7 +77,7 @@ class App < Sinatra::Base
 			end
 		else
 			@redirect = "/users/#{params[:u_id]}/profil"
-			status 403
+			status 401
 			erb :notloggedin, :layout => :layout_notLoggedIn
 		end
 	end
@@ -97,10 +86,6 @@ class App < Sinatra::Base
 		session[:u_id] = nil
 		@redirect = "/games"
 		erb :logout, :layout => :layout_notLoggedIn
-	end
-
-	get "/insert" do
-		erb :upload
 	end
 
 	get "/games/:operator/:range/:type" do
@@ -123,17 +108,54 @@ class App < Sinatra::Base
     	else
       		@gameheader = false
       		@redirect = "/games/#{params[:operator]}/#{params[:range]}/#{params[:type]}"
-      		status 403
+      		status 401
 			erb :notloggedin, :layout => :layout_notLoggedIn
+		end
+	end
+
+	get "/games/upload" do
+		if login?
+			if User.find(:id=>login?).admin
+				@operators = Operator.all.map { |op|
+					op.to_hash
+				}
+				@ranges = Gamerange.all.map { |rng|
+					rng.to_hash
+				}
+				@types = Gametype.all.map { |tp|
+					tp.to_hash
+				}
+				erb :gameupload
+			else
+				erb :notfound
+			end
+		else
+			@redirect = "/games/upload"
+			erb :notloggedin, :layout=>:layout_notLoggedIn
 		end
 	end
 
 
 # - GET data ------------------------------------------------
   
-	get '/api/users' do
-		content_type :json
-		User.to_json
+	get '/users' do
+		if login?
+			if User.find(:id=>login?).admin
+				content_type :json
+				users = User.all.map { |user|
+					user = user.to_hash
+					user.delete(:salt)
+					user.delete(:password_hash)
+					user
+				}
+				JSON.pretty_generate(users)
+			else
+				erb :notfound
+			end
+		else
+			@redirect = "/users"
+			erb :notloggedin, :layout=>:layout_notLoggedIn
+		end
   	end
 
   	get "/games/categories" do
@@ -162,10 +184,9 @@ class App < Sinatra::Base
 		redirect "/users/#{session[:u_id]}/trophies"
   end
 
-  get "/userscores" do
-    require 'json'
+  get "/users/:u_id/scores" do
     content_type :json
-    user_id = session[:u_id].to_i
+    user_id = params[:u_id].to_i
     game_id = params[:g_id].to_i
     pod = params[:pod].to_i
     scoreArr = Array.new
@@ -174,47 +195,31 @@ class App < Sinatra::Base
     scoreArr.to_json
   end
 
-  get "/search" do
-    require 'json'
+  get "/users/search" do
     query = params[:query]
     responseArr = Array.new
     content_type :json
-    response = User.limit(7).where(Sequel.like(:username, query + '%')).select(:id,:username).map{ |user|
-      user.to_hash
-      responseArr.push(user)
+    User.limit(7).where(Sequel.like(:username, query + '%')).select(:id,:username).map{ |user|
+      responseArr.push(user.to_hash)
     }
     responseArr.to_json
   end
 
-  get "/test" do
-  	redirect "/test.html"
-  end
 
 # - POST data -----------------------------------------------
 
-	get "/games/upload" do
-		if (login?)
-			if (User.find(:id=>login?).admin)
-				@operators = Operator.all.map { |op|
-					op.to_hash
-				}
-				@ranges = Gamerange.all.map { |rng|
-					rng.to_hash
-				}
-				@types = Gametype.all.map { |tp|
-					tp.to_hash
-				}
-				erb :gameupload
-			else
-				erb :notfound
-			end
+	post "/login" do
+		@user = User.find(:username => params[:name])
+		if (@user && (@user[:password_hash] == BCrypt::Engine.hash_secret(params[:password], @user[:salt])))
+			session[:u_id] = @user[:id]
+			redirect params[:redirect]
 		else
-			@redirect = "/games/upload"
-			erb :notfound, :layout=>:layout_notLoggedIn
+		  @redirect = params[:redirect]
+	      erb :loginFailed, :layout => :layout_notLoggedIn
 		end
 	end
 
-	post "/games/upload" do
+	post "/games" do
 		if (login? && User.find(:id=>login?).admin)
 			if params[:js_file]
 				puts params[:js_file]
@@ -264,19 +269,19 @@ class App < Sinatra::Base
 			status 200
 			redirect "/games/upload"
 		else
-			status 403
+			status 401
 			erb :notfound
 		end
 	end
 
-	post "/score" do
+	post "/scores" do
 		content_type :json
 		puts ""
 		puts "Score #{params[:score]} for game_id #{params[:g_id]} posted"
 		saveScore(session[:u_id], params[:g_id], Integer(params[:score])).to_json
 	end
 
-	post "/api/user" do
+	post "/users" do
 		password_salt = BCrypt::Engine.generate_salt
   		password_hash = BCrypt::Engine.hash_secret(params[:password], password_salt)
 
@@ -301,12 +306,12 @@ class App < Sinatra::Base
 		end
 	  end
 
-	  post "/add/:f_id" do
-	  		addFriend(session[:u_id], Integer(params[:f_id]))
-	  		status 200
-	end
+	#   post "/add/:f_id" do
+	#   		addFriend(session[:u_id], Integer(params[:f_id]))
+	#   		status 200
+	# end
 
-  post "/add" do
+  post "/friendships" do
     user_id = session[:u_id]
     friend_id = Integer(params[:f_id])
 	  addFriend(user_id, friend_id)
@@ -320,3 +325,31 @@ class App < Sinatra::Base
     status 200
   end
 end
+
+
+
+# --- DELETE --------------------
+
+  delete "/friendships/:f_id" do
+    user_id = session[:u_id]
+    friend_id = params[:f_id].to_i
+    delFriend(user_id,friend_id)
+    status 200
+  end
+
+  delete "/users/:u_id" do
+  	if login? && (User.find(:id=>login?).admin || params[:u_id] == login?)
+	  	User.first(:u_id => params[:u_id]).delete
+	  	status 200
+	else
+		status 401
+	end
+  end
+
+
+
+
+
+
+
+

@@ -30,8 +30,10 @@ end
 
 class User < Sequel::Model(:users)
 	many_to_many :trophies
+	one_to_many :scores
 	many_to_many :friends_with, :left_key=>:friends_with_id, :right_key=>:friend_of_id, :join_table=>:friendships, :class=>self
  	many_to_many :friend_of, :left_key=>:friend_of_id, :right_key=>:friends_with_id, :join_table=>:friendships, :class=>self
+
 
 	def self.create(values = {}, &block)
 		password = values.delete(:password)
@@ -46,6 +48,18 @@ class User < Sequel::Model(:users)
 			super
 		end
 	end
+	
+	def before_destroy
+		puts "Destroying User #{self.id} (#{self.username})"
+		self.remove_all_trophies
+		self.scores.each { |score|
+			score.destroy
+		}
+		self.remove_all_friend_of
+		self.remove_all_friends_with
+		super
+	end
+
 end
 
 unless DB.table_exists?(:friendships)
@@ -80,13 +94,23 @@ end
 
 class Operator < Sequel::Model(:operators)
 	plugin :dataset_associations
-	one_to_many	:games
+	one_to_many	:games, :key => :operator
 	many_to_many :gameranges
 
 	def add_gameranges(*gameranges)
 		gameranges.each { |gr|
 			self.add_gamerange(gr)
 		}
+	end
+
+	def before_destroy
+		puts "Destroying Operator #{self.name}"
+		if Game.where(:operator=>self.name).empty?
+			self.remove_all_gameranges
+			super
+		else
+			return false
+		end
 	end
 end
 
@@ -105,6 +129,17 @@ class Gamerange < Sequel::Model(:gameranges)
 	one_to_many	:games
 	many_to_many :operators
 	many_to_many :gametypes
+
+	def before_destroy
+		puts "Destroying Gamerange #{self.name}"
+		if Game.where(:gamerange=>self.name).empty?
+			self.remove_all_gametypes
+			self.remove_all_operators
+			super
+		else
+			return false
+		end
+	end
 end
 
 
@@ -135,6 +170,17 @@ end
 class Gametype < Sequel::Model(:gametypes)
 	many_to_many :gameranges
 	one_to_many :games, :key => :gametype_name
+
+	def before_destroy
+		puts "Destroying Gametype #{self.name}"
+		if Game.where(:gametype_name=>self.name).empty?
+			self.remove_all_gameranges
+			super
+		else
+			return false
+		end
+	end
+
 end
 
 
@@ -166,8 +212,10 @@ end
 
 class Game < Sequel::Model(:games)
 	many_to_one :gametype, :key => :gametype_name, :primary_key => :name
+	one_to_many :trophies
+	one_to_many :scores
 
-	# Bei Spielerstellung ensprechende Operator, Range, Typ, Scoretype verknüpfen
+	# Bei Spielerstellung ensprechende Operator, Range, Typ verknüpfen
 	def self.create(values = {}, &block)
 		puts "New Game: #{values[:name]}"
 		newGame = super
@@ -194,6 +242,34 @@ class Game < Sequel::Model(:games)
 
 		return newGame
 	end
+
+
+	def around_destroy
+		puts "Destroying Game #{self.name}"
+		gamerange = Gamerange.first(:name => self.gamerange)
+		gamerange.remove_gametype(self.gametype)
+		operator = Operator.first(:name => self.operator)
+		unless gamerange.gametypes.any?
+			operator.remove_gamerange(gamerange)
+			puts "Gamerange removed"
+		end
+
+		self.scores.each{ |score|
+			score.destroy
+		}
+		self.trophies.each{ |trophy|
+			trophy.destroy
+		}
+
+		super
+
+		begin
+			operator.destroy
+			puts "Operator deleted"
+		rescue Sequel::HookFailed
+			puts "Operator still has games"
+		end
+	end
 end
 
 
@@ -210,6 +286,9 @@ unless DB.table_exists?(:scores)
 end
 
 class Score < Sequel::Model(:scores)
+	many_to_one :user
+	many_to_one :game
+
 	def save
 		puts "New Score: #{self.score}"
 		super
@@ -230,6 +309,14 @@ end
 
 class Trophy < Sequel::Model(:trophies)
 	many_to_many :users
+	many_to_one :game
+
+	def before_destroy
+		puts "Destroying Trophy #{self.id} for Game #{self.game_id}"
+		self.users.each { |user|
+			user.remove_trophy(self)
+		}
+	end
 end
 
 
@@ -254,7 +341,6 @@ User.create(:username=>"kenny", :firstname=>"kenny", :email=>"kenny@kenny.de", :
 User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
-
 
 Friendship.create(:friends_with_id => 1, :friend_of_id => 2)
 Friendship.create(:friends_with_id => 2, :friend_of_id => 1)
@@ -283,6 +369,7 @@ Operator.create(:name=>"mix",
 				:descr=>"Alle gemischt",
 				:long_descr =>"Rechne mit allen Rechenarten!",
 				:img_filename=>"mixed-icon.png")
+
 
 # - GAMERANGES --------------------------
 Gamerange.create(:name=>"10",
@@ -335,7 +422,6 @@ Gametype.create(:name=>"marathon",
 				:pod_1=>1000,
 				:pod_2=>700,
 				:pod_3=>200)
-
 
 # - GAMES ----------------------------------------
 
@@ -600,9 +686,3 @@ Game.create(:name=>"Time Mix 20",
 			:gamerange=>"20", 
 			:gametype_name=>"time", 
 			:css_filename=>"dummygamestyle.css")
-
-saveScore(1, 3, 180)
-saveScore(1,2, 700)
-saveScore(2,2,10000)
-saveScore(2,3,50)
-saveScore(2,1,1088)

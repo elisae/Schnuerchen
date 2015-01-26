@@ -9,7 +9,7 @@ function postScore(score, g_id){
     var newScore;
 
         $.ajax({
-        url: "/score",
+        url: "/scores",
         type: "POST",
         data: {
             score: score,
