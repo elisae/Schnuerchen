@@ -136,6 +136,22 @@ class App < Sinatra::Base
 	end
 
 
+  	get "/users/:u_id/settings" do
+  		if login?
+			if ("#{session[:u_id]}" == params[:u_id]) && (@user = User.find(:id=>params[:u_id]))
+				@user = @user.to_hash
+				erb :settings
+			else
+				status 404
+				erb :notfound, :layout => :layout
+			end
+		else
+			@redirect = "/users/#{params[:u_id]}/settings"
+			status 401
+			erb :notloggedin, :layout => :layout_notLoggedIn
+		end
+  	end
+
 # - GET data ------------------------------------------------
   
 	get '/users' do
@@ -204,6 +220,8 @@ class App < Sinatra::Base
     }
     responseArr.to_json
   end
+
+
 
 
 # - POST data -----------------------------------------------
@@ -324,7 +342,6 @@ class App < Sinatra::Base
     delFriend(user_id,friend_id)
     status 200
   end
-end
 
 
 
@@ -338,8 +355,8 @@ end
   end
 
   delete "/users/:u_id" do
-  	if login? && (User.find(:id=>login?).admin || params[:u_id] == login?)
-	  	User.first(:u_id => params[:u_id]).delete
+  	if login? && (User.find(:id=>login?).admin || "#{session[:u_id]}" == params[:u_id])
+	  	User.first(:id => params[:u_id]).delete
 	  	status 200
 	else
 		status 401
@@ -348,8 +365,28 @@ end
 
 
 
+# --- PUT -----------------------
 
+	put "/users/:u_id" do
+		if login? && ("#{session[:u_id]}" == params[:u_id])
+			if user = User.first(:id => params[:u_id])
+				if params[:newpassword] && params[:oldpassword]
+						if user[:password_hash] == BCrypt::Engine.hash_secret(params[:oldpassword], user[:salt])
+							password_salt = BCrypt::Engine.generate_salt
+  							password_hash = BCrypt::Engine.hash_secret(params[:newpassword], password_salt)
+  							user.set(:password_hash => password_hash)
+  						end
+				end
+				user.set(:firstname => params[:firstname]) if params[:firstname]
+				user.set(:email => params[:email]) if params[:email]
+				user.save
+				status 200
+			else
+				status 500
+			end
+		else
+			status 401
+		end
+	end
 
-
-
-
+end

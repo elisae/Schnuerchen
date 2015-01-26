@@ -204,16 +204,6 @@ $(document).ready(function() {
 // ---------------------------- ENDE Freundessuche---------------------------- 
 
 
-// --------- User löschen --------------------------------
-
-function deleteAccount(u_id) {
-    
-
-}
-
-
-
-
 
 
 
