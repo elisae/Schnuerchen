@@ -356,7 +356,7 @@ class App < Sinatra::Base
 
   delete "/users/:u_id" do
   	if login? && (User.find(:id=>login?).admin || "#{session[:u_id]}" == params[:u_id])
-	  	User.first(:id => params[:u_id]).delete
+	  	User.first(:id => params[:u_id]).destroy
 	  	status 200
 	else
 		status 401
