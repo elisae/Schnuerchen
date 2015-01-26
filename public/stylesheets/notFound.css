@@ -1,0 +1,31 @@
+#notFoundBackground{
+    height: 100%;
+    width: 100%;
+    background-image: url(/images/landingpage/background_intro.png);
+    -webkit-background-size: 18em;
+    -moz-background-size: 18em;
+    background-size: 18em;
+    -o-background-size: 18em;
+}
+
+#notFound{
+    text-align: center;
+    margin-top: 15vh;
+    line-height: 2vh;
+    padding: 2%;
+    border-radius: 0.5em;
+    background-color: white;
+    opacity: 0.6;
+}
+
+#notFound h1{
+    font-size: 4vw;
+    line-height: 8vh;
+}
+
+#bulb{
+    height: 70vh;
+    width: auto;
+}
+
+
