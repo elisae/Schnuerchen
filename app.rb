@@ -320,7 +320,7 @@ class App < Sinatra::Base
 						:password_hash=>password_hash)
 			session[:u_id] = newUser.id
       #############Nur für die MediaNight###########
-      #everyoneonthemedianightismyfriend(session[:u_id])
+      everyoneonthemedianightisourfriend(session[:u_id])
 			puts "User angelegt und eingeloggt"
 			status 200
 		end

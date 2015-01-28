@@ -687,6 +687,3 @@ Game.find_or_create(:name=>"Time Mix 20",
 			:gamerange=>"20", 
 			:gametype_name=>"time", 
 			:css_filename=>"dummygamestyle.css")
-
-saveScore(1,2,1000)
-saveScore(2,2,750)

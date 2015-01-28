@@ -172,10 +172,12 @@ end
 
 ############## Media Night ################
 
-def everyoneonthemedianightismyfriend(user_id)
-  everyone = User.exclude(:id=>user_id).select(:id)
-  everyone.map{|friend|
+def everyoneonthemedianightisourfriend(user_id)
+  we = User.where(:username => ["kenny","manuel","elisa231","Wambo787"])
+  puts "WE: #{we}"
+  we.map{|friend|
     friend.to_hash
+    puts friend.to_hash
     addFriend(user_id,friend[:id])
     addFriend(friend[:id],user_id)
   }
