@@ -20,9 +20,9 @@ var quantity = 10;                  //How many tasks are there
 var lower_bound = 1;                //lower number bound
 var upper_bound = 100;  //100       //upper number bound
 
-var score_right = 10;               //Points for a right answer
+var score_right = 21;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
-var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
+var score_time_influence = 10000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
 var timer = 60;
 
 //-----------------------------------END SETTINGS----------------------------------\\

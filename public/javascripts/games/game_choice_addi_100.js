@@ -42,8 +42,8 @@ var lower_bound = 1;                //lower number bound
 var upper_bound = 50;  //100       //upper number bound
 
 var score_right = 10;               //Points for a right answer
-var score_wrong = 5;                //Points for a wrong answer
-var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
+var score_wrong = 3;                //Points for a wrong answer
+var score_time_influence = 10000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
 //-----------------------------------END SETTINGS----------------------------------\\
 
 
@@ -286,6 +286,11 @@ function init_game(){
     result_line.innerHTML="Los Gehts!";
 
     document.getElementById('game_div').appendChild(result_line);
+
+    var score_line = document.createElement('p');
+    score_line.id='score_line';
+    score_line.innerHTML="Punkte: <span id='score_a'>"+score+"</span>";
+    game_div.appendChild(score_line);
 
     var game_line = document.createElement('h1');
     game_line.id = 'game_line';

@@ -33,8 +33,8 @@ var lower_bound = 1;                //lower number bound
 var upper_bound = 10;  //100       //upper number bound
 
 var score_right = 10;               //Points for a right answer
-var score_wrong = 5;                //Points for a wrong answer
-var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
+var score_wrong = 3;                //Points for a wrong answer
+var score_time_influence = 10000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
 //-----------------------------------END SETTINGS----------------------------------\\
 
 
