@@ -371,11 +371,22 @@ class App < Sinatra::Base
 
 	put "/users/:u_id" do
 		if login? && ("#{session[:u_id]}" == params[:u_id])
+			puts "User #{params[:u_id]} ist eingeloggt"
 			if user = User.first(:id => params[:u_id])
+				puts "User gefunden"
 				if params[:newpassword] && params[:oldpassword]
+					puts "beide Passwörter da"
+					puts user.password_hash
+					puts BCrypt::Engine.hash_secret(params[:oldpassword], user[:salt])
+					puts "Neues Passwort: #{params[:newpassword]}"
+					puts "Altes Passwort: #{params[:oldpassword]}"
 						if user[:password_hash] == BCrypt::Engine.hash_secret(params[:oldpassword], user[:salt])
+							puts "richtiges altes Passwort"
 							password_salt = BCrypt::Engine.generate_salt
   							password_hash = BCrypt::Engine.hash_secret(params[:newpassword], password_salt)
+  							puts "New Hash:"
+  							puts password_hash
+  							user.set(:salt => password_salt)
   							user.set(:password_hash => password_hash)
   						end
 				end
