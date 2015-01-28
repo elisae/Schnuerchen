@@ -168,3 +168,15 @@ def delFriend(user_id,friend_id)
     0
     end
 end
+
+
+############## Media Night ################
+
+def everyoneonthemedianightismyfriend(user_id)
+  everyone = User.exclude(:id=>user_id).select(:id)
+  everyone.map{|friend|
+    friend.to_hash
+    addFriend(user_id,friend[:id])
+    addFriend(friend[:id],user_id)
+  }
+end

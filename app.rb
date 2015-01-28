@@ -202,7 +202,7 @@ class App < Sinatra::Base
 
   get "/users/:u_id/scores" do
     content_type :json
-    user_id = params[:u_id].to_i
+    user_id = session[:u_id].to_i
     game_id = params[:g_id].to_i
     pod = params[:pod].to_i
     scoreArr = Array.new
@@ -215,7 +215,7 @@ class App < Sinatra::Base
     query = params[:query]
     responseArr = Array.new
     content_type :json
-    User.limit(7).where(Sequel.like(:username, query + '%')).select(:id,:username).map{ |user|
+    User.limit(7).where(Sequel.ilike(:username, query + '%')).select(:id,:username).map{ |user|
       responseArr.push(user.to_hash)
     }
     responseArr.to_json
@@ -319,6 +319,8 @@ class App < Sinatra::Base
 						:salt=>password_salt,
 						:password_hash=>password_hash)
 			session[:u_id] = newUser.id
+      #############Nur für die MediaNight###########
+      #everyoneonthemedianightismyfriend(session[:u_id])
 			puts "User angelegt und eingeloggt"
 			status 200
 		end

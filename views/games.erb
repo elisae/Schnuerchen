@@ -13,7 +13,6 @@
 
   <div class="selection" id="operation">
     <% @gamecategories.each do |operator| %>
-
         <div class="btn btn-lg selection-button operators" long_descr="<%= operator[:long_descr] %>" id="<%= operator[:name] %>" style="background-image: url(/images/games/<%= operator[:img_filename]%>);"></div>
     <% end %>
   </div>
