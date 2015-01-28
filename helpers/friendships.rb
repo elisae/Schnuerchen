@@ -174,7 +174,6 @@ end
 
 def everyoneonthemedianightisourfriend(user_id)
   we = User.where(:username => ["kenny","manuel","elisa231","Wambo787"])
-  puts "WE: #{we}"
   we.map{|friend|
     friend.to_hash
     puts friend.to_hash
