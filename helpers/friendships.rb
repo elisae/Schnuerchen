@@ -17,23 +17,18 @@ def friends?(user_id, friend_id)
 		f.id
 	}
 	if (friends_with_ids.empty? && friend_of_ids.empty?)
-		puts "User #{user_id} doesn't have any friends"
 		return 0
 	else
 		if (friends_with_ids.include?(friend_id))
 			if (friend_of_ids.include?(friend_id))
-				puts "User #{user_id} is friends with #{friend_id}"
 				return 3
 			else
-				puts "User #{user_id} has sent request to #{friend_id}"
 				return 1
 			end
 		else
 			if (friend_of_ids.include?(friend_id))
-				puts "friend (User #{friend_id}) has sent request to User #{user_id}"
 				return 2
 			else
-				puts "User #{user_id} isn't friends with #{friend_id}"
 				return 0
 			end
 		end
