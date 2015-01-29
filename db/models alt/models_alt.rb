@@ -341,6 +341,7 @@ User.create(:username=>"kenny", :firstname=>"kenny", :email=>"kenny@kenny.de", :
 User.create(:username=>"kenner", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennster", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
 User.create(:username=>"kennmer", :firstname=>"kenny", :email=>"kenny@kenny.de", :password=>"hallo")
+User.create(:username=>"PeterLustig", :firstname=>"Peter", :email=>"p@l.de",:password=>"hallo")
 
 Friendship.create(:friends_with_id => 1, :friend_of_id => 2)
 Friendship.create(:friends_with_id => 2, :friend_of_id => 1)

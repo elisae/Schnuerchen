@@ -20,7 +20,7 @@ var quantity = 10;                  //How many tasks are there
 var lower_bound = 1;                //lower number bound
 var upper_bound = 50;  //100       //upper number bound
 
-var score_right = 10;               //Points for a right answer
+var score_right = 20;               //Points for a right answer
 var score_wrong = 5;                //Points for a wrong answer
 var score_time_influence = 7000;    //score-formula: counter_right * score_right - counter_wrong * score_wrong - time_needed/score_time_influence
 var timer = 60;
@@ -250,7 +250,7 @@ function init_game(){
 
     var pause_info = document.createElement("h3");
     pause_info.id = "pause_info";
-    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren <br>Sie haben noch <span id='time_played'></span> übrig";
+    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren <br>Sie haben noch <span id='time_played'></span> Sekunden übrig";
     pause_div.appendChild(pause_info);
 
     var button_continue = document.createElement('div');

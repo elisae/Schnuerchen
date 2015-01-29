@@ -169,13 +169,12 @@ $(document).ready(function() {
                 $.get(
                     "/users/" + $("#myProfil").attr("user") + "/scores",
                     {g_id: target.parent().attr("id"),
-                     //u_id: $("#myProfil").attr("user"),
                      pod: targetPod},
                     function (res,statusText,xhr) {
                         console.log(res.length);
                         if (xhr.status == 200) {
                             var friendName = "<span id='usernameHover'>" + $("#userName").html() + "</span>";
-                            var str = (targetScore == 0) ? friendName + "  hat die Medaille noch nicht." : friendName + "hat " + targetScore + "Punkte in dem Spiel.";
+                            var str = (targetScore == 0) ? friendName + "  hat die Medaille noch nicht." : friendName + " hat " + targetScore + " Punkte in dem Spiel.";
                             var str2 = (res[0]["score"] == 0) ? "Du hast die Medaille noch nicht." : "Deine Punkte in dem Spiel: " + res[0]["score"];
                             switch (targetPod) {
                                 case 1:

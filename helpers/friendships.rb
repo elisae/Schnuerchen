@@ -163,3 +163,16 @@ def delFriend(user_id,friend_id)
     0
     end
 end
+
+
+############## Media Night ################
+
+def everyoneonthemedianightisourfriend(user_id)
+  we = User.where(:username => ["kenny","manuel","elisa231","Wambo787"])
+  we.map{|friend|
+    friend.to_hash
+    puts friend.to_hash
+    addFriend(user_id,friend[:id])
+    addFriend(friend[:id],user_id)
+  }
+end

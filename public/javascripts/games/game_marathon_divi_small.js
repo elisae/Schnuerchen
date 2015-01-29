@@ -288,7 +288,7 @@ function init_game(){
 
     var pause_info = document.createElement("h3");
     pause_info.id = "pause_info";
-    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren <br>Sie haben noch <span id='time_played'></span> übrig";
+    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren <br>Sie haben noch <span id='time_played'></span> Sekunden übrig";
     pause_div.appendChild(pause_info);
 
     var button_continue = document.createElement('div');
@@ -340,6 +340,7 @@ function reset_game(){
 
     //score = (counter_right * score_right - counter_wrong * score_wrong)- Math.round((new Date().getTime() - start_time)/score_time_influence);
     score_control();
+    score_control_r();
 
     document.getElementById('tip').value = "";
     document.getElementById('score').innerHTML = score;
@@ -591,6 +592,13 @@ function correct_order(){
 
 
 }
+
+function score_control_r(){
+    if(score < 0){
+        score = 0;
+    }
+}
+
 
 function game_timer(){
 
