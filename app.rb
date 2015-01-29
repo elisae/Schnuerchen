@@ -381,25 +381,34 @@ class App < Sinatra::Base
 					puts BCrypt::Engine.hash_secret(params[:oldpassword], user[:salt])
 					puts "Neues Passwort: #{params[:newpassword]}"
 					puts "Altes Passwort: #{params[:oldpassword]}"
-						if user[:password_hash] == BCrypt::Engine.hash_secret(params[:oldpassword], user[:salt])
-							puts "richtiges altes Passwort"
-							password_salt = BCrypt::Engine.generate_salt
-  							password_hash = BCrypt::Engine.hash_secret(params[:newpassword], password_salt)
-  							puts "New Hash:"
-  							puts password_hash
-  							user.set(:salt => password_salt)
-  							user.set(:password_hash => password_hash)
-  						end
+					if user[:password_hash] == BCrypt::Engine.hash_secret(params[:oldpassword], user[:salt])
+						puts "richtiges altes Passwort"
+						password_salt = BCrypt::Engine.generate_salt
+						password_hash = BCrypt::Engine.hash_secret(params[:newpassword], password_salt)
+						puts "New Hash:"
+						puts password_hash
+						user.set(:salt => password_salt)
+						user.set(:password_hash => password_hash)
+					else
+						puts "falsches altes Passwort"
+						status 401
+					end
 				end
-				user.set(:firstname => params[:firstname]) if params[:firstname]
-				user.set(:email => params[:email]) if params[:email]
-				user.save
-				status 200
+				if params[:firstname]
+					user.set(:firstname => params[:firstname])
+					user.save
+					status 200
+				end
+				if params[:email]
+					user.set(:email => params[:email]) 
+					user.save
+					status 200
+				end
 			else
 				status 500
 			end
 		else
-			status 401
+			status 403
 		end
 	end
 

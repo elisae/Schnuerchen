@@ -30,10 +30,18 @@ function changeUser(field) {
 			newpassword: $('#newpwInput').val(),
 		},
 		success: function() {
+			if (field == "password") {
+				alert("Passwort wurde geändert.");
+			}
 			location.reload();
 		},
-		error: function() {
-			alert("Es ist etwas schief gelaufen, bitte versuch es später noch einmal");
+		error: function(xhr, status, text) {
+			if (xhr.status == 401) {
+				alert("Du hast dein altes Passwort falsch eingegeben, es wurde nicht geändert.");
+			}
+			else { 
+				alert("Es ist etwas schief gelaufen, bitte versuch es später noch einmal");
+			}
 			location.reload();
 		}
 	});
