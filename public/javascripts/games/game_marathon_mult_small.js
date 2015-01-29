@@ -286,7 +286,7 @@ function init_game(){
 
     var pause_info = document.createElement("h3");
     pause_info.id = "pause_info";
-    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren <br>Sie haben noch <span id='time_played'></span> übrig";
+    pause_info.innerHTML = "<span id='phead'>Pause</span><br><br>Drücke  P  oder den Knopf um fortzufahren <br>Sie haben noch <span id='time_played'></span> Sekunden übrig";
     pause_div.appendChild(pause_info);
 
     var button_continue = document.createElement('div');
