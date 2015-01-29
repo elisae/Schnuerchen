@@ -371,6 +371,9 @@ class App < Sinatra::Base
 # --- PUT -----------------------
 
 	put "/users/:u_id" do
+		params.each do |p|
+			puts p
+		end
 		if login? && ("#{session[:u_id]}" == params[:u_id])
 			puts "User #{params[:u_id]} ist eingeloggt"
 			if user = User.first(:id => params[:u_id])
@@ -389,19 +392,15 @@ class App < Sinatra::Base
 						puts password_hash
 						user.set(:salt => password_salt)
 						user.set(:password_hash => password_hash)
+						user.save_changes
+						status 200
 					else
-						puts "falsches altes Passwort"
 						status 401
 					end
-				end
-				if params[:firstname]
-					user.set(:firstname => params[:firstname])
-					user.save
-					status 200
-				end
-				if params[:email]
-					user.set(:email => params[:email]) 
-					user.save
+				else
+					user.set(:firstname => params[:firstname]) if params[:firstname]
+					user.set(:email => params[:email]) if params[:email]
+					user.save_changes
 					status 200
 				end
 			else

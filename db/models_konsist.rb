@@ -43,7 +43,7 @@ class User < Sequel::Model(:users)
 			super
 		end
 	end
-	
+
 	def before_destroy
 		puts "Destroying User #{self.id} (#{self.username})"
 		self.remove_all_trophies
@@ -328,6 +328,9 @@ end
 # ===============================================
 #    DB Data Inserts
 # ===============================================
+
+
+
 
 
 # - OPERATORS -------------------------------
