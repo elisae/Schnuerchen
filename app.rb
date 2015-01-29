@@ -66,9 +66,10 @@ class App < Sinatra::Base
 				else
 					@friendheader = true
 					@friendStatus = friends?(session[:u_id], Integer(params[:u_id]))
-					@friend = User.find(:id=>params[:u_id]).to_hash
+					@friend = @user
 					@gamecategories = getGameCategories()
 					@trophies = getUserTrophies(params[:u_id])
+					@user = User.find(:id=>session[:u_id])
 					erb :user
 				end
 			else
@@ -202,7 +203,7 @@ class App < Sinatra::Base
 
   get "/users/:u_id/scores" do
     content_type :json
-    user_id = session[:u_id].to_i
+    user_id = params[:u_id].to_i
     game_id = params[:g_id].to_i
     pod = params[:pod].to_i
     scoreArr = Array.new

@@ -120,7 +120,7 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
                 timeout = setTimeout(function(){
                     $.get(
-                        "/users/" + $("#myProfil").attr("user") + "/scores",
+                        "/users/" + $("#myProfil").attr("viewer") + "/scores",
                         {g_id: target.parent().attr("id"),
                          //u_id: $("#myProfil").attr("user"),
                          pod: targetPod},
@@ -167,7 +167,7 @@ $(document).ready(function() {
         if(!cache.length){ //Überprüft, ob das target bereits ein aufgebautes Kind Div hat. Wenn ja muss kein Request mehr gesendet werden.
             timeout = setTimeout(function(){
                 $.get(
-                    "/users/" + $("#myProfil").attr("user") + "/scores",
+                    "/users/" + $("#myProfil").attr("viewer") + "/scores",
                     {g_id: target.parent().attr("id"),
                      pod: targetPod},
                     function (res,statusText,xhr) {
