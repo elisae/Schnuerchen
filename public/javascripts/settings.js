@@ -1,15 +1,16 @@
 function changeField(field) {
 	switch(field) {
 		case "firstname":
-			$('#firstnameCol').html('Neuer Name: <input type="text" id="firstnameInput" name="firstname"></input>');
+			$('#firstnameCol').html('<input type="text" placeholder="Neuer Name"  class="input-lg" id="firstnameInput" name="firstname"/>');
 			$('#firstnameBtn').attr('onclick', 'changeUser("firstname");').attr('value', 'Speichern');
 			break;
 		case "email":
-			$('#emailCol').html('Neue Adresse: <input type="text" id="emailInput" name="email"></input>');
+			$('#emailCol').html('<input type="text" placeholder="Neue Email" class="input-lg" id="emailInput" name="email"/>');
 			$('#emailBtn').attr('onclick', 'changeUser("email");').attr('value', 'Speichern');
 			break;
 		case "password":
-			$('#passwordCol').html('<p>Altes Passwort: <input type="password" name="oldpassword" id="oldpwInput"></input></p><p>Neues Passwort: <input type="password" name="newpassword" id="newpwInput"></input></p>');
+			$('#passwordCol').html('<input type="password" placeholder="Neues Passwort" name="newpassword" class="input-lg" id="newpwInput"/>').show();
+            $('#oldpwInput').show();
 			$('#passwordBtn').attr('onclick', 'changeUser("password");').attr('value', 'Speichern');
 			break;
 		default:
@@ -50,7 +51,7 @@ function deleteUser(u_id) {
 				location.reload();
 			},
 			success: function() {
-				window.location.assign("/");
+				window.location.assign("/logout");
 			}
 		})
 	} else {
