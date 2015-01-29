@@ -16,20 +16,20 @@
     <div class="row" id="firstnameRow">
       <div class="col-md-4"> Name: </div>
       <div class="col-md-4" id="firstnameCol"> <%= @user[:firstname] %> </div>      
-      <div class="col-md-4"> <input id="firstnameBtn" type="button" onclick="changeField('firstname');" value="Ändern"></input> </div>
+      <div class="col-md-4"> <input id="firstnameBtn" class="btn" type="button" onclick="changeField('firstname');" value="Ändern"></input> </div>
     </div>    
     <div class="row" id="emailRow">
       <div class="col-md-4"> E-Mail-Adresse: </div>
       <div class="col-md-4" id="emailCol"> <%= @user[:email] %> </div>      
-      <div class="col-md-4"> <input id="emailBtn" type="button" onclick="changeField('email');" value="Ändern"></input> </div>
+      <div class="col-md-4"> <input id="emailBtn" class="btn" type="button" onclick="changeField('email');" value="Ändern"></input> </div>
     </div>
     <div class="row" id="passwordRow">
       <div class="col-md-4"> Passwort: </div>
       <div class="col-md-4" id="passwordCol"> </div>      
-      <div class="col-md-4"> <input id="passwordBtn" type="button" onclick="changeField('password');" value="Ändern"></input> </div>
+      <div class="col-md-4"> <input id="passwordBtn" class="btn" type="button" onclick="changeField('password');" value="Ändern"></input> </div>
     </div>
     <div class="row">
-      <div class="col-md-4 col-md-offset-8"><input type="button" onclick="deleteUser(<%= @user[:id] %>);" value="Profil Löschen"> </div>
+      <div class="col-md-4 col-md-offset-8"><input class="btn" type="button" onclick="deleteUser(<%= @user[:id] %>);" value="Profil Löschen"></input> </div>
     </div>
 
 
