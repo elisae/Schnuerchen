@@ -260,7 +260,9 @@
 
 #pause_info{
     padding-top: 10%;
+    line-height: 6vh;
 }
+
 
 #phead{
     font-size: 400%;
