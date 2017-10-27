@@ -100,23 +100,6 @@ def getReqsIn(user_id)
   end
 end
 
-def addTrophy(user_id, game_id, score)
-	user = User.find(:id => user_id)
-	trophies = Trophy.filter(:game_id => game_id).order(:pod)
-
-	trophies.map { |tr|
-		if (score >= tr.min_score)
-			ut = user.trophies_dataset.first(:trophy_id => tr.id)
-			unless ut 
-				user.add_trophy(tr)
-				puts "added Trophy #{tr.pod} id: #{tr.id} user: #{user_id}"
-			end	
-		else
-			puts "not enough for Trophy #{tr.pod}"
-		end
-	}
-end
-
 # Holt die eigene Score für das jeweilige Spiel aus der Datenbank und speichert sie in einem Array.
 def getUserScore(user_id,game_id)
   scoreArr = Array.new

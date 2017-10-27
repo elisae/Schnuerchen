@@ -161,9 +161,9 @@ unless DB.table_exists?(:gametypes)
 		String		:descr
 		String		:long_descr
 		String		:img_filename
-		Integer		:pod_1
-		Integer		:pod_2
-		Integer		:pod_3
+		# Integer		:pod_1
+		# Integer		:pod_2
+		# Integer		:pod_3
 	end
 end
 
@@ -229,16 +229,6 @@ class Game < Sequel::Model(:games)
 		unless gr.gametypes.include?(gt)
 			gr.add_gametype(gt)
 		end
-
-		Trophy.create(:game_id => newGame.id,
-					  :min_score => newGame.gametype.pod_1,
-					  :pod => 1)
-		Trophy.create(:game_id => newGame.id,
-					  :min_score => newGame.gametype.pod_2,
-					  :pod => 2)
-		Trophy.create(:game_id => newGame.id,
-					  :min_score => newGame.gametype.pod_3,
-					  :pod => 3)
 
 		return newGame
 	end
