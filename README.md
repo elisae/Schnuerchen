@@ -6,13 +6,13 @@ It is by no means "ready" for anything, rather a **toy example** to get some fir
 
 In our group of four, **I was responsible for** the backend, meaning **database model**, **server API** and such. A lot of time also went into setting up the development environment for everyone, **server administration**, or building the project structure in the first place.
 
-##### The stack
+#### The stack
 - Linux VM hosted by University
 - PostgreSQL database
 - Ruby (not on Rails but with Sinatra, and Sequel as an ORM)
 - ERB views, Bootstrap and Less
 
-##### The features
+#### The features
 - Online platform for children learning basic arithmetic with games
 - Basic social network with personal profiles, "friendships" and achievement lists (and totally not encrypted passwords)
 - **The special part:** Games are loaded dynamically, and are extensible. With an admin access (and knowledge of the technical requirements) you can upload additional games!
